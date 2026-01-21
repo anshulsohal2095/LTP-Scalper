@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LTP Scalper | Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://s3.tradingview.com/tv.js"></script>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2 class="logo">LTP<span>Scalper</span></h2>
+
+    <nav>
+      <a class="active">📊 Dashboard</a>
+      <a>⚡ Signals</a>
+      <a>📈 Performance</a>
+      <a>⚙ Settings</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <h1>Dashboard</h1>
+      <div class="market-status">
+        Market: <span class="open">OPEN</span>
+      </div>
+    </header>
+
+    <!-- GRID -->
+    <section class="grid">
+
+      <!-- SIGNALS -->
+      <div class="card signals">
+        <h3>🔥 Live Signals</h3>
+
+        <div class="signal buy" onclick="loadChart('NSE:NIFTY')">
+          <b>NIFTY</b>
+          <span>BUY</span>
+          <small>22350 → 22420</small>
+        </div>
+
+        <div class="signal sell" onclick="loadChart('NSE:BANKNIFTY')">
+          <b>BANKNIFTY</b>
+          <span>SELL</span>
+          <small>48200 → 47950</small>
+        </div>
+
+        <div class="signal wait">
+          <b>FINNIFTY</b>
+          <span>WAIT</span>
+          <small>Low Volatility</small>
+        </div>
+
+      </div>
+
+      <!-- CHART -->
+      <div class="card chart">
+        <div id="tvchart"></div>
+      </div>
+
+      <!-- STATS -->
+      <div class="card stats">
+        <h3>📊 Performance</h3>
+        <p>Win Rate: <b>72%</b></p>
+        <p>Trades Today: <b>6</b></p>
+        <p>Accuracy: <b>High</b></p>
+      </div>
+
+    </section>
+  </main>
+
+</div>
+
+<script src="assets/js/dashboard.js"></script>
+</body>
+</html>
