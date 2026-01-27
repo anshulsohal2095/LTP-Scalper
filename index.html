@@ -12,42 +12,49 @@ html{scroll-behavior:smooth}
 body{
   margin:0;
   font-family:Poppins,sans-serif;
-  background:#0b0f14;
-  color:#e6e6e6;
+  background:#fffaf2;
+  color:#333;
 }
+
+/* HEADER */
 header{
   position:sticky;top:0;z-index:10;
-  background:#0b0f14;
-  border-bottom:1px solid #1c2433;
+  background:#ffffff;
+  border-bottom:1px solid #ffe0b2;
   padding:15px 40px;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
-.logo{color:#00ff9c;font-weight:700;font-size:22px}
+.logo{color:#ff7a00;font-weight:700;font-size:22px}
 nav a{
-  color:#9aa4b2;
+  color:#555;
   margin-left:22px;
   text-decoration:none;
   font-size:14px;
 }
-nav a:hover{color:#00ff9c}
+nav a:hover{color:#ff7a00}
 
+/* HERO */
 .hero{
   padding:90px 20px;
   text-align:center;
+  background:linear-gradient(180deg,#fff3e0,#ffffff);
 }
-.hero h1{font-size:48px}
-.typing{color:#00ff9c;font-weight:600;height:28px}
+.hero h1{font-size:46px;color:#222}
+.typing{color:#ff7a00;font-weight:600;height:28px}
+.hero p{color:#666}
 
+/* SECTION */
 section{
   padding:80px 20px;
   max-width:1100px;
   margin:auto;
 }
-h2{text-align:center;margin-bottom:10px}
-p{text-align:center;color:#9aa4b2}
+h2{text-align:center;margin-bottom:10px;color:#222}
+p{text-align:center;color:#666}
 
+/* BUTTON */
 .btn{
   padding:14px 28px;
   border-radius:8px;
@@ -57,9 +64,10 @@ p{text-align:center;color:#9aa4b2}
   cursor:pointer;
   text-decoration:none;
 }
-.btn-primary{background:#00ff9c;color:#000}
-.btn-outline{border:1px solid #00ff9c;color:#00ff9c}
+.btn-primary{background:#ff7a00;color:#fff}
+.btn-outline{border:2px solid #ff7a00;color:#ff7a00;background:#fff}
 
+/* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -67,29 +75,42 @@ p{text-align:center;color:#9aa4b2}
   margin-top:40px;
 }
 .card{
-  background:#121822;
+  background:#ffffff;
   padding:25px;
   border-radius:14px;
-  border:1px solid #1c2433;
+  border:1px solid #ffe0b2;
   text-align:center;
+  box-shadow:0 8px 18px rgba(0,0,0,.05);
 }
 
+/* ZONES */
+.zone-green{color:#2e7d32;font-weight:700}
+.zone-yellow{color:#f9a825;font-weight:700}
+.zone-red{color:#c62828;font-weight:700}
+
+/* CRYPTO */
+.green{color:#2e7d32}
+.red{color:#c62828}
+
+/* FOOTER */
 footer{
   text-align:center;
   padding:30px;
-  border-top:1px solid #1c2433;
-  color:#9aa4b2;
+  border-top:1px solid #ffe0b2;
+  color:#666;
   font-size:13px;
+  background:#fff3e0;
 }
 
+/* MODAL */
 .modal{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.85);
+  background:rgba(0,0,0,.6);
 }
 .modal-content{
-  background:#121822;
+  background:#ffffff;
   max-width:420px;
   margin:10% auto;
   padding:30px;
@@ -100,11 +121,9 @@ footer{
   padding:12px;
   margin-bottom:15px;
   border-radius:8px;
-  border:none;
-  background:#0b0f14;
-  color:#fff;
+  border:1px solid #ffd6a0;
 }
-.close{float:right;cursor:pointer}
+.close{float:right;cursor:pointer;font-size:20px;color:#ff7a00}
 </style>
 </head>
 
@@ -114,11 +133,15 @@ footer{
   <div class="logo">LTP SCALPER</div>
   <nav>
     <a href="#home">Home</a>
+    <a href="#why">Why</a>
+    <a href="#system">System</a>
+    <a href="#market">Market</a>
     <a href="#features">Features</a>
     <a href="#plans">Plans</a>
   </nav>
 </header>
 
+<!-- HERO -->
 <div class="hero" id="home">
   <h1>No Guesswork Trading</h1>
   <div class="typing" id="typing"></div>
@@ -126,15 +149,69 @@ footer{
   <a class="btn btn-primary" onclick="openForm()">Start Free Trial</a>
 </div>
 
+<!-- WHY -->
+<section id="why">
+  <h2>Why Most Traders Lose</h2>
+  <div class="grid">
+    <div class="card">❌ Over Trading</div>
+    <div class="card">❌ Indicator Confusion</div>
+    <div class="card">❌ Emotional Trades</div>
+    <div class="card">❌ No Option Chain Logic</div>
+  </div>
+</section>
+
+<!-- SYSTEM -->
+<section id="system">
+  <h2>Trade Decision System</h2>
+  <div class="grid">
+    <div class="card">
+      <h3 class="zone-green">GREEN ZONE</h3>
+      OI + PCR + Price aligned<br>Trade Allowed
+    </div>
+    <div class="card">
+      <h3 class="zone-yellow">YELLOW ZONE</h3>
+      Mixed Data<br>Wait
+    </div>
+    <div class="card">
+      <h3 class="zone-red">RED ZONE</h3>
+      Trap Zone<br>No Trade
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section id="market">
+  <h2>Live Market</h2>
+  <p>Nifty, BankNifty & Crypto</p>
+
+  <!-- TradingView Widget -->
+  <div style="margin-top:30px">
+    <iframe src="https://s.tradingview.com/embed-widget/tickers/?symbols=NSE:NIFTY,NSE:BANKNIFTY,BTCUSD,ETHUSD"
+    style="width:100%;height:120px;border:none;border-radius:12px"></iframe>
+  </div>
+
+  <!-- Crypto -->
+  <div class="grid">
+    <div class="card"><h3>BTC</h3><div id="btcPrice">--</div><small id="btcChange"></small></div>
+    <div class="card"><h3>ETH</h3><div id="ethPrice">--</div><small id="ethChange"></small></div>
+    <div class="card"><h3>SOL</h3><div id="solPrice">--</div><small id="solChange"></small></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
 <section id="features">
   <h2>Features</h2>
   <div class="grid">
     <div class="card">Live Option Chain</div>
-    <div class="card">OI & PCR Logic</div>
+    <div class="card">OI & PCR Analysis</div>
+    <div class="card">ATM Strike Focus</div>
+    <div class="card">Max Pain Levels</div>
     <div class="card">Over-Trading Lock</div>
+    <div class="card">Capital Protection First</div>
   </div>
 </section>
 
+<!-- PLANS -->
 <section id="plans">
   <h2>Plans</h2>
   <div class="grid">
@@ -145,18 +222,19 @@ footer{
 </section>
 
 <footer>
-© 2026 LTP SCALPER • Credvantage Financial Advisory Pvt. Ltd.
+© 2026 <b>LTP SCALPER</b><br>
+Credvantage Financial Advisory Pvt. Ltd.
 </footer>
 
-<!-- FORM MODAL -->
+<!-- TRIAL FORM -->
 <div class="modal" id="trialForm">
   <div class="modal-content">
     <span class="close" onclick="closeForm()">×</span>
     <h3>Start Free Trial</h3>
     <form id="freeTrialForm">
-      <input type="text" id="name" placeholder="Full Name" required>
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="tel" id="mobile" placeholder="Mobile" required>
+      <input id="name" placeholder="Full Name" required>
+      <input id="email" placeholder="Email" required>
+      <input id="mobile" placeholder="Mobile" required>
       <button class="btn btn-primary" style="width:100%">Submit</button>
     </form>
   </div>
@@ -173,39 +251,38 @@ else{i=(i+1)%text.length;setTimeout(type,300)}}
 type();
 
 /* modal */
-function openForm(){document.getElementById("trialForm").style.display="block"}
-function closeForm(){document.getElementById("trialForm").style.display="none"}
+function openForm(){trialForm.style.display="block"}
+function closeForm(){trialForm.style.display="none"}
 
-/* GOOGLE APPS SCRIPT URL */
-const GOOGLE_SHEET_URL =
-"https://script.google.com/macros/s/AKfycbzxyxDxfMX5IXuLkYvZUBmSlLm9fBs6xd6jlFm9H8vOd8M4c3c42CJuagLKZvb-511gKQ/exec";
+/* GOOGLE SHEET */
+const GOOGLE_SHEET_URL="https://script.google.com/macros/s/AKfycbzxyxDxfMX5IXuLkYvZUBmSlLm9fBs6xd6jlFm9H8vOd8M4c3c42CJuagLKZvb-511gKQ/exec";
 
-/* form submit */
-document.getElementById("freeTrialForm").addEventListener("submit", function(e){
+freeTrialForm.addEventListener("submit",e=>{
   e.preventDefault();
-
   fetch(GOOGLE_SHEET_URL,{
     method:"POST",
-    body:JSON.stringify({
-      name:name.value,
-      email:email.value,
-      mobile:mobile.value
-    })
-  })
-  .then(res=>res.json())
-  .then(data=>{
-    if(data.result==="success"){
+    body:JSON.stringify({name:name.value,email:email.value,mobile:mobile.value})
+  }).then(r=>r.json()).then(d=>{
+    if(d.result==="success"){
       closeForm();
-      window.location.href=
-      "https://ltp-scalper-f7vd8xu7w-anshul-kumars-projects-9cdbb1f2.vercel.app/Option%20Chain%20Dashboard.html";
-    }else{
-      alert("Submission failed");
+      location.href="https://ltp-scalper-f7vd8xu7w-anshul-kumars-projects-9cdbb1f2.vercel.app/Option%20Chain%20Dashboard.html";
     }
-  })
-  .catch(()=>{
-    alert("Network error");
   });
 });
+
+/* CRYPTO */
+async function loadCrypto(){
+  const r=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true");
+  const d=await r.json();
+  set("btc",d.bitcoin);set("eth",d.ethereum);set("sol",d.solana);
+}
+function set(s,v){
+  document.getElementById(s+"Price").innerText="$"+v.usd;
+  const c=document.getElementById(s+"Change");
+  c.innerText=v.usd_24h_change.toFixed(2)+"%";
+  c.className=v.usd_24h_change>=0?"green":"red";
+}
+loadCrypto();setInterval(loadCrypto,15000);
 </script>
 
 </body>
