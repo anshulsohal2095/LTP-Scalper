@@ -2,69 +2,146 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>LTP SCALPER – Trial Dashboard</title>
+<title>LTP SCALPER – Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
+:root{
+  --orange:#ff8c00;
+  --light-orange:#ffb703;
+  --light-yellow:#fff6db;
+  --text:#222;
+}
+
 body{
   margin:0;
   font-family:Poppins,sans-serif;
-  background:#0b0f14;
-  color:#e6e6e6;
+  background:#fff;
+  color:var(--text);
 }
+
+/* TOP TICKER */
+.top-ticker{
+  position:sticky;
+  top:0;
+  z-index:9999;
+  background:#fff;
+  border-bottom:1px solid #eee;
+}
+
+/* HEADER */
 header{
-  padding:20px 40px;
-  border-bottom:1px solid #1c2433;
+  padding:16px 32px;
+  background:linear-gradient(90deg,var(--orange),var(--light-orange));
   display:flex;
   justify-content:space-between;
   align-items:center;
+  color:#fff;
 }
-.logo{
-  color:#00ff9c;
-  font-size:22px;
-  font-weight:700;
-}
-section{
-  padding:40px;
-}
-h2{margin-bottom:10px}
-p{color:#9aa4b2;font-size:14px}
 
-iframe{
+/* MAIN LAYOUT */
+.main{
+  padding:20px;
+  background:var(--light-yellow);
+}
+
+.grid{
+  display:flex;
+  gap:20px;
+}
+
+/* LEFT – GOOGLE SHEET */
+.sheet-box{
+  flex:1;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+  overflow:hidden;
+}
+
+.sheet-box iframe{
   width:100%;
   height:75vh;
   border:none;
-  border-radius:12px;
-  background:#121822;
+}
+
+/* RIGHT – TRADINGVIEW CHART */
+.chart-box{
+  flex:1;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+  overflow:hidden;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .grid{
+    flex-direction:column;
+  }
+  .sheet-box iframe,
+  .chart-box{
+    height:60vh;
+  }
 }
 
 footer{
   text-align:center;
-  padding:20px;
+  padding:16px;
   font-size:12px;
-  color:#9aa4b2;
-  border-top:1px solid #1c2433;
+  color:#666;
+  border-top:1px solid #eee;
 }
 </style>
 </head>
 
 <body>
 
+<!-- 🔴 LIVE TICKER -->
+<script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinMarquee.js"></script><div id="coinmarketcap-widget-marquee" coins="1,1027,825" currency="USD" theme="light" transparent="false" show-symbol-logo="true"></div></div>
+
 <header>
-  <div class="logo">LTP SCALPER</div>
-  <div>Free Trial Dashboard</div>
+  <div><b>LTP SCALPER</b></div>
+  <div>LIVE DASHBOARD</div>
+
 </header>
 
-<section>
-  <h2>Trial Users Data</h2>
-  <p>Live data synced from Google Sheet</p>
+<div class="main">
+  <div class="grid">
 
-  <iframe 
-    src="https://docs.google.com/spreadsheets/d/1M0RpbuHCW7jauXSZNhjJe7xbI539h688HJHoyEK_k5k/preview">
-  </iframe>
-</section>
+    <!-- 📄 GOOGLE SHEET -->
+    <div class="sheet-box">
+      <iframe
+        src="https://docs.google.com/spreadsheets/d/1M0RpbuHCW7jauXSZNhjJe7xbI539h688HJHoyEK_k5k/preview">
+      </iframe>
+    </div>
+
+    <!-- 📈 TRADINGVIEW CHART -->
+    <div class="chart-box">
+      <div class="tradingview-widget-container" style="height:100%;width:100%">
+        <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+
+        <script type="text/javascript"
+          src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
+          async>
+        {
+          "symbol": "NSE:NIFTY",
+          "interval": "5",
+          "timezone": "Asia/Kolkata",
+          "theme": "light",
+          "style": "1",
+          "hide_side_toolbar": true,
+          "allow_symbol_change": true,
+          "autosize": true
+        }
+        </script>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <footer>
 © 2026 LTP SCALPER • Credvantage Financial Advisory Pvt. Ltd.
