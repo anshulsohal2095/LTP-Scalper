@@ -18,15 +18,22 @@ body{
 
 /* HEADER */
 header{
-  position:sticky;top:0;z-index:10;
+  position:sticky;
+  top:0;
+  z-index:1000;
   background:#ffffff;
   border-bottom:1px solid #ffe0b2;
-  padding:15px 40px;
+  padding:15px 25px;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 .logo{color:#ff7a00;font-weight:700;font-size:22px}
+
+nav{
+  display:flex;
+  align-items:center;
+}
 nav a{
   color:#555;
   margin-left:22px;
@@ -34,6 +41,14 @@ nav a{
   font-size:14px;
 }
 nav a:hover{color:#ff7a00}
+
+/* MOBILE MENU */
+.menu-btn{
+  display:none;
+  font-size:24px;
+  cursor:pointer;
+  color:#ff7a00;
+}
 
 /* HERO */
 .hero{
@@ -65,7 +80,6 @@ p{text-align:center;color:#666}
   text-decoration:none;
 }
 .btn-primary{background:#ff7a00;color:#fff}
-.btn-outline{border:2px solid #ff7a00;color:#ff7a00;background:#fff}
 
 /* GRID */
 .grid{
@@ -108,11 +122,12 @@ footer{
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.6);
+  z-index:2000;
 }
 .modal-content{
   background:#ffffff;
   max-width:420px;
-  margin:10% auto;
+  margin:12% auto;
   padding:30px;
   border-radius:14px;
 }
@@ -124,6 +139,28 @@ footer{
   border:1px solid #ffd6a0;
 }
 .close{float:right;cursor:pointer;font-size:20px;color:#ff7a00}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{
+    position:absolute;
+    top:65px;
+    right:20px;
+    background:#ffffff;
+    border:1px solid #ffe0b2;
+    border-radius:10px;
+    padding:15px;
+    display:none;
+    flex-direction:column;
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+  }
+  nav a{
+    margin:10px 0;
+  }
+  .menu-btn{
+    display:block;
+  }
+}
 </style>
 </head>
 
@@ -131,13 +168,17 @@ footer{
 
 <header>
   <div class="logo">LTP SCALPER</div>
-  <nav>
+
+  <div class="menu-btn" onclick="toggleMenu()">⋮</div>
+
+  <nav id="navMenu">
     <a href="#home">Home</a>
     <a href="#why">Why</a>
     <a href="#system">System</a>
     <a href="#market">Market</a>
     <a href="#features">Features</a>
     <a href="#plans">Plans</a>
+    <a href="javascript:void(0)" onclick="openAuth()">Login / Sign Up</a>
   </nav>
 </header>
 
@@ -146,7 +187,6 @@ footer{
   <h1>No Guesswork Trading</h1>
   <div class="typing" id="typing"></div>
   <p>Option Chain–Driven Scalping Platform</p>
-  <a class="btn btn-primary" onclick="openForm()">Start Free Trial</a>
 </div>
 
 <!-- WHY -->
@@ -164,18 +204,9 @@ footer{
 <section id="system">
   <h2>Trade Decision System</h2>
   <div class="grid">
-    <div class="card">
-      <h3 class="zone-green">GREEN ZONE</h3>
-      OI + PCR + Price aligned<br>Trade Allowed
-    </div>
-    <div class="card">
-      <h3 class="zone-yellow">YELLOW ZONE</h3>
-      Mixed Data<br>Wait
-    </div>
-    <div class="card">
-      <h3 class="zone-red">RED ZONE</h3>
-      Trap Zone<br>No Trade
-    </div>
+    <div class="card"><h3 class="zone-green">GREEN ZONE</h3>Trade Allowed</div>
+    <div class="card"><h3 class="zone-yellow">YELLOW ZONE</h3>Wait</div>
+    <div class="card"><h3 class="zone-red">RED ZONE</h3>No Trade</div>
   </div>
 </section>
 
@@ -184,13 +215,9 @@ footer{
   <h2>Live Market</h2>
   <p>Nifty, BankNifty & Crypto</p>
 
-  <!-- TradingView Widget -->
-  <div style="margin-top:30px">
-    <iframe src="https://s.tradingview.com/embed-widget/tickers/?symbols=NSE:NIFTY,NSE:BANKNIFTY,BTCUSD,ETHUSD"
+  <iframe src="https://s.tradingview.com/embed-widget/tickers/?symbols=NSE:NIFTY,NSE:BANKNIFTY,BTCUSD,ETHUSD"
     style="width:100%;height:120px;border:none;border-radius:12px"></iframe>
-  </div>
 
-  <!-- Crypto -->
   <div class="grid">
     <div class="card"><h3>BTC</h3><div id="btcPrice">--</div><small id="btcChange"></small></div>
     <div class="card"><h3>ETH</h3><div id="ethPrice">--</div><small id="ethChange"></small></div>
@@ -204,10 +231,7 @@ footer{
   <div class="grid">
     <div class="card">Live Option Chain</div>
     <div class="card">OI & PCR Analysis</div>
-    <div class="card">ATM Strike Focus</div>
-    <div class="card">Max Pain Levels</div>
     <div class="card">Over-Trading Lock</div>
-    <div class="card">Capital Protection First</div>
   </div>
 </section>
 
@@ -226,17 +250,19 @@ footer{
 Credvantage Financial Advisory Pvt. Ltd.
 </footer>
 
-<!-- TRIAL FORM -->
-<div class="modal" id="trialForm">
+<!-- AUTH MODAL -->
+<div class="modal" id="authModal">
   <div class="modal-content">
-    <span class="close" onclick="closeForm()">×</span>
-    <h3>Start Free Trial</h3>
-    <form id="freeTrialForm">
-      <input id="name" placeholder="Full Name" required>
-      <input id="email" placeholder="Email" required>
-      <input id="mobile" placeholder="Mobile" required>
-      <button class="btn btn-primary" style="width:100%">Submit</button>
-    </form>
+    <span class="close" onclick="closeAuth()">×</span>
+    <h3 id="authTitle">Login</h3>
+    <input id="authName" placeholder="Full Name" style="display:none">
+    <input id="authEmail" placeholder="Email">
+    <input id="authPassword" type="password" placeholder="Password">
+    <button class="btn btn-primary" style="width:100%" onclick="submitAuth()">Continue</button>
+    <p style="text-align:center;font-size:14px">
+      <span id="toggleText">New user?</span>
+      <span style="color:#ff7a00;cursor:pointer" onclick="toggleAuth()">Sign Up</span>
+    </p>
   </div>
 </div>
 
@@ -250,25 +276,48 @@ function erase(){if(j>0){typing.textContent=text[i].substring(0,--j);setTimeout(
 else{i=(i+1)%text.length;setTimeout(type,300)}}
 type();
 
-/* modal */
-function openForm(){trialForm.style.display="block"}
-function closeForm(){trialForm.style.display="none"}
+/* MENU */
+function toggleMenu(){
+  const m=document.getElementById("navMenu");
+  m.style.display=m.style.display==="flex"?"none":"flex";
+}
 
-/* GOOGLE SHEET */
-const GOOGLE_SHEET_URL="https://script.google.com/macros/s/AKfycbzxyxDxfMX5IXuLkYvZUBmSlLm9fBs6xd6jlFm9H8vOd8M4c3c42CJuagLKZvb-511gKQ/exec";
+/* AUTH */
+const AUTH_API_URL="https://script.google.com/macros/s/AKfycby6AKWgXCaOSuuy3lmecKaEYN-gA2xk-6nuz4S6tJGdCUqWb0U4L8z7ImCoxHWGqsXVBA/exec";
+let mode="login";
 
-freeTrialForm.addEventListener("submit",e=>{
-  e.preventDefault();
-  fetch(GOOGLE_SHEET_URL,{
+function openAuth(){authModal.style.display="block"}
+function closeAuth(){authModal.style.display="none"}
+
+function toggleAuth(){
+  mode=mode==="login"?"signup":"login";
+  authTitle.innerText=mode==="login"?"Login":"Sign Up";
+  authName.style.display=mode==="signup"?"block":"none";
+  toggleText.innerText=mode==="login"?"New user?":"Already have account?";
+}
+
+function submitAuth(){
+  fetch(AUTH_API_URL,{
     method:"POST",
-    body:JSON.stringify({name:name.value,email:email.value,mobile:mobile.value})
-  }).then(r=>r.json()).then(d=>{
-    if(d.result==="success"){
-      closeForm();
-      location.href="https://ltp-scalper-f7vd8xu7w-anshul-kumars-projects-9cdbb1f2.vercel.app/Option%20Chain%20Dashboard.html";
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      action:mode,
+      name:authName.value,
+      email:authEmail.value,
+      password:authPassword.value
+    })
+  })
+  .then(r=>r.json())
+  .then(d=>{
+    if(d.status==="success"){
+      localStorage.setItem("ltpUser",authEmail.value);
+      alert("Welcome to LTP Scalper 🚀");
+      closeAuth();
+    }else{
+      alert(d.message);
     }
   });
-});
+}
 
 /* CRYPTO */
 async function loadCrypto(){
