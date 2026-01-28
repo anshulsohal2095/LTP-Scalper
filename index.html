@@ -30,10 +30,7 @@ header{
 }
 .logo{color:#ff7a00;font-weight:700;font-size:22px}
 
-nav{
-  display:flex;
-  align-items:center;
-}
+nav{display:flex;align-items:center}
 nav a{
   color:#555;
   margin-left:22px;
@@ -42,7 +39,6 @@ nav a{
 }
 nav a:hover{color:#ff7a00}
 
-/* MOBILE MENU */
 .menu-btn{
   display:none;
   font-size:24px;
@@ -152,14 +148,9 @@ footer{
     padding:15px;
     display:none;
     flex-direction:column;
-    box-shadow:0 10px 25px rgba(0,0,0,.1);
   }
-  nav a{
-    margin:10px 0;
-  }
-  .menu-btn{
-    display:block;
-  }
+  nav a{margin:10px 0}
+  .menu-btn{display:block}
 }
 </style>
 </head>
@@ -168,7 +159,6 @@ footer{
 
 <header>
   <div class="logo">LTP SCALPER</div>
-
   <div class="menu-btn" onclick="toggleMenu()">⋮</div>
 
   <nav id="navMenu">
@@ -257,21 +247,16 @@ Credvantage Financial Advisory Pvt. Ltd.
 
     <h3 id="authTitle">Login</h3>
 
-    <form onsubmit="submitAuth(); return false;">
+    <form onsubmit="submitAuth();return false;">
       <input id="authName" placeholder="Full Name" style="display:none">
-
       <input id="authEmail" type="email" placeholder="Email" required>
-
       <input id="authPassword" type="password" placeholder="Password" required>
-
-      <button class="btn btn-primary" style="width:100%" type="submit">
-        Continue
-      </button>
+      <button class="btn btn-primary" style="width:100%">Continue</button>
     </form>
 
     <p style="text-align:center;font-size:14px">
       <span id="toggleText">New user?</span>
-      <span style="color:#ff7a00;cursor:pointer" onclick="toggleAuth()">Sign up</span>
+      <span id="toggleLink" style="color:#ff7a00;cursor:pointer" onclick="toggleAuth()">Sign up</span>
     </p>
   </div>
 </div>
@@ -280,10 +265,8 @@ Credvantage Financial Advisory Pvt. Ltd.
 /* typing */
 const text=["No Guesswork. Only Option Chain.","Trade Less. Trade Smart."];
 let i=0,j=0,typing=document.getElementById("typing");
-function type(){if(j<text[i].length){typing.textContent+=text[i][j++];setTimeout(type,80)}
-else setTimeout(erase,1200)}
-function erase(){if(j>0){typing.textContent=text[i].substring(0,--j);setTimeout(erase,40)}
-else{i=(i+1)%text.length;setTimeout(type,300)}}
+function type(){if(j<text[i].length){typing.textContent+=text[i][j++];setTimeout(type,80)}else setTimeout(erase,1200)}
+function erase(){if(j>0){typing.textContent=text[i].substring(0,--j);setTimeout(erase,40)}else{i=(i+1)%text.length;setTimeout(type,300)}}
 type();
 
 /* MENU */
@@ -293,17 +276,25 @@ function toggleMenu(){
 }
 
 /* AUTH */
-const AUTH_API_URL="https://script.google.com/macros/s/AKfycby6AKWgXCaOSuuy3lmecKaEYN-gA2xk-6nuz4S6tJGdCUqWb0U4L8z7ImCoxHWGqsXVBA/exec";
+const AUTH_API_URL="YOUR_GOOGLE_SCRIPT_URL";
 let mode="login";
 
-function openAuth(){authModal.style.display="block"}
+function openAuth(){
+  mode="login";
+  authTitle.innerText="Login";
+  authName.style.display="none";
+  toggleText.innerText="New user?";
+  toggleLink.innerText="Sign up";
+  authModal.style.display="block";
+}
 function closeAuth(){authModal.style.display="none"}
 
 function toggleAuth(){
-  mode=mode==="login"?"signup":"login";
-  authTitle.innerText=mode==="login"?"Login":"Sign up";
-  authName.style.display=mode==="signin"?"block":"none";
-  toggleText.innerText=mode==="login"?"New user?":"Already have account?";
+  mode = mode==="login"?"signup":"login";
+  authTitle.innerText = mode==="login"?"Login":"Sign up";
+  authName.style.display = mode==="signup"?"block":"none";
+  toggleText.innerText = mode==="login"?"New user?":"Already have account?";
+  toggleLink.innerText = mode==="login"?"Sign up":"Login";
 }
 
 function submitAuth(){
@@ -320,12 +311,9 @@ function submitAuth(){
   .then(r=>r.json())
   .then(d=>{
     if(d.status==="success"){
-      localStorage.setItem("ltpUser",authEmail.value);
       alert("Welcome to LTP Scalper 🚀");
       closeAuth();
-    }else{
-      alert(d.message);
-    }
+    }else alert(d.message);
   });
 }
 
@@ -333,20 +321,19 @@ function submitAuth(){
 async function loadCrypto(){
   const r=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true");
   const d=await r.json();
-  set("btc",d.bitcoin);set("eth",d.ethereum);set("sol",d.solana);
+  setC("btc",d.bitcoin);
+  setC("eth",d.ethereum);
+  setC("sol",d.solana);
 }
-function set(s,v){
+function setC(s,v){
   document.getElementById(s+"Price").innerText="$"+v.usd;
   const c=document.getElementById(s+"Change");
   c.innerText=v.usd_24h_change.toFixed(2)+"%";
   c.className=v.usd_24h_change>=0?"green":"red";
 }
-loadCrypto();setInterval(loadCrypto,15000);
+loadCrypto();
+setInterval(loadCrypto,15000);
 </script>
 
 </body>
 </html>
-
-
-
-
