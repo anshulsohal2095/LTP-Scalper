@@ -5,6 +5,13 @@
 <title>LTP SCALPER | Trading Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- 🔐 LOGIN PROTECTION (DO NOT REMOVE) -->
+<script>
+if (localStorage.getItem("ltp_logged_in") !== "true") {
+  window.location.href = "index.html";
+}
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -47,6 +54,19 @@ header{background:#fff;border-bottom:2px solid var(--light-orange);padding:18px 
 
 /* COUNTDOWN */
 .countdown{font-size:12px;font-weight:600;color:#555}
+
+/* LOGOUT */
+.logout-btn{
+  margin-left:auto;
+  background:#e74c3c;
+  color:#fff;
+  border:none;
+  padding:8px 16px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+}
 
 .summary{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -104,6 +124,7 @@ footer{
     <div class="tagline">Live Trade • Indian Stock Market</div>
     <div id="marketBadge" class="market-badge">Checking…</div>
     <div id="countdown" class="countdown"></div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
   </div>
 </header>
 
@@ -151,7 +172,15 @@ All trades are for educational purposes only.
 </footer>
 
 <script>
-/* ---------- MARKET STATUS + SECONDS COUNTDOWN (IST) ---------- */
+/* ---------- LOGOUT ---------- */
+function logout(){
+  localStorage.clear();
+  window.location.href = "index.html";
+}
+</script>
+
+<script>
+/* ---------- MARKET STATUS + COUNTDOWN (IST) ---------- */
 function fmt(sec){
   const h=Math.floor(sec/3600);
   const m=Math.floor((sec%3600)/60);
@@ -161,45 +190,41 @@ function fmt(sec){
 
 function updateMarket(){
   const now = new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
-  const day = now.getDay(); // 0 Sun
+  const day = now.getDay();
   const badge = document.getElementById("marketBadge");
   const dot = document.getElementById("liveDot");
   const cd = document.getElementById("countdown");
 
-  dot.style.display="none";
-  dot.classList.remove("blink");
-  cd.innerText="";
+  dot.style.display="none";dot.classList.remove("blink");cd.innerText="";
 
-  // Weekend
-  if(day===0 || day===6){
+  if(day===0||day===6){
     badge.className="market-badge closed";
     badge.innerText="MARKET CLOSED";
     return;
   }
 
-  const openT = new Date(now); openT.setHours(9,15,0,0);
-  const closeT = new Date(now); closeT.setHours(15,30,0,0);
+  const openT=new Date(now);openT.setHours(9,15,0,0);
+  const closeT=new Date(now);closeT.setHours(15,30,0,0);
 
-  if(now < openT){
+  if(now<openT){
     badge.className="market-badge preopen";
     badge.innerText="PRE-OPEN";
     cd.innerText=`Market opens in ${fmt((openT-now)/1000)}`;
-  }else if(now >= openT && now < closeT){
+  }else if(now<closeT){
     badge.className="market-badge open";
     badge.innerText="MARKET OPEN";
-    dot.style.display="inline-block";
-    dot.classList.add("blink");
+    dot.style.display="inline-block";dot.classList.add("blink");
     cd.innerText=`Market closes in ${fmt((closeT-now)/1000)}`;
   }else{
     badge.className="market-badge post";
     badge.innerText="POST-MARKET";
   }
 }
-updateMarket();
-setInterval(updateMarket,1000);
+updateMarket();setInterval(updateMarket,1000);
 </script>
 
 <script>
+/* ---------- LIVE + CLOSED TRADES ---------- */
 const API="https://script.google.com/macros/s/AKfycbwR38Ai6MGtf-ftAvOijHND1ornYWrwWDSoXCO0s86DVI_p7tZqE8MnGWZWq_iW0AVy_A/exec";
 let liveCount=0,closedCount=0,totalPL=0;
 
