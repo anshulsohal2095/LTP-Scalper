@@ -59,18 +59,6 @@ section{
 h2{text-align:center;margin-bottom:10px;color:#222}
 p{text-align:center;color:#666}
 
-/* BUTTON */
-.btn{
-  padding:14px 28px;
-  border-radius:8px;
-  font-weight:600;
-  margin:10px;
-  display:inline-block;
-  cursor:pointer;
-  text-decoration:none;
-}
-.btn-primary{background:#ff7a00;color:#fff}
-
 /* GRID */
 .grid{
   display:grid;
@@ -232,9 +220,9 @@ footer{
 <section id="plans">
   <h2>Plans</h2>
   <div class="grid">
-    <div class="card" onclick="openPlan('Starter',999)">Starter – ₹999</div>
-    <div class="card" onclick="openPlan('Pro',2999)">Pro – ₹2999</div>
-    <div class="card" onclick="openPlan('Elite',4999)">Elite – ₹4999</div>
+    <div class="card">Starter – ₹999</div>
+    <div class="card">Pro – ₹2999</div>
+    <div class="card">Elite – ₹4999</div>
   </div>
 </section>
 
@@ -242,17 +230,6 @@ footer{
 © 2026 <b>LTP SCALPER</b><br>
 Credvantage Financial Advisory Pvt. Ltd.
 </footer>
-
-<!-- PLAN MODAL -->
-<div class="modal" id="planModal">
-  <div class="modal-content">
-    <span class="close" onclick="closePlan()">×</span>
-    <h3 id="planName"></h3>
-    <p id="planPrice" style="color:#ff7a00;font-weight:600"></p>
-    <ul id="planFeatures"></ul>
-    <button class="btn btn-primary" style="width:100%" onclick="buyPlan()">Buy Now</button>
-  </div>
-</div>
 
 <!-- AUTH MODAL -->
 <div class="modal" id="authModal">
@@ -273,11 +250,15 @@ Credvantage Financial Advisory Pvt. Ltd.
 </div>
 
 <script>
+/* ================= CONFIG ================= */
+const AUTH_API_URL =
+"https://script.google.com/macros/s/AKfycbwTtt7FNR6u7ki6C64q3AnxgBZQp8T63RXdtHsqeQH89S9_fr8vQltcnBEeUCXs9qjHuQ/exec";
+
 /* TYPING */
 const text=["No Guesswork. Only Option Chain.","Trade Less. Trade Smart."];
 let i=0,j=0,t=document.getElementById("typing");
-function type(){if(j<text[i].length){t.textContent+=text[i][j++];setTimeout(type,80)}else setTimeout(erase,1200)}
-function erase(){if(j>0){t.textContent=text[i].substring(0,--j);setTimeout(erase,40)}else{i=(i+1)%text.length;setTimeout(type,300)}}
+function type(){j<text[i].length?(t.textContent+=text[i][j++],setTimeout(type,80)):setTimeout(erase,1200)}
+function erase(){j>0?(t.textContent=text[i].substring(0,--j),setTimeout(erase,40)):(i=(i+1)%text.length,setTimeout(type,300))}
 type();
 
 /* MENU */
@@ -286,9 +267,9 @@ function toggleMenu(){
   m.style.display=m.style.display==="flex"?"none":"flex";
 }
 
-/* AUTH */
-const AUTH_API_URL="YOUR_GOOGLE_SCRIPT_URL";
+/* AUTH – FINAL CORRECT */
 let mode="login";
+
 function openAuth(){
   mode="login";
   authTitle.innerText="Login";
@@ -297,14 +278,25 @@ function openAuth(){
   toggleLink.innerText="Sign up";
   authModal.style.display="block";
 }
-function closeAuth(){authModal.style.display="none"}
+
 function toggleAuth(){
-  mode = mode==="login"?"signup":"login";
-  authTitle.innerText = mode==="login"?"Login":"Sign up";
-  authName.style.display = mode==="signup"?"block":"none";
-  toggleText.innerText = mode==="login"?"New user?":"Already have account?";
-  toggleLink.innerText = mode==="login"?"Sign up":"Login";
+  if(mode==="login"){
+    mode="signup";
+    authTitle.innerText="Sign Up";
+    authName.style.display="block";
+    toggleText.innerText="Already have account?";
+    toggleLink.innerText="Login";
+  }else{
+    mode="login";
+    authTitle.innerText="Login";
+    authName.style.display="none";
+    toggleText.innerText="New user?";
+    toggleLink.innerText="Sign up";
+  }
 }
+
+function closeAuth(){authModal.style.display="none"}
+
 function submitAuth(){
   fetch(AUTH_API_URL,{
     method:"POST",
@@ -315,30 +307,13 @@ function submitAuth(){
       email:authEmail.value,
       password:authPassword.value
     })
-  }).then(r=>r.json()).then(d=>{
-    if(d.status==="success"){alert("Welcome 🚀");closeAuth();}
-    else alert(d.message);
-  });
-}
-
-/* PLANS */
-const planData={
-  Starter:["NIFTY Access","Manual Levels","Email Support"],
-  Pro:["NIFTY + BANKNIFTY","Live Alerts","Overtrade Lock"],
-  Elite:["All Indices","Auto Levels","Personal Advisor"]
-};
-let selectedPlan="",selectedPrice=0;
-function openPlan(n,p){
-  selectedPlan=n; selectedPrice=p;
-  planName.innerText=n+" Plan";
-  planPrice.innerText="₹"+p+" / Month";
-  planFeatures.innerHTML="";
-  planData[n].forEach(f=>planFeatures.innerHTML+=`<li>✔ ${f}</li>`);
-  planModal.style.display="block";
-}
-function closePlan(){planModal.style.display="none"}
-function buyPlan(){
-  alert("Selected: "+selectedPlan+" ₹"+selectedPrice);
+  })
+  .then(r=>r.json())
+  .then(d=>{
+    alert(d.message || "Success");
+    if(d.status==="success") closeAuth();
+  })
+  .catch(()=>alert("Network error"));
 }
 
 /* CRYPTO */
