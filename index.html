@@ -252,7 +252,7 @@ Credvantage Financial Advisory Pvt. Ltd.
 <script>
 /* ================= CONFIG ================= */
 const AUTH_API_URL =
-"https://script.google.com/macros/s/AKfycbwTtt7FNR6u7ki6C64q3AnxgBZQp8T63RXdtHsqeQH89S9_fr8vQltcnBEeUCXs9qjHuQ/exec";
+"https://script.google.com/macros/s/AKfycbwtDWgm8ZK2rZvqNIOaXDCvOKY0J8jocj8N1qCljBYHMLu37U1P9FP0KLuB5TpYGgNDdg/exec";
 
 /* TYPING */
 const text=["No Guesswork. Only Option Chain.","Trade Less. Trade Smart."];
@@ -267,7 +267,7 @@ function toggleMenu(){
   m.style.display=m.style.display==="flex"?"none":"flex";
 }
 
-/* AUTH – FINAL CORRECT */
+/* AUTH – FINAL */
 let mode="login";
 
 function openAuth(){
@@ -286,7 +286,7 @@ function toggleAuth(){
     authName.style.display="block";
     toggleText.innerText="Already have account?";
     toggleLink.innerText="Login";
-  }else{
+  } else {
     mode="login";
     authTitle.innerText="Login";
     authName.style.display="none";
@@ -298,19 +298,16 @@ function toggleAuth(){
 function closeAuth(){authModal.style.display="none"}
 
 function submitAuth(){
-  fetch(AUTH_API_URL,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({
-      action:mode,
-      name:authName.value,
-      email:authEmail.value,
-      password:authPassword.value
-    })
-  })
-  .then(r=>r.json())
+  const formData = new URLSearchParams();
+  formData.append("action",mode);
+  formData.append("name",authName.value);
+  formData.append("email",authEmail.value);
+  formData.append("password",authPassword.value);
+
+  fetch(AUTH_API_URL,{method:"POST",body:formData})
+  .then(res=>res.json())
   .then(d=>{
-    alert(d.message || "Success");
+    alert(d.message||"Success");
     if(d.status==="success") closeAuth();
   })
   .catch(()=>alert("Network error"));
