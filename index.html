@@ -263,87 +263,106 @@ Credvantage Financial Advisory Pvt. Ltd.
 const AUTH_API_URL =
 "https://script.google.com/macros/s/AKfycbwtDWgm8ZK2rZvqNIOaXDCvOKY0J8jocj8N1qCljBYHMLu37U1P9FP0KLuB5TpYGgNDdg/exec";
 
-let mode="login";
+let mode = "login";
 
 /* MENU */
 function toggleMenu(){
-  const m=document.getElementById("navMenu");
-  m.style.display=m.style.display==="flex"?"none":"flex";
+  const m = document.getElementById("navMenu");
+  m.style.display = m.style.display === "flex" ? "none" : "flex";
 }
 
 /* AUTH UI */
 function openAuth(){
-  mode="login";
-  authTitle.innerText="Login";
-  authName.style.display="none";
-  toggleText.innerText="New user?";
-  toggleLink.innerText="Sign up";
-  authModal.style.display="block";
-}
-
-function toggleAuth(){
-  if(mode==="login"){
-    mode="signup";
-    authTitle.innerText="Sign Up";
-    authName.style.display="block";
-    toggleText.innerText="Already have account?";
-    toggleLink.innerText="Login";
-  } else {
-    mode="login";
-    authTitle.innerText="Login";
-    authName.style.display="none";
-    toggleText.innerText="New user?";
-    toggleLink.innerText="Sign up";
-  }
-}
-
-function closeAuth(){authModal.style.display="none"}
-
-/* 🔒 FINAL AUTH LOGIC (NO AUTO LOGIN ON SIGNUP) */
-function submitAuth(){
-  const formData=new URLSearchParams();
-  formData.append("action",mode);
-  formData.append("name",authName.value);
-  formData.append("email",authEmail.value);
-  formData.append("password",authPassword.value);
-
-  fetch(AUTH_API_URL,{method:"POST",body:formData})
-  .then(res=>res.json())
-  .then(d=>{
-    alert(d.message||"Success");
-
-    if(mode==="login" && d.status==="success"){
-      localStorage.setItem("ltp_logged_in","true");
-      window.location.href="Live%20Trades%20Dashboard.html";
-      return;
-    }
-
-    if(mode==="signup" && d.status==="success"){
-  closeAuth();
-
-  // 🔑 RESET MODE TO LOGIN
   mode = "login";
   authTitle.innerText = "Login";
   authName.style.display = "none";
   toggleText.innerText = "New user?";
   toggleLink.innerText = "Sign up";
-
-  return;
+  authModal.style.display = "block";
 }
 
-    }
-  })
-  .catch(()=>alert("Network error"));
+function toggleAuth(){
+  if(mode === "login"){
+    mode = "signup";
+    authTitle.innerText = "Sign Up";
+    authName.style.display = "block";
+    toggleText.innerText = "Already have account?";
+    toggleLink.innerText = "Login";
+  } else {
+    mode = "login";
+    authTitle.innerText = "Login";
+    authName.style.display = "none";
+    toggleText.innerText = "New user?";
+    toggleLink.innerText = "Sign up";
+  }
+}
+
+function closeAuth(){
+  authModal.style.display = "none";
+}
+
+/* 🔒 FINAL AUTH LOGIC – FIXED */
+function submitAuth(){
+  const formData = new URLSearchParams();
+  formData.append("action", mode);
+  formData.append("name", authName.value);
+  formData.append("email", authEmail.value);
+  formData.append("password", authPassword.value);
+
+  fetch(AUTH_API_URL, { method: "POST", body: formData })
+    .then(res => res.json())
+    .then(d => {
+      alert(d.message || "Success");
+
+      /* ✅ LOGIN ONLY */
+      if (mode === "login" && d.status === "success") {
+        localStorage.setItem("ltp_logged_in", "true");
+        localStorage.setItem("ltp_user_email", authEmail.value);
+        window.location.href = "Live%20Trades%20Dashboard.html";
+        return;
+      }
+
+      /* 🚫 SIGNUP SHOULD NOT LOGIN */
+      if (mode === "signup" && d.status === "success") {
+        closeAuth();
+
+        // 🔁 reset back to login
+        mode = "login";
+        authTitle.innerText = "Login";
+        authName.style.display = "none";
+        toggleText.innerText = "New user?";
+        toggleLink.innerText = "Sign up";
+        return;
+      }
+    })
+    .catch(() => alert("Network error"));
 }
 
 /* TYPING */
 const text=["No Guesswork. Only Option Chain.","Trade Less. Trade Smart."];
 let i=0,j=0,t=document.getElementById("typing");
-function type(){j<text[i].length?(t.textContent+=text[i][j++],setTimeout(type,80)):setTimeout(erase,1200)}
-function erase(){j>0?(t.textContent=text[i].substring(0,--j),setTimeout(erase,40)):(i=(i+1)%text.length,setTimeout(type,300))}
+function type(){
+  if(j < text[i].length){
+    t.textContent += text[i][j++];
+    setTimeout(type,80);
+  } else {
+    setTimeout(erase,1200);
+  }
+}
+function erase(){
+  if(j > 0){
+    t.textContent = text[i].substring(0,--j);
+    setTimeout(erase,40);
+  } else {
+    i = (i+1)%text.length;
+    setTimeout(type,300);
+  }
+}
 type();
 </script>
 
+
 </body>
 </html>
+
 
