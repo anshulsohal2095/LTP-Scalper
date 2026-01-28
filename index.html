@@ -254,11 +254,21 @@ Credvantage Financial Advisory Pvt. Ltd.
 <div class="modal" id="authModal">
   <div class="modal-content">
     <span class="close" onclick="closeAuth()">×</span>
+
     <h3 id="authTitle">Login</h3>
-    <input id="authName" placeholder="Full Name" style="display:none">
-    <input id="authEmail" placeholder="Email">
-    <input id="authPassword" type="password" placeholder="Password">
-    <button class="btn btn-primary" style="width:100%" onclick="submitAuth()">Continue</button>
+
+    <form onsubmit="submitAuth(); return false;">
+      <input id="authName" placeholder="Full Name" style="display:none">
+
+      <input id="authEmail" type="email" placeholder="Email" required>
+
+      <input id="authPassword" type="password" placeholder="Password" required>
+
+      <button class="btn btn-primary" style="width:100%" type="submit">
+        Continue
+      </button>
+    </form>
+
     <p style="text-align:center;font-size:14px">
       <span id="toggleText">New user?</span>
       <span style="color:#ff7a00;cursor:pointer" onclick="toggleAuth()">Sign Up</span>
@@ -336,3 +346,4 @@ loadCrypto();setInterval(loadCrypto,15000);
 
 </body>
 </html>
+
