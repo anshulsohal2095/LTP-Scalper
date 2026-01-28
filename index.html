@@ -38,13 +38,7 @@ nav a{
   font-size:14px;
 }
 nav a:hover{color:#ff7a00}
-
-.menu-btn{
-  display:none;
-  font-size:24px;
-  cursor:pointer;
-  color:#ff7a00;
-}
+.menu-btn{display:none;font-size:24px;cursor:pointer;color:#ff7a00}
 
 /* HERO */
 .hero{
@@ -91,6 +85,11 @@ p{text-align:center;color:#666}
   border:1px solid #ffe0b2;
   text-align:center;
   box-shadow:0 8px 18px rgba(0,0,0,.05);
+  transition:.3s;
+}
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 25px rgba(0,0,0,.08);
 }
 
 /* ZONES */
@@ -126,6 +125,11 @@ footer{
   margin:12% auto;
   padding:30px;
   border-radius:14px;
+  animation:pop .3s ease;
+}
+@keyframes pop{
+  from{transform:scale(.85);opacity:0}
+  to{transform:scale(1);opacity:1}
 }
 .modal-content input{
   width:100%;
@@ -134,7 +138,7 @@ footer{
   border-radius:8px;
   border:1px solid #ffd6a0;
 }
-.close{float:right;cursor:pointer;font-size:20px;color:#ff7a00}
+.close{float:right;cursor:pointer;font-size:22px;color:#ff7a00}
 
 /* RESPONSIVE */
 @media(max-width:768px){
@@ -160,7 +164,6 @@ footer{
 <header>
   <div class="logo">LTP SCALPER</div>
   <div class="menu-btn" onclick="toggleMenu()">⋮</div>
-
   <nav id="navMenu">
     <a href="#home">Home</a>
     <a href="#why">Why</a>
@@ -229,9 +232,9 @@ footer{
 <section id="plans">
   <h2>Plans</h2>
   <div class="grid">
-    <div class="card">Starter – ₹999</div>
-    <div class="card">Pro – ₹2999</div>
-    <div class="card">Elite – ₹4999</div>
+    <div class="card" onclick="openPlan('Starter',999)">Starter – ₹999</div>
+    <div class="card" onclick="openPlan('Pro',2999)">Pro – ₹2999</div>
+    <div class="card" onclick="openPlan('Elite',4999)">Elite – ₹4999</div>
   </div>
 </section>
 
@@ -240,20 +243,28 @@ footer{
 Credvantage Financial Advisory Pvt. Ltd.
 </footer>
 
+<!-- PLAN MODAL -->
+<div class="modal" id="planModal">
+  <div class="modal-content">
+    <span class="close" onclick="closePlan()">×</span>
+    <h3 id="planName"></h3>
+    <p id="planPrice" style="color:#ff7a00;font-weight:600"></p>
+    <ul id="planFeatures"></ul>
+    <button class="btn btn-primary" style="width:100%" onclick="buyPlan()">Buy Now</button>
+  </div>
+</div>
+
 <!-- AUTH MODAL -->
 <div class="modal" id="authModal">
   <div class="modal-content">
     <span class="close" onclick="closeAuth()">×</span>
-
     <h3 id="authTitle">Login</h3>
-
     <form onsubmit="submitAuth();return false;">
       <input id="authName" placeholder="Full Name" style="display:none">
       <input id="authEmail" type="email" placeholder="Email" required>
       <input id="authPassword" type="password" placeholder="Password" required>
       <button class="btn btn-primary" style="width:100%">Continue</button>
     </form>
-
     <p style="text-align:center;font-size:14px">
       <span id="toggleText">New user?</span>
       <span id="toggleLink" style="color:#ff7a00;cursor:pointer" onclick="toggleAuth()">Sign up</span>
@@ -262,11 +273,11 @@ Credvantage Financial Advisory Pvt. Ltd.
 </div>
 
 <script>
-/* typing */
+/* TYPING */
 const text=["No Guesswork. Only Option Chain.","Trade Less. Trade Smart."];
-let i=0,j=0,typing=document.getElementById("typing");
-function type(){if(j<text[i].length){typing.textContent+=text[i][j++];setTimeout(type,80)}else setTimeout(erase,1200)}
-function erase(){if(j>0){typing.textContent=text[i].substring(0,--j);setTimeout(erase,40)}else{i=(i+1)%text.length;setTimeout(type,300)}}
+let i=0,j=0,t=document.getElementById("typing");
+function type(){if(j<text[i].length){t.textContent+=text[i][j++];setTimeout(type,80)}else setTimeout(erase,1200)}
+function erase(){if(j>0){t.textContent=text[i].substring(0,--j);setTimeout(erase,40)}else{i=(i+1)%text.length;setTimeout(type,300)}}
 type();
 
 /* MENU */
@@ -278,7 +289,6 @@ function toggleMenu(){
 /* AUTH */
 const AUTH_API_URL="YOUR_GOOGLE_SCRIPT_URL";
 let mode="login";
-
 function openAuth(){
   mode="login";
   authTitle.innerText="Login";
@@ -288,7 +298,6 @@ function openAuth(){
   authModal.style.display="block";
 }
 function closeAuth(){authModal.style.display="none"}
-
 function toggleAuth(){
   mode = mode==="login"?"signup":"login";
   authTitle.innerText = mode==="login"?"Login":"Sign up";
@@ -296,7 +305,6 @@ function toggleAuth(){
   toggleText.innerText = mode==="login"?"New user?":"Already have account?";
   toggleLink.innerText = mode==="login"?"Sign up":"Login";
 }
-
 function submitAuth(){
   fetch(AUTH_API_URL,{
     method:"POST",
@@ -307,23 +315,37 @@ function submitAuth(){
       email:authEmail.value,
       password:authPassword.value
     })
-  })
-  .then(r=>r.json())
-  .then(d=>{
-    if(d.status==="success"){
-      alert("Welcome to LTP Scalper 🚀");
-      closeAuth();
-    }else alert(d.message);
+  }).then(r=>r.json()).then(d=>{
+    if(d.status==="success"){alert("Welcome 🚀");closeAuth();}
+    else alert(d.message);
   });
+}
+
+/* PLANS */
+const planData={
+  Starter:["NIFTY Access","Manual Levels","Email Support"],
+  Pro:["NIFTY + BANKNIFTY","Live Alerts","Overtrade Lock"],
+  Elite:["All Indices","Auto Levels","Personal Advisor"]
+};
+let selectedPlan="",selectedPrice=0;
+function openPlan(n,p){
+  selectedPlan=n; selectedPrice=p;
+  planName.innerText=n+" Plan";
+  planPrice.innerText="₹"+p+" / Month";
+  planFeatures.innerHTML="";
+  planData[n].forEach(f=>planFeatures.innerHTML+=`<li>✔ ${f}</li>`);
+  planModal.style.display="block";
+}
+function closePlan(){planModal.style.display="none"}
+function buyPlan(){
+  alert("Selected: "+selectedPlan+" ₹"+selectedPrice);
 }
 
 /* CRYPTO */
 async function loadCrypto(){
   const r=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true");
   const d=await r.json();
-  setC("btc",d.bitcoin);
-  setC("eth",d.ethereum);
-  setC("sol",d.solana);
+  setC("btc",d.bitcoin);setC("eth",d.ethereum);setC("sol",d.solana);
 }
 function setC(s,v){
   document.getElementById(s+"Price").innerText="$"+v.usd;
@@ -331,10 +353,8 @@ function setC(s,v){
   c.innerText=v.usd_24h_change.toFixed(2)+"%";
   c.className=v.usd_24h_change>=0?"green":"red";
 }
-loadCrypto();
-setInterval(loadCrypto,15000);
+loadCrypto();setInterval(loadCrypto,15000);
 </script>
 
 </body>
 </html>
-
