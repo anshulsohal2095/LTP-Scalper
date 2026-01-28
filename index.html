@@ -301,8 +301,8 @@ function closeAuth(){authModal.style.display="none"}
 
 function toggleAuth(){
   mode=mode==="login"?"signup":"login";
-  authTitle.innerText=mode==="login"?"Login":"Sign in";
-  authName.style.display=mode==="signup"?"block":"none";
+  authTitle.innerText=mode==="login"?"Login":"Sign up";
+  authName.style.display=mode==="signin"?"block":"none";
   toggleText.innerText=mode==="login"?"New user?":"Already have account?";
 }
 
@@ -346,6 +346,7 @@ loadCrypto();setInterval(loadCrypto,15000);
 
 </body>
 </html>
+
 
 
 
