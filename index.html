@@ -149,6 +149,13 @@ footer{
 
 <body>
 
+<!-- 🔐 AUTO REDIRECT IF ALREADY LOGGED IN -->
+<script>
+if (localStorage.getItem("ltp_logged_in") === "true") {
+  window.location.href = "Live%20Trades%20Dashboard.html";
+}
+</script>
+
 <header>
   <div class="logo">LTP SCALPER</div>
   <div class="menu-btn" onclick="toggleMenu()">⋮</div>
@@ -252,7 +259,8 @@ Credvantage Financial Advisory Pvt. Ltd.
 <script>
 /* ================= CONFIG ================= */
 const AUTH_API_URL =
-"https://script.google.com/macros/s/AKfycbwtDWgm8ZK2rZvqNIOaXDCvOKY0J8jocj8N1qCljBYHMLu37U1P9FP0KLuB5TpYGgNDdg/exec";
+"https://script.google.com/macros/s/AKfycbyMrK5IhwqCUU7JygGRNVjIwDsa0pXuxvkYLwvwJzjOAUmTywNVsFY11hJEvpk7X880wg/exec";
+const DASHBOARD_URL = "Live%20Trades%20Dashboard.html";
 
 /* TYPING */
 const text=["No Guesswork. Only Option Chain.","Trade Less. Trade Smart."];
@@ -267,7 +275,7 @@ function toggleMenu(){
   m.style.display=m.style.display==="flex"?"none":"flex";
 }
 
-/* AUTH – FINAL */
+/* AUTH */
 let mode="login";
 
 function openAuth(){
@@ -308,7 +316,11 @@ function submitAuth(){
   .then(res=>res.json())
   .then(d=>{
     alert(d.message||"Success");
-    if(d.status==="success") closeAuth();
+    if(d.status==="success"){
+      localStorage.setItem("ltp_logged_in","true");
+      localStorage.setItem("ltp_user_email",authEmail.value);
+      window.location.href = DASHBOARD_URL;
+    }
   })
   .catch(()=>alert("Network error"));
 }
