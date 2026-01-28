@@ -149,7 +149,7 @@ footer{
 
 <body>
 
-<!-- 🔐 AUTO REDIRECT IF ALREADY LOGGED IN -->
+<!-- 🔐 AUTO REDIRECT ONLY IF ALREADY LOGGED IN -->
 <script>
 if (localStorage.getItem("ltp_logged_in") === "true") {
   window.location.href = "Live%20Trades%20Dashboard.html";
@@ -247,7 +247,9 @@ Credvantage Financial Advisory Pvt. Ltd.
       <input id="authName" placeholder="Full Name" style="display:none">
       <input id="authEmail" type="email" placeholder="Email" required>
       <input id="authPassword" type="password" placeholder="Password" required>
-      <button class="btn btn-primary" style="width:100%">Continue</button>
+      <button style="width:100%;padding:12px;background:#ff7a00;color:#fff;border:none;border-radius:8px">
+        Continue
+      </button>
     </form>
     <p style="text-align:center;font-size:14px">
       <span id="toggleText">New user?</span>
@@ -259,15 +261,9 @@ Credvantage Financial Advisory Pvt. Ltd.
 <script>
 /* ================= CONFIG ================= */
 const AUTH_API_URL =
-"https://script.google.com/macros/s/AKfycbzprQngWAOwlrErNUek6qc5yWeb59WwZ_cOTPLFiTfyeqiPkoJcNVUB548patfShvl92w/exec";
-const DASHBOARD_URL = "Live%20Trades%20Dashboard.html";
+"https://script.google.com/macros/s/AKfycbwtDWgm8ZK2rZvqNIOaXDCvOKY0J8jocj8N1qCljBYHMLu37U1P9FP0KLuB5TpYGgNDdg/exec";
 
-/* TYPING */
-const text=["No Guesswork. Only Option Chain.","Trade Less. Trade Smart."];
-let i=0,j=0,t=document.getElementById("typing");
-function type(){j<text[i].length?(t.textContent+=text[i][j++],setTimeout(type,80)):setTimeout(erase,1200)}
-function erase(){j>0?(t.textContent=text[i].substring(0,--j),setTimeout(erase,40)):(i=(i+1)%text.length,setTimeout(type,300))}
-type();
+let mode="login";
 
 /* MENU */
 function toggleMenu(){
@@ -275,9 +271,7 @@ function toggleMenu(){
   m.style.display=m.style.display==="flex"?"none":"flex";
 }
 
-/* AUTH */
-let mode="login";
-
+/* AUTH UI */
 function openAuth(){
   mode="login";
   authTitle.innerText="Login";
@@ -305,8 +299,9 @@ function toggleAuth(){
 
 function closeAuth(){authModal.style.display="none"}
 
+/* 🔒 FINAL AUTH LOGIC (NO AUTO LOGIN ON SIGNUP) */
 function submitAuth(){
-  const formData = new URLSearchParams();
+  const formData=new URLSearchParams();
   formData.append("action",mode);
   formData.append("name",authName.value);
   formData.append("email",authEmail.value);
@@ -316,31 +311,28 @@ function submitAuth(){
   .then(res=>res.json())
   .then(d=>{
     alert(d.message||"Success");
-    if(d.status==="success"){
+
+    if(mode==="login" && d.status==="success"){
       localStorage.setItem("ltp_logged_in","true");
-      localStorage.setItem("ltp_user_email",authEmail.value);
-      window.location.href = DASHBOARD_URL;
+      window.location.href="Live%20Trades%20Dashboard.html";
+      return;
+    }
+
+    if(mode==="signup" && d.status==="success"){
+      closeAuth(); // signup ≠ login
+      return;
     }
   })
   .catch(()=>alert("Network error"));
 }
 
-/* CRYPTO */
-async function loadCrypto(){
-  const r=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true");
-  const d=await r.json();
-  setC("btc",d.bitcoin);setC("eth",d.ethereum);setC("sol",d.solana);
-}
-function setC(s,v){
-  document.getElementById(s+"Price").innerText="$"+v.usd;
-  const c=document.getElementById(s+"Change");
-  c.innerText=v.usd_24h_change.toFixed(2)+"%";
-  c.className=v.usd_24h_change>=0?"green":"red";
-}
-loadCrypto();setInterval(loadCrypto,15000);
+/* TYPING */
+const text=["No Guesswork. Only Option Chain.","Trade Less. Trade Smart."];
+let i=0,j=0,t=document.getElementById("typing");
+function type(){j<text[i].length?(t.textContent+=text[i][j++],setTimeout(type,80)):setTimeout(erase,1200)}
+function erase(){j>0?(t.textContent=text[i].substring(0,--j),setTimeout(erase,40)):(i=(i+1)%text.length,setTimeout(type,300))}
+type();
 </script>
 
 </body>
 </html>
-
-
