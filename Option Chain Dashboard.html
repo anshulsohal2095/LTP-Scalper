@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<script>
+if (localStorage.getItem("ltp_logged_in") !== "true") {
+  window.location.href = "index.html";
+}
+</script>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -255,3 +260,4 @@ setInterval(loadClosed,5000);
 
 </body>
 </html>
+
