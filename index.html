@@ -319,8 +319,18 @@ function submitAuth(){
     }
 
     if(mode==="signup" && d.status==="success"){
-      closeAuth(); // signup ≠ login
-      return;
+  closeAuth();
+
+  // 🔑 RESET MODE TO LOGIN
+  mode = "login";
+  authTitle.innerText = "Login";
+  authName.style.display = "none";
+  toggleText.innerText = "New user?";
+  toggleLink.innerText = "Sign up";
+
+  return;
+}
+
     }
   })
   .catch(()=>alert("Network error"));
@@ -336,3 +346,4 @@ type();
 
 </body>
 </html>
+
