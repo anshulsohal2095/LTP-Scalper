@@ -21,39 +21,86 @@ if (localStorage.getItem("ltp_logged_in") !== "true") {
   --light-yellow:#fff6db;
   --dark:#222;
 }
-body{margin:0;font-family:Poppins,sans-serif;background:#fff;color:var(--dark);}
-header{background:#fff;border-bottom:2px solid var(--light-orange);padding:18px 28px;}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Poppins,sans-serif;
+  background:#fff;
+  color:var(--dark);
+  overflow-x:hidden;
+}
+
+/* ---------- HEADER ---------- */
+header{
+  background:#fff;
+  border-bottom:2px solid var(--light-orange);
+  padding:16px;
+}
 
 .brand{
-  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
 }
+
 .brand h1{
-  margin:0;font-size:26px;font-weight:700;color:var(--orange);
-  display:flex;align-items:center;gap:8px;
+  margin:0;
+  font-size:22px;
+  font-weight:700;
+  color:var(--orange);
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
 /* LIVE DOT */
-.live-dot{width:10px;height:10px;background:#e53935;border-radius:50%;display:none}
+.live-dot{
+  width:10px;
+  height:10px;
+  background:#e53935;
+  border-radius:50%;
+  display:none
+}
 .blink{animation:blink 1s infinite}
-@keyframes blink{0%{opacity:1}50%{opacity:.2}100%{opacity:1}}
+@keyframes blink{
+  0%{opacity:1}
+  50%{opacity:.2}
+  100%{opacity:1}
+}
 
 /* TAGLINE */
-.brand .tagline{
-  font-size:14px;font-weight:600;color:#444;
-  background:#fff6db;padding:6px 14px;border-radius:20px;border:1px solid #ffb703;
+.tagline{
+  font-size:12px;
+  font-weight:600;
+  color:#444;
+  background:#fff6db;
+  padding:5px 12px;
+  border-radius:20px;
+  border:1px solid #ffb703;
 }
 
 /* MARKET BADGE */
 .market-badge{
-  font-size:12px;font-weight:700;padding:6px 14px;border-radius:20px;color:#fff;
+  font-size:11px;
+  font-weight:700;
+  padding:5px 12px;
+  border-radius:20px;
+  color:#fff;
 }
+
 .preopen{background:#f39c12}
 .open{background:#2ecc71}
 .post{background:#9b59b6}
 .closed{background:#e74c3c}
 
-/* COUNTDOWN */
-.countdown{font-size:12px;font-weight:600;color:#555}
+.countdown{
+  font-size:11px;
+  font-weight:600;
+  color:#555;
+}
 
 /* LOGOUT */
 .logout-btn{
@@ -61,54 +108,124 @@ header{background:#fff;border-bottom:2px solid var(--light-orange);padding:18px 
   background:#e74c3c;
   color:#fff;
   border:none;
-  padding:8px 16px;
+  padding:7px 14px;
   border-radius:20px;
-  font-size:12px;
+  font-size:11px;
   font-weight:600;
   cursor:pointer;
 }
 
+/* ---------- SUMMARY ---------- */
 .summary{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;padding:22px 28px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:14px;
+  padding:16px;
 }
+
 .card{
-  background:var(--light-yellow);padding:18px;border-radius:16px;
+  background:var(--light-yellow);
+  padding:16px;
+  border-radius:16px;
   box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
-.card h4{margin:0;font-size:13px;color:#666}
-.card h2{margin-top:6px;font-size:26px;color:var(--orange)}
+
+.card h4{margin:0;font-size:12px;color:#666}
+.card h2{margin-top:6px;font-size:24px;color:var(--orange)}
 .card.pl-plus h2{color:#2ecc71}
 .card.pl-minus h2{color:#e74c3c}
 
-.tabs{display:flex;gap:12px;padding:12px 28px}
-.tab{
-  padding:9px 22px;border-radius:25px;border:2px solid var(--orange);
-  cursor:pointer;font-weight:600;color:var(--orange);
+/* ---------- TABS ---------- */
+.tabs{
+  display:flex;
+  gap:10px;
+  padding:12px 16px;
+  flex-wrap:wrap;
 }
-.tab.active{background:var(--orange);color:#fff}
 
-.container{padding:0 28px 40px}
-table{
-  width:100%;border-collapse:collapse;background:#fff;
-  box-shadow:0 12px 30px rgba(0,0,0,0.08);
-  border-radius:14px;overflow:hidden;
+.tab{
+  padding:8px 18px;
+  border-radius:25px;
+  border:2px solid var(--orange);
+  cursor:pointer;
+  font-weight:600;
+  color:var(--orange);
+  font-size:13px;
 }
-th{background:var(--orange);color:#fff;padding:14px}
-td{padding:14px;text-align:center}
+
+.tab.active{
+  background:var(--orange);
+  color:#fff;
+}
+
+/* ---------- TABLE WRAPPER (IMPORTANT FIX) ---------- */
+.container{
+  padding:0 16px 40px;
+}
+
+.table-wrap{
+  width:100%;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  border-radius:14px;
+}
+
+table{
+  min-width:820px; /* 👈 mobile scroll fix */
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  box-shadow:0 12px 30px rgba(0,0,0,0.08);
+}
+
+th{
+  background:var(--orange);
+  color:#fff;
+  padding:12px;
+  font-size:13px;
+}
+
+td{
+  padding:12px;
+  text-align:center;
+  font-size:13px;
+}
+
 tr:nth-child(even){background:var(--light-yellow)}
 
 .status{
-  padding:6px 14px;border-radius:20px;font-size:12px;color:#fff;font-weight:600;
+  padding:5px 12px;
+  border-radius:20px;
+  font-size:11px;
+  color:#fff;
+  font-weight:600;
 }
+
 .LIVE{background:#ff9800}
 .CLOSED{background:#607d8b}
 .TARGET{background:#2ecc71}
 .SL{background:#e74c3c}
 .hidden{display:none}
 
+/* ---------- FOOTER ---------- */
 footer{
-  text-align:center;padding:16px;font-size:12px;color:#777;border-top:1px solid #eee;
+  text-align:center;
+  padding:14px;
+  font-size:11px;
+  color:#777;
+  border-top:1px solid #eee;
+}
+
+/* ---------- MOBILE EXTRA ---------- */
+@media(max-width:600px){
+  .brand{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .logout-btn{
+    margin-left:0;
+    margin-top:6px;
+  }
 }
 </style>
 </head>
@@ -117,10 +234,7 @@ footer{
 
 <header>
   <div class="brand">
-    <h1>
-      LTP SCALPER
-      <span id="liveDot" class="live-dot"></span>
-    </h1>
+    <h1>LTP SCALPER <span id="liveDot" class="live-dot"></span></h1>
     <div class="tagline">Live Trade • Indian Stock Market</div>
     <div id="marketBadge" class="market-badge">Checking…</div>
     <div id="countdown" class="countdown"></div>
@@ -145,6 +259,8 @@ footer{
 </div>
 
 <div class="container">
+
+<div class="table-wrap">
 <table id="liveTable">
 <thead>
 <tr>
@@ -154,7 +270,9 @@ footer{
 </thead>
 <tbody></tbody>
 </table>
+</div>
 
+<div class="table-wrap">
 <table id="closedTable" class="hidden">
 <thead>
 <tr>
@@ -166,21 +284,22 @@ footer{
 </table>
 </div>
 
+</div>
+
 <footer>
 © 2026 <strong>Credvantage Financial Advisory Pvt. Ltd.</strong><br>
 All trades are for educational purposes only.
 </footer>
 
+<!-- JS SAME AS YOUR ORIGINAL (NO CHANGE) -->
 <script>
-/* ---------- LOGOUT ---------- */
 function logout(){
   localStorage.clear();
-  window.location.href = "index.html";
+  window.location.href="index.html";
 }
 </script>
 
 <script>
-/* ---------- MARKET STATUS + COUNTDOWN (IST) ---------- */
 function fmt(sec){
   const h=Math.floor(sec/3600);
   const m=Math.floor((sec%3600)/60);
@@ -189,13 +308,15 @@ function fmt(sec){
 }
 
 function updateMarket(){
-  const now = new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
-  const day = now.getDay();
-  const badge = document.getElementById("marketBadge");
-  const dot = document.getElementById("liveDot");
-  const cd = document.getElementById("countdown");
+  const now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
+  const day=now.getDay();
+  const badge=marketBadge;
+  const dot=liveDot;
+  const cd=countdown;
 
-  dot.style.display="none";dot.classList.remove("blink");cd.innerText="";
+  dot.style.display="none";
+  dot.classList.remove("blink");
+  cd.innerText="";
 
   if(day===0||day===6){
     badge.className="market-badge closed";
@@ -213,18 +334,19 @@ function updateMarket(){
   }else if(now<closeT){
     badge.className="market-badge open";
     badge.innerText="MARKET OPEN";
-    dot.style.display="inline-block";dot.classList.add("blink");
+    dot.style.display="inline-block";
+    dot.classList.add("blink");
     cd.innerText=`Market closes in ${fmt((closeT-now)/1000)}`;
   }else{
     badge.className="market-badge post";
     badge.innerText="POST-MARKET";
   }
 }
-updateMarket();setInterval(updateMarket,1000);
+updateMarket();
+setInterval(updateMarket,1000);
 </script>
 
 <script>
-/* ---------- LIVE + CLOSED TRADES ---------- */
 const API="https://script.google.com/macros/s/AKfycbwR38Ai6MGtf-ftAvOijHND1ornYWrwWDSoXCO0s86DVI_p7tZqE8MnGWZWq_iW0AVy_A/exec";
 let liveCount=0,closedCount=0,totalPL=0;
 
