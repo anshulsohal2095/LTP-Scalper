@@ -5,7 +5,7 @@
 <title>LTP SCALPER | Trading Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- 🔐 LOGIN PROTECTION (DO NOT REMOVE) -->
+<!-- 🔐 LOGIN PROTECTION -->
 <script>
 if (localStorage.getItem("ltp_logged_in") !== "true") {
   window.location.href = "index.html";
@@ -21,31 +21,26 @@ if (localStorage.getItem("ltp_logged_in") !== "true") {
   --light-yellow:#fff6db;
   --dark:#222;
 }
-
 *{box-sizing:border-box}
-
 body{
   margin:0;
   font-family:Poppins,sans-serif;
   background:#fff;
   color:var(--dark);
-  overflow-x:hidden;
 }
 
-/* ---------- HEADER ---------- */
+/* HEADER */
 header{
   background:#fff;
   border-bottom:2px solid var(--light-orange);
   padding:16px;
 }
-
 .brand{
   display:flex;
   align-items:center;
   gap:12px;
   flex-wrap:wrap;
 }
-
 .brand h1{
   margin:0;
   font-size:22px;
@@ -55,11 +50,8 @@ header{
   align-items:center;
   gap:8px;
 }
-
-/* LIVE DOT */
 .live-dot{
-  width:10px;
-  height:10px;
+  width:10px;height:10px;
   background:#e53935;
   border-radius:50%;
   display:none
@@ -70,8 +62,6 @@ header{
   50%{opacity:.2}
   100%{opacity:1}
 }
-
-/* TAGLINE */
 .tagline{
   font-size:12px;
   font-weight:600;
@@ -81,8 +71,6 @@ header{
   border-radius:20px;
   border:1px solid #ffb703;
 }
-
-/* MARKET BADGE */
 .market-badge{
   font-size:11px;
   font-weight:700;
@@ -90,19 +78,11 @@ header{
   border-radius:20px;
   color:#fff;
 }
-
 .preopen{background:#f39c12}
 .open{background:#2ecc71}
 .post{background:#9b59b6}
 .closed{background:#e74c3c}
-
-.countdown{
-  font-size:11px;
-  font-weight:600;
-  color:#555;
-}
-
-/* LOGOUT */
+.countdown{font-size:11px;font-weight:600;color:#555}
 .logout-btn{
   margin-left:auto;
   background:#e74c3c;
@@ -115,34 +95,46 @@ header{
   cursor:pointer;
 }
 
-/* ---------- SUMMARY ---------- */
+/* LIVE PANEL */
+#livePanel{display:none;padding:16px}
+.live-box{
+  background:#000;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+.live-head{
+  padding:10px 14px;
+  background:#ff8c00;
+  color:#fff;
+  font-weight:700;
+  font-size:13px;
+}
+
+/* SUMMARY */
 .summary{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:14px;
   padding:16px;
 }
-
 .card{
   background:var(--light-yellow);
   padding:16px;
   border-radius:16px;
   box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
-
 .card h4{margin:0;font-size:12px;color:#666}
 .card h2{margin-top:6px;font-size:24px;color:var(--orange)}
 .card.pl-plus h2{color:#2ecc71}
 .card.pl-minus h2{color:#e74c3c}
 
-/* ---------- TABS ---------- */
+/* TABS */
 .tabs{
   display:flex;
   gap:10px;
   padding:12px 16px;
-  flex-wrap:wrap;
 }
-
 .tab{
   padding:8px 18px;
   border-radius:25px;
@@ -152,47 +144,29 @@ header{
   color:var(--orange);
   font-size:13px;
 }
-
 .tab.active{
   background:var(--orange);
   color:#fff;
 }
 
-/* ---------- TABLE WRAPPER (IMPORTANT FIX) ---------- */
-.container{
-  padding:0 16px 40px;
-}
-
-.table-wrap{
-  width:100%;
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  border-radius:14px;
-}
-
+/* TABLE */
+.container{padding:0 16px 40px}
+.table-wrap{overflow-x:auto}
 table{
-  min-width:820px; /* 👈 mobile scroll fix */
+  min-width:820px;
   width:100%;
   border-collapse:collapse;
   background:#fff;
   box-shadow:0 12px 30px rgba(0,0,0,0.08);
 }
-
 th{
   background:var(--orange);
   color:#fff;
   padding:12px;
   font-size:13px;
 }
-
-td{
-  padding:12px;
-  text-align:center;
-  font-size:13px;
-}
-
+td{padding:12px;text-align:center;font-size:13px}
 tr:nth-child(even){background:var(--light-yellow)}
-
 .status{
   padding:5px 12px;
   border-radius:20px;
@@ -200,32 +174,18 @@ tr:nth-child(even){background:var(--light-yellow)}
   color:#fff;
   font-weight:600;
 }
-
 .LIVE{background:#ff9800}
 .CLOSED{background:#607d8b}
 .TARGET{background:#2ecc71}
 .SL{background:#e74c3c}
 .hidden{display:none}
 
-/* ---------- FOOTER ---------- */
 footer{
   text-align:center;
   padding:14px;
   font-size:11px;
   color:#777;
   border-top:1px solid #eee;
-}
-
-/* ---------- MOBILE EXTRA ---------- */
-@media(max-width:600px){
-  .brand{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-  .logout-btn{
-    margin-left:0;
-    margin-top:6px;
-  }
 }
 </style>
 </head>
@@ -242,15 +202,22 @@ footer{
   </div>
 </header>
 
+<!-- 🔴 LIVE INTERACTION -->
+<div id="livePanel">
+  <div class="live-box">
+    <div class="live-head">🔴 LIVE TRADE INTERACTION (Paid Clients Only)</div>
+    <iframe
+      src="https://zoom.us/wc/join/8594779650"
+      width="100%"
+      height="420"
+      allow="camera; microphone; fullscreen"
+      style="border:0"></iframe>
+  </div>
+</div>
+
 <div class="summary">
-  <div class="card">
-    <h4>Total Trades</h4>
-    <h2 id="totalTrades">0</h2>
-  </div>
-  <div class="card" id="plCard">
-    <h4>Day P/L</h4>
-    <h2 id="dayPL">₹0</h2>
-  </div>
+  <div class="card"><h4>Total Trades</h4><h2 id="totalTrades">0</h2></div>
+  <div class="card" id="plCard"><h4>Day P/L</h4><h2 id="dayPL">₹0</h2></div>
 </div>
 
 <div class="tabs">
@@ -259,31 +226,21 @@ footer{
 </div>
 
 <div class="container">
-
 <div class="table-wrap">
 <table id="liveTable">
 <thead>
-<tr>
-<th>Symbol</th><th>Type</th><th>Entry</th><th>Target</th><th>SL</th>
-<th>Lots</th><th>Qty</th><th>Status</th>
-</tr>
-</thead>
-<tbody></tbody>
+<tr><th>Symbol</th><th>Type</th><th>Entry</th><th>Target</th><th>SL</th><th>Lots</th><th>Qty</th><th>Status</th></tr>
+</thead><tbody></tbody>
 </table>
 </div>
 
 <div class="table-wrap">
 <table id="closedTable" class="hidden">
 <thead>
-<tr>
-<th>Symbol</th><th>Type</th><th>Entry</th><th>Exit</th>
-<th>Lots</th><th>Qty</th><th>P/L</th><th>Result</th><th>Status</th>
-</tr>
-</thead>
-<tbody></tbody>
+<tr><th>Symbol</th><th>Type</th><th>Entry</th><th>Exit</th><th>Lots</th><th>Qty</th><th>P/L</th><th>Result</th><th>Status</th></tr>
+</thead><tbody></tbody>
 </table>
 </div>
-
 </div>
 
 <footer>
@@ -291,14 +248,19 @@ footer{
 All trades are for educational purposes only.
 </footer>
 
-<!-- JS SAME AS YOUR ORIGINAL (NO CHANGE) -->
 <script>
 function logout(){
   localStorage.clear();
   window.location.href="index.html";
 }
+
+/* 🔐 PAID CHECK */
+if(localStorage.getItem("plan_active")==="true"){
+  document.getElementById("livePanel").style.display="block";
+}
 </script>
 
+<!-- ✅ MARKET TIMER (ORIGINAL) -->
 <script>
 function fmt(sec){
   const h=Math.floor(sec/3600);
@@ -306,46 +268,37 @@ function fmt(sec){
   const s=Math.floor(sec%60);
   return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
 }
-
 function updateMarket(){
   const now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
   const day=now.getDay();
-  const badge=marketBadge;
-  const dot=liveDot;
-  const cd=countdown;
-
-  dot.style.display="none";
-  dot.classList.remove("blink");
-  cd.innerText="";
-
+  liveDot.style.display="none";
+  countdown.innerText="";
   if(day===0||day===6){
-    badge.className="market-badge closed";
-    badge.innerText="MARKET CLOSED";
-    return;
+    marketBadge.className="market-badge closed";
+    marketBadge.innerText="MARKET CLOSED";return;
   }
-
   const openT=new Date(now);openT.setHours(9,15,0,0);
   const closeT=new Date(now);closeT.setHours(15,30,0,0);
-
   if(now<openT){
-    badge.className="market-badge preopen";
-    badge.innerText="PRE-OPEN";
-    cd.innerText=`Market opens in ${fmt((openT-now)/1000)}`;
+    marketBadge.className="market-badge preopen";
+    marketBadge.innerText="PRE-OPEN";
+    countdown.innerText=`Market opens in ${fmt((openT-now)/1000)}`;
   }else if(now<closeT){
-    badge.className="market-badge open";
-    badge.innerText="MARKET OPEN";
-    dot.style.display="inline-block";
-    dot.classList.add("blink");
-    cd.innerText=`Market closes in ${fmt((closeT-now)/1000)}`;
+    marketBadge.className="market-badge open";
+    marketBadge.innerText="MARKET OPEN";
+    liveDot.style.display="inline-block";
+    liveDot.classList.add("blink");
+    countdown.innerText=`Market closes in ${fmt((closeT-now)/1000)}`;
   }else{
-    badge.className="market-badge post";
-    badge.innerText="POST-MARKET";
+    marketBadge.className="market-badge post";
+    marketBadge.innerText="POST-MARKET";
   }
 }
 updateMarket();
 setInterval(updateMarket,1000);
 </script>
 
+<!-- ✅ GOOGLE SHEET DATA (ORIGINAL – FIXED) -->
 <script>
 const API="https://script.google.com/macros/s/AKfycbwR38Ai6MGtf-ftAvOijHND1ornYWrwWDSoXCO0s86DVI_p7tZqE8MnGWZWq_iW0AVy_A/exec";
 let liveCount=0,closedCount=0,totalPL=0;
