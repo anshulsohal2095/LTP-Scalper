@@ -5,7 +5,7 @@
 <title>LTP SCALPER | Live Class & Education</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- 🔐 LOGIN PROTECTION -->
+<!-- 🔐 LOGIN PROTECTION (SAME AS DASHBOARD) -->
 <script>
 if (localStorage.getItem("ltp_logged_in") !== "true") {
   window.location.href = "index.html";
@@ -120,11 +120,11 @@ header{
   font-weight:700;
   font-size:13px;
 }
-.placeholder{
-  padding:45px;
-  text-align:center;
-  color:#ccc;
-  font-size:13px;
+.zoom-frame{
+  width:100%;
+  height:500px;
+  border:0;
+  background:#000;
 }
 
 /* FOOTER */
@@ -141,6 +141,9 @@ footer{
   .brand{
     flex-direction:column;
     align-items:flex-start;
+  }
+  .zoom-frame{
+    height:420px;
   }
 }
 </style>
@@ -159,28 +162,38 @@ footer{
 <div class="hero">
   <h2>Live Trading Classes & Market Education</h2>
   <p>
-    This classroom is created to educate traders about stock market trading,
+    This classroom is designed to educate traders about stock market trading,
     option chain understanding, forex markets, and cryptocurrency basics.
-    The goal is learning, discipline, and risk awareness — not tips or guarantees.
+    The focus is on learning, discipline, and risk awareness — not tips or guarantees.
   </p>
 </div>
 
 <!-- LIVE CLASS -->
 <div class="section">
-  <h3>🔴 Live Classroom</h3>
+  <h3>🔴 Live Classroom (Zoom)</h3>
   <p style="font-size:13px;color:#555">
-    Live classes are conducted for educational purposes only.
-    No buy/sell recommendations are provided.
+    Live sessions are conducted strictly for educational purposes.
+    Please ensure your microphone and camera permissions are allowed.
   </p>
 
   <div class="live-box">
-    <div class="live-head">LIVE SESSION AREA</div>
+    <div class="live-head">LIVE ZOOM SESSION</div>
 
-    <!-- 👉 YAHAN ZOOM EMBED AAYEGA -->
-    <div class="placeholder">
-      Live session will appear here during class time.
-    </div>
+    <!-- ✅ ZOOM LIVE EMBED (WEB CLIENT) -->
+    <iframe
+      class="zoom-frame"
+      src="https://zoom.us/wc/join/8594779650?prefer=1"
+      allow="camera; microphone; fullscreen">
+    </iframe>
   </div>
+
+  <!-- Fallback -->
+  <p style="margin-top:10px;font-size:12px;color:#666;text-align:center">
+    If the live class does not load,  
+    <a href="https://zoom.us/j/8594779650" target="_blank" style="color:#ff8c00;font-weight:600">
+      click here to join on Zoom
+    </a>
+  </p>
 </div>
 
 <!-- TRADING EDUCATION -->
@@ -197,15 +210,15 @@ footer{
     <div class="card">
       <h4>Risk Management</h4>
       <p>
-        Understand position sizing, stop-loss discipline, and why
-        protecting capital is more important than chasing profits.
+        Understand stop-loss discipline, position sizing, and why
+        capital protection matters more than profits.
       </p>
     </div>
     <div class="card">
       <h4>Trading Psychology</h4>
       <p>
-        Emotional control, patience, and consistency are key reasons
-        why professional traders survive in the long term.
+        Control emotions, avoid over-trading, and build consistency
+        through discipline and patience.
       </p>
     </div>
   </div>
@@ -218,22 +231,22 @@ footer{
     <div class="card">
       <h4>What is Forex?</h4>
       <p>
-        Forex is the global currency market where pairs like EUR/USD,
-        GBP/USD, and USD/JPY are traded with high liquidity.
+        Forex is the global currency exchange market where currency
+        pairs like EUR/USD and GBP/USD are traded.
       </p>
     </div>
     <div class="card">
       <h4>Market Sessions</h4>
       <p>
         Learn about Asian, London, and New York sessions and how
-        volatility changes throughout the day.
+        volatility changes during different time zones.
       </p>
     </div>
     <div class="card">
-      <h4>Leverage & Risk</h4>
+      <h4>Leverage Awareness</h4>
       <p>
-        High leverage can magnify profits and losses.
-        Education and discipline are essential before trading forex.
+        High leverage increases both opportunity and risk.
+        Education is essential before trading forex markets.
       </p>
     </div>
   </div>
@@ -246,22 +259,22 @@ footer{
     <div class="card">
       <h4>Crypto Basics</h4>
       <p>
-        Understand what cryptocurrencies are, how blockchain works,
-        and why Bitcoin and Ethereum are widely discussed.
+        Understand blockchain technology and why cryptocurrencies
+        like Bitcoin and Ethereum are popular.
       </p>
     </div>
     <div class="card">
-      <h4>Volatility</h4>
+      <h4>High Volatility</h4>
       <p>
-        Crypto markets are extremely volatile and can move sharply
-        in short periods of time.
+        Crypto prices can move sharply within minutes.
+        Risk management is critical in crypto trading.
       </p>
     </div>
     <div class="card">
-      <h4>Safety First</h4>
+      <h4>Safety & Scams</h4>
       <p>
-        Learn about wallet security, scams, and why you should never
-        invest money you cannot afford to lose.
+        Learn about wallet security, common scams, and why you should
+        never invest money you cannot afford to lose.
       </p>
     </div>
   </div>
@@ -269,7 +282,7 @@ footer{
 
 <footer>
 © 2026 <strong>Credvantage Financial Advisory Pvt. Ltd.</strong><br>
-All content is strictly for educational purposes only.
+All content and live sessions are strictly for educational purposes only.
 </footer>
 
 </body>
