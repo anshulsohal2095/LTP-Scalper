@@ -72,10 +72,6 @@ header{
   background:var(--purple);
   color:#fff;
 }
-.pill.classroom{
-  background:var(--orange);
-  color:#fff;
-}
 .pill.logout{
   background:var(--red);
   color:#fff;
@@ -96,7 +92,7 @@ header{
 .hero p{
   font-size:14px;
   color:#555;
-  max-width:760px;
+  max-width:820px;
   margin:10px auto 0;
 }
 
@@ -136,10 +132,13 @@ h3{color:var(--orange)}
   border-radius:16px;
   box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
+.card h4{
+  margin-top:0;
+}
 .card p{
   font-size:13px;
   color:#555;
-  line-height:1.6;
+  line-height:1.7;
 }
 
 /* ===== FOOTER ===== */
@@ -162,21 +161,14 @@ footer{
 
 <header>
   <div class="topbar">
-    <!-- LOGO -->
     <div class="logo">LTP SCALPER</div>
 
-    <!-- LIVE TRADE BUTTON -->
     <a href="Live Trades Dashboard.html" class="pill trade">
       Live Trade • Indian Stock Market
     </a>
 
-    <!-- MARKET STATUS -->
     <div class="pill post">POST-MARKET</div>
 
-    <!-- CLASSROOM (HIDDEN ON THIS PAGE) -->
-    <!-- intentionally NOT shown -->
-
-    <!-- LOGOUT -->
     <button class="pill logout" onclick="logout()">Logout</button>
   </div>
 </header>
@@ -184,8 +176,10 @@ footer{
 <div class="hero">
   <h2>Live Trading Classes & Market Education</h2>
   <p>
-    This classroom is created for educational purposes only.
-    Focus is on learning, discipline, and risk awareness — not tips.
+    This live classroom is created to educate traders about the stock market,
+    option chain trading, forex markets, and cryptocurrency basics.
+    The objective is learning, discipline, and long-term consistency —
+    not tips, signals, or guaranteed profits.
   </p>
 </div>
 
@@ -203,33 +197,77 @@ footer{
   </div>
 
   <p style="font-size:12px;color:#666;text-align:center;margin-top:10px">
-    If video does not load,
+    If the live class does not load,
     <a href="https://zoom.us/j/8594779650" target="_blank"
        style="color:#ff8c00;font-weight:600">
-      click here to join Zoom
+      click here to join on Zoom
     </a>
   </p>
 </div>
 
-<!-- EDUCATION -->
+<!-- EDUCATION CONTENT (RESTORED) -->
 <div class="section">
   <h3>📘 Trading • Forex • Crypto Education</h3>
+
   <div class="grid">
     <div class="card">
-      <p><strong>Trading:</strong> Market structure, option chain, discipline.</p>
+      <h4>Stock Market & Option Chain</h4>
+      <p>
+        Learn how the Indian stock market operates, how option chains work,
+        understanding open interest, volume, support–resistance,
+        and how price reacts around key levels.
+      </p>
     </div>
+
     <div class="card">
-      <p><strong>Forex:</strong> Currency pairs, sessions, volatility.</p>
+      <h4>Risk Management</h4>
+      <p>
+        Capital protection is the first priority. Learn position sizing,
+        stop-loss discipline, risk–reward planning,
+        and why survival is more important than aggressive profits.
+      </p>
     </div>
+
     <div class="card">
-      <p><strong>Crypto:</strong> Blockchain basics, risk & safety.</p>
+      <h4>Trading Psychology</h4>
+      <p>
+        Control emotions like fear and greed, avoid over-trading,
+        develop patience, and build consistency through a rule-based approach.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Forex Market Basics</h4>
+      <p>
+        Understand global currency markets, major forex pairs,
+        trading sessions (Asian, London, New York),
+        and why volatility changes throughout the day.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Leverage & Discipline</h4>
+      <p>
+        Learn how leverage works in forex and why high leverage
+        can quickly wipe accounts if not managed properly.
+        Education and discipline are essential.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>Cryptocurrency Awareness</h4>
+      <p>
+        Understand blockchain basics, Bitcoin and Ethereum concepts,
+        extreme volatility in crypto markets,
+        and the importance of safety, wallets, and scam awareness.
+      </p>
     </div>
   </div>
 </div>
 
 <footer>
 © 2026 <strong>Credvantage Financial Advisory Pvt. Ltd.</strong><br>
-Educational purpose only.
+All live classes and content are strictly for educational purposes only.
 </footer>
 
 <script>
@@ -241,4 +279,3 @@ function logout(){
 
 </body>
 </html>
-
