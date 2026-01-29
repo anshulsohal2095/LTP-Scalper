@@ -12,8 +12,8 @@ html{scroll-behavior:smooth}
 body{
   margin:0;
   font-family:Poppins,sans-serif;
-  background:#fffaf2;
-  color:#333;
+  background:#f4f6fb;
+  color:#1f2937;
 }
 
 /* HEADER */
@@ -22,8 +22,8 @@ header{
   top:0;
   z-index:1000;
   background:#ffffff;
-  border-bottom:1px solid #ffe0b2;
-  padding:15px 25px;
+  border-bottom:1px solid #e5e7eb;
+  padding:14px 22px;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -32,23 +32,45 @@ header{
 
 nav{display:flex;align-items:center}
 nav a{
-  color:#555;
-  margin-left:22px;
+  color:#374151;
+  margin-left:20px;
   text-decoration:none;
   font-size:14px;
 }
 nav a:hover{color:#ff7a00}
-.menu-btn{display:none;font-size:24px;cursor:pointer;color:#ff7a00}
+
+/* ===== STYLISH HAMBURGER (3 DOT) ===== */
+.menu-btn{
+  display:none;
+  width:38px;
+  height:38px;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:700;
+  color:#ff7a00;
+  background:#ffffff;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  cursor:pointer;
+  transition:all .2s ease;
+}
+.menu-btn:hover{
+  background:#ff7a00;
+  color:#ffffff;
+  transform:scale(1.05);
+}
 
 /* HERO */
 .hero{
   padding:90px 20px;
   text-align:center;
-  background:linear-gradient(180deg,#fff3e0,#ffffff);
+  background:linear-gradient(180deg,#eef2ff,#f8fafc);
 }
-.hero h1{font-size:46px;color:#222}
+.hero h1{font-size:42px;color:#111827}
 .typing{color:#ff7a00;font-weight:600;height:28px}
-.hero p{color:#666}
+.hero p{color:#475569}
 
 /* SECTION */
 section{
@@ -56,47 +78,43 @@ section{
   max-width:1100px;
   margin:auto;
 }
-h2{text-align:center;margin-bottom:10px;color:#222}
-p{text-align:center;color:#666}
+h2{text-align:center;margin-bottom:10px;color:#111827}
+p{text-align:center;color:#475569}
 
 /* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;
+  gap:24px;
   margin-top:40px;
 }
 .card{
   background:#ffffff;
-  padding:25px;
-  border-radius:14px;
-  border:1px solid #ffe0b2;
+  padding:26px;
+  border-radius:16px;
+  border:1px solid #e5e7eb;
   text-align:center;
-  box-shadow:0 8px 18px rgba(0,0,0,.05);
-  transition:.3s;
+  box-shadow:0 10px 25px rgba(0,0,0,.06);
+  transition:.25s;
 }
 .card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 12px 25px rgba(0,0,0,.08);
+  transform:translateY(-5px);
+  box-shadow:0 18px 35px rgba(0,0,0,.1);
 }
 
 /* ZONES */
-.zone-green{color:#2e7d32;font-weight:700}
-.zone-yellow{color:#f9a825;font-weight:700}
-.zone-red{color:#c62828;font-weight:700}
-
-/* CRYPTO */
-.green{color:#2e7d32}
-.red{color:#c62828}
+.zone-green{color:#16a34a;font-weight:700}
+.zone-yellow{color:#ca8a04;font-weight:700}
+.zone-red{color:#dc2626;font-weight:700}
 
 /* FOOTER */
 footer{
   text-align:center;
   padding:30px;
-  border-top:1px solid #ffe0b2;
-  color:#666;
+  border-top:1px solid #e5e7eb;
+  color:#475569;
   font-size:13px;
-  background:#fff3e0;
+  background:#ffffff;
 }
 
 /* MODAL */
@@ -104,7 +122,7 @@ footer{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.6);
+  background:rgba(15,23,42,.55);
   z-index:2000;
 }
 .modal-content{
@@ -112,37 +130,34 @@ footer{
   max-width:420px;
   margin:12% auto;
   padding:30px;
-  border-radius:14px;
-  animation:pop .3s ease;
-}
-@keyframes pop{
-  from{transform:scale(.85);opacity:0}
-  to{transform:scale(1);opacity:1}
+  border-radius:18px;
+  border:1px solid #e5e7eb;
 }
 .modal-content input{
   width:100%;
   padding:12px;
   margin-bottom:15px;
-  border-radius:8px;
-  border:1px solid #ffd6a0;
+  border-radius:10px;
+  border:1px solid #d1d5db;
+  background:#f9fafb;
 }
 .close{float:right;cursor:pointer;font-size:22px;color:#ff7a00}
 
-/* RESPONSIVE */
+/* RESPONSIVE (ORIGINAL BEHAVIOUR) */
 @media(max-width:768px){
   nav{
     position:absolute;
     top:65px;
     right:20px;
     background:#ffffff;
-    border:1px solid #ffe0b2;
-    border-radius:10px;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
     padding:15px;
     display:none;
     flex-direction:column;
   }
   nav a{margin:10px 0}
-  .menu-btn{display:block}
+  .menu-btn{display:flex}
 }
 </style>
 </head>
@@ -177,7 +192,6 @@ if (localStorage.getItem("ltp_logged_in") === "true") {
   <p>Option Chain–Driven Scalping Platform</p>
 </div>
 
-<!-- WHY -->
 <section id="why">
   <h2>Why Most Traders Lose</h2>
   <div class="grid">
@@ -188,7 +202,6 @@ if (localStorage.getItem("ltp_logged_in") === "true") {
   </div>
 </section>
 
-<!-- SYSTEM -->
 <section id="system">
   <h2>Trade Decision System</h2>
   <div class="grid">
@@ -198,32 +211,6 @@ if (localStorage.getItem("ltp_logged_in") === "true") {
   </div>
 </section>
 
-<!-- MARKET -->
-<section id="market">
-  <h2>Live Market</h2>
-  <p>Nifty, BankNifty & Crypto</p>
-
-  <iframe src="https://s.tradingview.com/embed-widget/tickers/?symbols=NSE:NIFTY,NSE:BANKNIFTY,BTCUSD,ETHUSD"
-    style="width:100%;height:120px;border:none;border-radius:12px"></iframe>
-
-  <div class="grid">
-    <div class="card"><h3>BTC</h3><div id="btcPrice">--</div><small id="btcChange"></small></div>
-    <div class="card"><h3>ETH</h3><div id="ethPrice">--</div><small id="ethChange"></small></div>
-    <div class="card"><h3>SOL</h3><div id="solPrice">--</div><small id="solChange"></small></div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section id="features">
-  <h2>Features</h2>
-  <div class="grid">
-    <div class="card">Live Option Chain</div>
-    <div class="card">OI & PCR Analysis</div>
-    <div class="card">Over-Trading Lock</div>
-  </div>
-</section>
-
-<!-- PLANS -->
 <section id="plans">
   <h2>Plans</h2>
   <div class="grid">
@@ -235,7 +222,7 @@ if (localStorage.getItem("ltp_logged_in") === "true") {
 
 <footer>
 © 2026 <b>LTP SCALPER</b><br>
-Credvantage Financial Advisory Pvt. Ltd.
+A Platform by <b>Credvantage Financial Advisory Pvt. Ltd.</b>
 </footer>
 
 <!-- AUTH MODAL -->
@@ -247,7 +234,7 @@ Credvantage Financial Advisory Pvt. Ltd.
       <input id="authName" placeholder="Full Name" style="display:none">
       <input id="authEmail" type="email" placeholder="Email" required>
       <input id="authPassword" type="password" placeholder="Password" required>
-      <button style="width:100%;padding:12px;background:#ff7a00;color:#fff;border:none;border-radius:8px">
+      <button style="width:100%;padding:12px;background:#ff7a00;color:#fff;border:none;border-radius:10px">
         Continue
       </button>
     </form>
@@ -259,114 +246,64 @@ Credvantage Financial Advisory Pvt. Ltd.
 </div>
 
 <script>
-/* ================= CONFIG ================= */
-const AUTH_API_URL =
-"https://script.google.com/macros/s/AKfycbyhqnpRxw3guJanAA-vrFBYtv5DTSUSSBBJDDQ7OFX0MsoWxFp3Xo2G9AP4Zreoc3U-MA/exec";
-
-let mode = "login";
-
 /* MENU */
 function toggleMenu(){
   const m = document.getElementById("navMenu");
   m.style.display = m.style.display === "flex" ? "none" : "flex";
 }
 
-/* AUTH UI */
-function openAuth(){
-  mode = "login";
-  authTitle.innerText = "Login";
-  authName.style.display = "none";
-  toggleText.innerText = "New user?";
-  toggleLink.innerText = "Sign up";
-  authModal.style.display = "block";
-}
+/* AUTH LOGIC */
+const AUTH_API_URL =
+"https://script.google.com/macros/s/AKfycbyhqnpRxw3guJanAA-vrFBYtv5DTSUSSBBJDDQ7OFX0MsoWxFp3Xo2G9AP4Zreoc3U-MA/exec";
+let mode="login";
 
+function openAuth(){
+  mode="login";
+  authTitle.innerText="Login";
+  authName.style.display="none";
+  toggleText.innerText="New user?";
+  toggleLink.innerText="Sign up";
+  authModal.style.display="block";
+}
 function toggleAuth(){
-  if(mode === "login"){
-    mode = "signup";
-    authTitle.innerText = "Sign Up";
-    authName.style.display = "block";
-    toggleText.innerText = "Already have account?";
-    toggleLink.innerText = "Login";
-  } else {
-    mode = "login";
-    authTitle.innerText = "Login";
-    authName.style.display = "none";
-    toggleText.innerText = "New user?";
-    toggleLink.innerText = "Sign up";
+  if(mode==="login"){
+    mode="signup";
+    authTitle.innerText="Sign Up";
+    authName.style.display="block";
+    toggleText.innerText="Already have account?";
+    toggleLink.innerText="Login";
+  }else{
+    openAuth();
   }
 }
+function closeAuth(){authModal.style.display="none"}
 
-function closeAuth(){
-  authModal.style.display = "none";
-}
-
-/* 🔒 FINAL AUTH LOGIC – FIXED */
 function submitAuth(){
-  const formData = new URLSearchParams();
-  formData.append("action", mode);
-  formData.append("name", authName.value);
-  formData.append("email", authEmail.value);
-  formData.append("password", authPassword.value);
-
-  fetch(AUTH_API_URL, { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(d => {
-      alert(d.message || "Success");
-
-      /* ✅ LOGIN ONLY */
-      if (mode === "login" && d.status === "success") {
-        localStorage.setItem("ltp_logged_in", "true");
-        localStorage.setItem("ltp_user_email", authEmail.value);
-        window.location.href = "Live%20Trades%20Dashboard.html";
-        return;
-      }
-
-      /* 🚫 SIGNUP SHOULD NOT LOGIN */
-      if (mode === "signup" && d.status === "success") {
-        closeAuth();
-
-        // 🔁 reset back to login
-        mode = "login";
-        authTitle.innerText = "Login";
-        authName.style.display = "none";
-        toggleText.innerText = "New user?";
-        toggleLink.innerText = "Sign up";
-        return;
-      }
-    })
-    .catch(() => alert("Network error"));
+  const fd=new URLSearchParams();
+  fd.append("action",mode);
+  fd.append("name",authName.value);
+  fd.append("email",authEmail.value);
+  fd.append("password",authPassword.value);
+  fetch(AUTH_API_URL,{method:"POST",body:fd})
+  .then(r=>r.json()).then(d=>{
+    alert(d.message||"Success");
+    if(mode==="login"&&d.status==="success"){
+      localStorage.setItem("ltp_logged_in","true");
+      window.location.href="Live%20Trades%20Dashboard.html";
+    }
+    if(mode==="signup"&&d.status==="success"){closeAuth();openAuth()}
+  });
 }
 
-/* TYPING */
+/* TYPING EFFECT */
 const text=["No Guesswork. Only Option Chain.","Trade Less. Trade Smart."];
 let i=0,j=0,t=document.getElementById("typing");
-function type(){
-  if(j < text[i].length){
-    t.textContent += text[i][j++];
-    setTimeout(type,80);
-  } else {
-    setTimeout(erase,1200);
-  }
-}
-function erase(){
-  if(j > 0){
-    t.textContent = text[i].substring(0,--j);
-    setTimeout(erase,40);
-  } else {
-    i = (i+1)%text.length;
-    setTimeout(type,300);
-  }
-}
+function type(){if(j<text[i].length){t.textContent+=text[i][j++];setTimeout(type,80)}
+else setTimeout(erase,1200)}
+function erase(){if(j>0){t.textContent=text[i].substring(0,--j);setTimeout(erase,40)}
+else{i=(i+1)%text.length;setTimeout(type,300)}}
 type();
 </script>
 
-
 </body>
 </html>
-
-
-
-
-
-
