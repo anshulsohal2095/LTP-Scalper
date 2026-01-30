@@ -5,15 +5,6 @@
 <title>LTP SCALPER | Payment</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- 🔐 LOGIN PROTECTION (DISABLED – PAYMENT FIRST FLOW) -->
-<script>
-/*
-if (localStorage.getItem("ltp_logged_in") !== "true") {
-  window.location.href = "index.html";
-}
-*/
-</script>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -238,6 +229,11 @@ footer{
 </div>
 
 <script>
+/* ===== CONFIG ===== */
+const UTR_API =
+"https://script.google.com/macros/s/AKfycbxYIXCFvmIFG1OwHfwPmYgOh0TrhdhZjH63ucMkmYN4T_HsgLoC23Rhx9Qq2ouDquTWsA/exec";
+
+/* NAV */
 function goBackHome(){
   if (window.parent && window.parent.closePaymentPopup) {
     window.parent.closePaymentPopup();
@@ -247,6 +243,7 @@ function goBackHome(){
   }
 }
 
+/* POPUP */
 function openUTRPopup(){
   document.getElementById("utrPopup").style.display="block";
 }
@@ -254,23 +251,41 @@ function closeUTRPopup(){
   document.getElementById("utrPopup").style.display="none";
 }
 
+/* SUBMIT */
 function submitUTR(){
   const utr = document.getElementById("utrNumber").value.trim();
+  const file = document.getElementById("utrScreenshot").files[0];
+
   if(!utr){
     alert("Please enter UTR / Transaction ID");
     return;
   }
 
-  // ✅ ENGLISH MESSAGE
-  alert("Payment details submitted successfully. Please log in to access your dashboard.");
+  const reader = new FileReader();
+  reader.onload = function(){
+    const base64 = file ? reader.result.split(",")[1] : "";
 
-  // ✅ CLOSE PAYMENT WINDOW & GO HOME
-  if (window.parent && window.parent.closePaymentPopup) {
-    window.parent.closePaymentPopup();
-    window.parent.location.href = "index.html";
-  } else {
-    window.location.href = "index.html";
-  }
+    const data = new URLSearchParams();
+    data.append("utr", utr);
+    data.append("email", localStorage.getItem("ltp_user_email") || "guest");
+    data.append("image", base64);
+
+    fetch(UTR_API, { method:"POST", body:data })
+      .then(() => {
+        alert("Payment details submitted successfully. Please log in to access your dashboard.");
+
+        if (window.parent && window.parent.closePaymentPopup) {
+          window.parent.closePaymentPopup();
+          window.parent.location.href = "index.html";
+        } else {
+          window.location.href = "index.html";
+        }
+      })
+      .catch(() => alert("Network error. Please try again."));
+  };
+
+  if(file) reader.readAsDataURL(file);
+  else reader.onload();
 }
 </script>
 
