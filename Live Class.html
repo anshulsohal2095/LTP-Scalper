@@ -42,27 +42,20 @@ header{
   gap:10px;
   flex-wrap:wrap;
 }
-
-/* LOGO */
 .logo{
   font-size:20px;
   font-weight:700;
   color:var(--orange);
   margin-right:6px;
-  white-space:nowrap;
 }
-
-/* PILLS */
 .pill{
   padding:6px 14px;
   border-radius:25px;
   font-size:12px;
   font-weight:600;
-  white-space:nowrap;
   text-decoration:none;
   display:inline-block;
 }
-
 .pill.trade{
   background:#fff6db;
   border:1px solid #ffb703;
@@ -114,11 +107,9 @@ header{
   font-size:13px;
   font-weight:700;
 }
-
-/* JOIN BUTTON */
 .join-btn{
   display:inline-block;
-  margin:40px auto;
+  margin:30px auto 10px;
   padding:16px 34px;
   background:#ff8c00;
   color:#fff;
@@ -127,7 +118,10 @@ header{
   text-decoration:none;
   font-size:16px;
 }
-.join-btn:hover{opacity:.9}
+.join-btn.disabled{
+  background:#999;
+  pointer-events:none;
+}
 
 /* ===== CONTENT ===== */
 h3{color:var(--orange)}
@@ -142,9 +136,7 @@ h3{color:var(--orange)}
   border-radius:16px;
   box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
-.card h4{
-  margin-top:0;
-}
+.card h4{margin-top:0}
 .card p{
   font-size:13px;
   color:#555;
@@ -167,13 +159,10 @@ footer{
 <header>
   <div class="topbar">
     <div class="logo">LTP SCALPER</div>
-
     <a href="Live Trades Dashboard.html" class="pill trade">
       Live Trade • Indian Stock Market
     </a>
-
     <div class="pill post">POST-MARKET</div>
-
     <button class="pill logout" onclick="logout()">Logout</button>
   </div>
 </header>
@@ -181,10 +170,8 @@ footer{
 <div class="hero">
   <h2>Live Trading Classes & Market Education</h2>
   <p>
-    This live classroom is created to educate traders about the stock market,
-    option chain trading, forex markets, and cryptocurrency basics.
-    The objective is learning, discipline, and long-term consistency —
-    not tips, signals, or guaranteed profits.
+    Live class timing: <b>9:15 AM – 12:30 PM (IST)</b><br>
+    Please join only during scheduled hours.
   </p>
 </div>
 
@@ -195,88 +182,34 @@ footer{
   <div class="live-box">
     <div class="live-head">LIVE GOOGLE MEET SESSION</div>
 
-    <!-- ✅ GOOGLE MEET JOIN BUTTON -->
-    <a
-      href="https://calendar.app.google/wbY1XqoE5bar84nn9"
-      target="_blank"
-      class="join-btn">
+    <a id="joinBtn"
+       href="https://calendar.app.google/wbY1XqoE5bar84nn9"
+       target="_blank"
+       class="join-btn">
       Join Live Class (Google Meet)
     </a>
-  </div>
 
-  <p style="font-size:12px;color:#666;text-align:center;margin-top:10px">
-    If the class does not open,
-    <a href="https://calendar.app.google/wbY1XqoE5bar84nn9"
-       target="_blank"
-       style="color:#ff8c00;font-weight:600">
-      click here to join on Google Meet
-    </a>
-  </p>
+    <p id="timeMsg" style="font-size:12px;color:#ddd"></p>
+  </div>
 </div>
 
-<!-- EDUCATION CONTENT (UNCHANGED) -->
+<!-- EDUCATION CONTENT -->
 <div class="section">
   <h3>📘 Trading • Forex • Crypto Education</h3>
 
   <div class="grid">
-    <div class="card">
-      <h4>Stock Market & Option Chain</h4>
-      <p>
-        Learn how the Indian stock market operates, how option chains work,
-        understanding open interest, volume, support–resistance,
-        and how price reacts around key levels.
-      </p>
-    </div>
-
-    <div class="card">
-      <h4>Risk Management</h4>
-      <p>
-        Capital protection is the first priority. Learn position sizing,
-        stop-loss discipline, risk–reward planning,
-        and why survival is more important than aggressive profits.
-      </p>
-    </div>
-
-    <div class="card">
-      <h4>Trading Psychology</h4>
-      <p>
-        Control emotions like fear and greed, avoid over-trading,
-        develop patience, and build consistency through a rule-based approach.
-      </p>
-    </div>
-
-    <div class="card">
-      <h4>Forex Market Basics</h4>
-      <p>
-        Understand global currency markets, major forex pairs,
-        trading sessions (Asian, London, New York),
-        and why volatility changes throughout the day.
-      </p>
-    </div>
-
-    <div class="card">
-      <h4>Leverage & Discipline</h4>
-      <p>
-        Learn how leverage works in forex and why high leverage
-        can quickly wipe accounts if not managed properly.
-        Education and discipline are essential.
-      </p>
-    </div>
-
-    <div class="card">
-      <h4>Cryptocurrency Awareness</h4>
-      <p>
-        Understand blockchain basics, Bitcoin and Ethereum concepts,
-        extreme volatility in crypto markets,
-        and the importance of safety, wallets, and scam awareness.
-      </p>
-    </div>
+    <div class="card"><h4>Stock Market & Option Chain</h4><p>Option chain, OI & price behaviour.</p></div>
+    <div class="card"><h4>Risk Management</h4><p>Capital protection & position sizing.</p></div>
+    <div class="card"><h4>Trading Psychology</h4><p>Control fear, greed & over-trading.</p></div>
+    <div class="card"><h4>Forex Market Basics</h4><p>Major pairs & trading sessions.</p></div>
+    <div class="card"><h4>Leverage & Discipline</h4><p>Safe leverage usage.</p></div>
+    <div class="card"><h4>Crypto Awareness</h4><p>Volatility & security basics.</p></div>
   </div>
 </div>
 
 <footer>
 © 2026 <strong>Credvantage Financial Advisory Pvt. Ltd.</strong><br>
-All live classes and content are strictly for educational purposes only.
+All live classes are strictly educational.
 </footer>
 
 <script>
@@ -284,6 +217,26 @@ function logout(){
   localStorage.clear();
   window.location.href="index.html";
 }
+
+/* ===== CLASS TIME LOCK (IST) ===== */
+(function(){
+  const btn = document.getElementById("joinBtn");
+  const msg = document.getElementById("timeMsg");
+
+  const now = new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"});
+  const d = new Date(now);
+  const mins = d.getHours()*60 + d.getMinutes();
+
+  const start = 9*60 + 15;
+  const end   = 12*60 + 30;
+
+  if(mins < start || mins > end){
+    btn.classList.add("disabled");
+    msg.innerText = "Class available from 9:15 AM to 12:30 PM (IST).";
+  } else {
+    msg.innerText = "Class is live. You may join now.";
+  }
+})();
 </script>
 
 </body>
