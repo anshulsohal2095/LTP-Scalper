@@ -212,7 +212,6 @@ footer{
       with our support team for quick verification.
     </div>
 
-    <!-- MAIN BUTTON -->
     <button class="confirm-btn" onclick="openUTRPopup()">
       I Have Completed the Payment
     </button>
@@ -255,14 +254,21 @@ function openUTRPopup(){
 function closeUTRPopup(){
   document.getElementById("utrPopup").style.display="none";
 }
+
 function submitUTR(){
   const utr=document.getElementById("utrNumber").value.trim();
   if(!utr){
     alert("Please enter UTR / Transaction ID");
     return;
   }
+
   document.getElementById("utrMsg").innerText =
     "✅ UTR submitted. Verification in progress.";
+
+  // ✅ AUTO CLOSE AFTER SUBMIT
+  setTimeout(()=>{
+    closeUTRPopup();
+  },1500);
 }
 </script>
 
