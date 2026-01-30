@@ -172,6 +172,17 @@ footer{
 }
 </style>
 </head>
+<script>
+function closePopup(){
+  // agar iframe ke andar hai
+  if (window.parent && window.parent.closePaymentPopup) {
+    window.parent.closePaymentPopup();
+  } else {
+    // agar direct page open ho
+    window.location.href = "index.html";
+  }
+}
+</script>
 
 <body>
 
