@@ -32,6 +32,7 @@ header{
   display:flex;
   align-items:center;
   gap:10px;
+  flex-wrap:wrap;
 }
 .logo{
   font-size:20px;
@@ -166,6 +167,73 @@ footer{
   color:var(--orange);
   cursor:pointer;
 }
+
+/* =========================
+   📱 MOBILE RESPONSIVE FIX
+   ========================= */
+@media (max-width:600px){
+
+  .logo{
+    font-size:17px;
+  }
+
+  .pill{
+    font-size:11px;
+    padding:5px 12px;
+  }
+
+  .hero h2{
+    font-size:20px;
+  }
+
+  .hero p{
+    font-size:12.5px;
+  }
+
+  .payment-box{
+    padding:16px;
+  }
+
+  .payment-head{
+    font-size:14px;
+    padding:8px 12px;
+  }
+
+  .details{
+    grid-template-columns:1fr; /* ✅ no overlap */
+  }
+
+  .detail{
+    padding:12px;
+  }
+
+  .detail strong{
+    font-size:13px;
+  }
+
+  .note{
+    font-size:11px;
+  }
+
+  .confirm-btn{
+    font-size:13px;
+    padding:12px;
+  }
+
+  .utr-box{
+    margin:20% auto;
+    padding:18px;
+  }
+
+  .utr-box h3{
+    font-size:16px;
+  }
+
+  .utr-box input{
+    font-size:12px;
+    padding:10px;
+  }
+}
 </style>
 </head>
 
@@ -219,9 +287,7 @@ footer{
     <span class="utr-close" onclick="closeUTRPopup()">×</span>
     <h3>Payment Verification</h3>
 
-    <!-- ✅ NEW EMAIL FIELD (ADDED) -->
     <input type="email" id="payerEmail" placeholder="Enter your Email ID">
-
     <input type="text" id="utrNumber" placeholder="Enter UTR / Transaction ID">
     <input type="file" id="utrScreenshot" accept="image/*">
 
@@ -232,11 +298,9 @@ footer{
 </div>
 
 <script>
-/* ===== CONFIG ===== */
 const UTR_API =
 "https://script.google.com/macros/s/AKfycbzeinLijG8t-KmPKswOrWqtoEUxHklBk6ElkTX8l8Ocj0yhjs7YwmSsmILbP2jW07lR/exec";
 
-/* NAV */
 function goBackHome(){
   if (window.parent && window.parent.closePaymentPopup) {
     window.parent.closePaymentPopup();
@@ -246,7 +310,6 @@ function goBackHome(){
   }
 }
 
-/* POPUP */
 function openUTRPopup(){
   document.getElementById("utrPopup").style.display="block";
 }
@@ -254,46 +317,30 @@ function closeUTRPopup(){
   document.getElementById("utrPopup").style.display="none";
 }
 
-/* SUBMIT */
 function submitUTR(){
   const email = document.getElementById("payerEmail").value.trim();
   const utr = document.getElementById("utrNumber").value.trim();
   const file = document.getElementById("utrScreenshot").files[0];
 
-  if(!email){
-    alert("Please enter your email");
-    return;
-  }
-  if(!utr){
-    alert("Please enter UTR / Transaction ID");
-    return;
-  }
+  if(!email){ alert("Please enter your email"); return; }
+  if(!utr){ alert("Please enter UTR / Transaction ID"); return; }
 
   const reader = new FileReader();
   reader.onload = function(){
     const base64 = file ? reader.result.split(",")[1] : "";
-
     const data = new URLSearchParams();
     data.append("utr", utr);
-    data.append("email", email);   // ✅ REAL EMAIL NOW
+    data.append("email", email);
     data.append("image", base64);
 
-    fetch(UTR_API, { method:"POST", body:data })
-      .then(() => {
+    fetch(UTR_API,{method:"POST",body:data})
+      .then(()=>{
         alert("Payment details submitted successfully. Please log in to access your dashboard.");
-
-        if (window.parent && window.parent.closePaymentPopup) {
-          window.parent.closePaymentPopup();
-          window.parent.location.href = "index.html";
-        } else {
-          window.location.href = "index.html";
-        }
+        window.location.href="index.html";
       })
-      .catch(() => alert("Network error. Please try again."));
+      .catch(()=>alert("Network error. Please try again."));
   };
-
-  if(file) reader.readAsDataURL(file);
-  else reader.onload();
+  if(file) reader.readAsDataURL(file); else reader.onload();
 }
 </script>
 
