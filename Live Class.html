@@ -72,10 +72,6 @@ header{
   background:var(--purple);
   color:#fff;
 }
-.pill.classroom{
-  background:var(--orange);
-  color:#fff;
-}
 .pill.logout{
   background:var(--red);
   color:#fff;
@@ -150,11 +146,6 @@ footer{
   color:#777;
   border-top:1px solid #eee;
 }
-
-/* MOBILE */
-@media(max-width:600px){
-  .zoom-frame{height:400px}
-}
 </style>
 </head>
 
@@ -162,21 +153,15 @@ footer{
 
 <header>
   <div class="topbar">
-    <!-- LOGO -->
     <div class="logo">LTP SCALPER</div>
 
-    <!-- LIVE TRADE BUTTON -->
-    <a href="live Trades dashboard.html" class="pill trade">
+    <!-- ✅ FIXED LINK -->
+    <a href="Live Trades Dashboard.html" class="pill trade">
       Live Trade • Indian Stock Market
     </a>
 
-    <!-- MARKET STATUS -->
     <div class="pill post">POST-MARKET</div>
 
-    <!-- CLASSROOM (HIDDEN ON THIS PAGE) -->
-    <!-- intentionally NOT shown -->
-
-    <!-- LOGOUT -->
     <button class="pill logout" onclick="logout()">Logout</button>
   </div>
 </header>
@@ -185,8 +170,8 @@ footer{
   <h2>Live Trading Classes & Market Education</h2>
   <p>
     This classroom is created for educational purposes only.
-    Focus is on learning, discipline, and risk awareness — not tips. Live class timing: 9:15 AM – 12:30 PM (IST)
-Please join only during scheduled hours.
+    Focus is on learning, discipline, and risk awareness — not tips.
+    Live class timing: <b>9:15 AM – 12:30 PM (IST)</b>.
   </p>
 </div>
 
@@ -213,7 +198,6 @@ Please join only during scheduled hours.
 </div>
 
 <!-- EDUCATION -->
-<!-- EDUCATION CONTENT -->
 <div class="section">
   <h3>📘 Trading • Forex • Crypto Education</h3>
 
@@ -224,7 +208,6 @@ Please join only during scheduled hours.
     <div class="card"><h4>Forex Market Basics</h4><p>Major pairs & trading sessions.</p></div>
     <div class="card"><h4>Leverage & Discipline</h4><p>Safe leverage usage.</p></div>
     <div class="card"><h4>Crypto Awareness</h4><p>Volatility & security basics.</p></div>
-  </div>
   </div>
 </div>
 
@@ -238,17 +221,19 @@ function logout(){
   localStorage.clear();
   window.location.href="index.html";
 }
-  /* ===== CLASS TIME LOCK (IST) ===== */
+
+/* ===== SAFE TIME LOCK (NO ERROR IF ELEMENTS MISSING) ===== */
 (function(){
   const btn = document.getElementById("joinBtn");
   const msg = document.getElementById("timeMsg");
+  if(!btn || !msg) return; // ✅ prevents JS crash
 
   const now = new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"});
   const d = new Date(now);
   const mins = d.getHours()*60 + d.getMinutes();
 
-  const start = 9*60 + 15;   // 9:15 AM
-  const end   = 12*60 + 30;  // 12:30 PM
+  const start = 9*60 + 15;
+  const end   = 12*60 + 30;
 
   if(mins < start || mins > end){
     btn.classList.add("disabled");
@@ -261,12 +246,3 @@ function logout(){
 
 </body>
 </html>
-
-</script>
-
-</body>
-</html>
-
-
-
-
