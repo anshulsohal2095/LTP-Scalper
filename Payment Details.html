@@ -63,6 +63,7 @@ header{
   background:#fff6db;
   border:1px solid #ffb703;
   color:#444;
+  cursor:pointer;
 }
 
 /* ===== HERO ===== */
@@ -172,24 +173,15 @@ footer{
 }
 </style>
 </head>
-<script>
-function closePopup(){
-  // agar iframe ke andar hai
-  if (window.parent && window.parent.closePaymentPopup) {
-    window.parent.closePaymentPopup();
-  } else {
-    // agar direct page open ho
-    window.location.href = "index.html";
-  }
-}
-</script>
 
 <body>
 
 <header>
   <div class="topbar">
     <div class="logo">LTP SCALPER</div>
-    <a href="index.html" class="pill back">← Back to Home</a>
+
+    <!-- BACK TO HOME (POPUP SAFE) -->
+    <a class="pill back" onclick="goBackHome()">← Back to Home</a>
   </div>
 </header>
 
@@ -248,6 +240,18 @@ function closePopup(){
 © 2026 <strong>Credvantage Financial Advisory Pvt. Ltd.</strong><br>
 Payments are accepted only in the official company account.
 </footer>
+
+<script>
+function goBackHome(){
+  // Agar popup / iframe ke andar open hai
+  if (window.parent && window.parent !== window && window.parent.closePaymentPopup) {
+    window.parent.closePaymentPopup();
+  } else {
+    // Agar direct page open hai
+    window.location.href = "index.html";
+  }
+}
+</script>
 
 </body>
 </html>
