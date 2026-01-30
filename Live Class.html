@@ -42,20 +42,27 @@ header{
   gap:10px;
   flex-wrap:wrap;
 }
+
+/* LOGO */
 .logo{
   font-size:20px;
   font-weight:700;
   color:var(--orange);
   margin-right:6px;
+  white-space:nowrap;
 }
+
+/* PILLS */
 .pill{
   padding:6px 14px;
   border-radius:25px;
   font-size:12px;
   font-weight:600;
+  white-space:nowrap;
   text-decoration:none;
   display:inline-block;
 }
+
 .pill.trade{
   background:#fff6db;
   border:1px solid #ffb703;
@@ -63,6 +70,10 @@ header{
 }
 .pill.post{
   background:var(--purple);
+  color:#fff;
+}
+.pill.classroom{
+  background:var(--orange);
   color:#fff;
 }
 .pill.logout{
@@ -85,7 +96,7 @@ header{
 .hero p{
   font-size:14px;
   color:#555;
-  max-width:820px;
+  max-width:760px;
   margin:10px auto 0;
 }
 
@@ -98,7 +109,6 @@ header{
   border-radius:16px;
   overflow:hidden;
   box-shadow:0 12px 30px rgba(0,0,0,.25);
-  text-align:center;
 }
 .live-head{
   background:var(--orange);
@@ -107,20 +117,10 @@ header{
   font-size:13px;
   font-weight:700;
 }
-.join-btn{
-  display:inline-block;
-  margin:30px auto 10px;
-  padding:16px 34px;
-  background:#ff8c00;
-  color:#fff;
-  font-weight:700;
-  border-radius:40px;
-  text-decoration:none;
-  font-size:16px;
-}
-.join-btn.disabled{
-  background:#999;
-  pointer-events:none;
+.zoom-frame{
+  width:100%;
+  height:480px;
+  border:0;
 }
 
 /* ===== CONTENT ===== */
@@ -136,11 +136,10 @@ h3{color:var(--orange)}
   border-radius:16px;
   box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
-.card h4{margin-top:0}
 .card p{
   font-size:13px;
   color:#555;
-  line-height:1.7;
+  line-height:1.6;
 }
 
 /* ===== FOOTER ===== */
@@ -151,6 +150,11 @@ footer{
   color:#777;
   border-top:1px solid #eee;
 }
+
+/* MOBILE */
+@media(max-width:600px){
+  .zoom-frame{height:400px}
+}
 </style>
 </head>
 
@@ -158,11 +162,21 @@ footer{
 
 <header>
   <div class="topbar">
+    <!-- LOGO -->
     <div class="logo">LTP SCALPER</div>
-    <a href="Live Trades Dashboard.html" class="pill trade">
+
+    <!-- LIVE TRADE BUTTON -->
+    <a href="dashboard.html" class="pill trade">
       Live Trade • Indian Stock Market
     </a>
+
+    <!-- MARKET STATUS -->
     <div class="pill post">POST-MARKET</div>
+
+    <!-- CLASSROOM (HIDDEN ON THIS PAGE) -->
+    <!-- intentionally NOT shown -->
+
+    <!-- LOGOUT -->
     <button class="pill logout" onclick="logout()">Logout</button>
   </div>
 </header>
@@ -170,46 +184,52 @@ footer{
 <div class="hero">
   <h2>Live Trading Classes & Market Education</h2>
   <p>
-    Live class timing: <b>9:15 AM – 12:30 PM (IST)</b><br>
-    Please join only during scheduled hours.
+    This classroom is created for educational purposes only.
+    Focus is on learning, discipline, and risk awareness — not tips.
   </p>
 </div>
 
 <!-- LIVE CLASS -->
 <div class="section">
-  <h3>🔴 Live Classroom (Google Meet)</h3>
+  <h3>🔴 Live Classroom (Zoom)</h3>
 
   <div class="live-box">
-    <div class="live-head">LIVE GOOGLE MEET SESSION</div>
-
-    <a id="joinBtn"
-       href="https://calendar.app.google/wbY1XqoE5bar84nn9"
-       target="_blank"
-       class="join-btn">
-      Join Live Class (Google Meet)
-    </a>
-
-    <p id="timeMsg" style="font-size:12px;color:#ddd"></p>
+    <div class="live-head">LIVE ZOOM SESSION</div>
+    <iframe
+      class="zoom-frame"
+      src="https://zoom.us/wc/join/8594779650?prefer=1"
+      allow="camera; microphone; fullscreen">
+    </iframe>
   </div>
+
+  <p style="font-size:12px;color:#666;text-align:center;margin-top:10px">
+    If video does not load,
+    <a href="https://zoom.us/j/8594779650" target="_blank"
+       style="color:#ff8c00;font-weight:600">
+      click here to join Zoom
+    </a>
+  </p>
 </div>
 
-<!-- EDUCATION CONTENT -->
+<!-- EDUCATION -->
 <div class="section">
   <h3>📘 Trading • Forex • Crypto Education</h3>
-
   <div class="grid">
-    <div class="card"><h4>Stock Market & Option Chain</h4><p>Option chain, OI & price behaviour.</p></div>
-    <div class="card"><h4>Risk Management</h4><p>Capital protection & position sizing.</p></div>
-    <div class="card"><h4>Trading Psychology</h4><p>Control fear, greed & over-trading.</p></div>
-    <div class="card"><h4>Forex Market Basics</h4><p>Major pairs & trading sessions.</p></div>
-    <div class="card"><h4>Leverage & Discipline</h4><p>Safe leverage usage.</p></div>
-    <div class="card"><h4>Crypto Awareness</h4><p>Volatility & security basics.</p></div>
+    <div class="card">
+      <p><strong>Trading:</strong> Market structure, option chain, discipline.</p>
+    </div>
+    <div class="card">
+      <p><strong>Forex:</strong> Currency pairs, sessions, volatility.</p>
+    </div>
+    <div class="card">
+      <p><strong>Crypto:</strong> Blockchain basics, risk & safety.</p>
+    </div>
   </div>
 </div>
 
 <footer>
 © 2026 <strong>Credvantage Financial Advisory Pvt. Ltd.</strong><br>
-All live classes are strictly educational.
+Educational purpose only.
 </footer>
 
 <script>
@@ -217,26 +237,6 @@ function logout(){
   localStorage.clear();
   window.location.href="index.html";
 }
-
-/* ===== CLASS TIME LOCK (IST) ===== */
-(function(){
-  const btn = document.getElementById("joinBtn");
-  const msg = document.getElementById("timeMsg");
-
-  const now = new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"});
-  const d = new Date(now);
-  const mins = d.getHours()*60 + d.getMinutes();
-
-  const start = 9*60 + 15;
-  const end   = 12*60 + 30;
-
-  if(mins < start || mins > end){
-    btn.classList.add("disabled");
-    msg.innerText = "Class available from 9:15 AM to 12:30 PM (IST).";
-  } else {
-    msg.innerText = "Class is live. You may join now.";
-  }
-})();
 </script>
 
 </body>
