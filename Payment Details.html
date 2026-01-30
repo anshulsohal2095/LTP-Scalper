@@ -261,7 +261,10 @@ function submitUTR(){
     return;
   }
 
-  // 👉 YAHI FINAL ACTION
+  // ✅ ENGLISH MESSAGE
+  alert("Payment details submitted successfully. Please log in to access your dashboard.");
+
+  // ✅ CLOSE PAYMENT WINDOW & GO HOME
   if (window.parent && window.parent.closePaymentPopup) {
     window.parent.closePaymentPopup();
     window.parent.location.href = "index.html";
