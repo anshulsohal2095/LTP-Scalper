@@ -237,8 +237,33 @@ function logout(){
   localStorage.clear();
   window.location.href="index.html";
 }
+  /* ===== CLASS TIME LOCK (IST) ===== */
+(function(){
+  const btn = document.getElementById("joinBtn");
+  const msg = document.getElementById("timeMsg");
+
+  const now = new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"});
+  const d = new Date(now);
+  const mins = d.getHours()*60 + d.getMinutes();
+
+  const start = 9*60 + 15;   // 9:15 AM
+  const end   = 12*60 + 30;  // 12:30 PM
+
+  if(mins < start || mins > end){
+    btn.classList.add("disabled");
+    msg.innerText = "Class available from 9:15 AM to 12:30 PM (IST).";
+  } else {
+    msg.innerText = "Class is live. You may join now.";
+  }
+})();
 </script>
 
 </body>
 </html>
+
+</script>
+
+</body>
+</html>
+
 
