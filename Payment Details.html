@@ -219,6 +219,9 @@ footer{
     <span class="utr-close" onclick="closeUTRPopup()">×</span>
     <h3>Payment Verification</h3>
 
+    <!-- ✅ NEW EMAIL FIELD (ADDED) -->
+    <input type="email" id="payerEmail" placeholder="Enter your Email ID">
+
     <input type="text" id="utrNumber" placeholder="Enter UTR / Transaction ID">
     <input type="file" id="utrScreenshot" accept="image/*">
 
@@ -253,9 +256,14 @@ function closeUTRPopup(){
 
 /* SUBMIT */
 function submitUTR(){
+  const email = document.getElementById("payerEmail").value.trim();
   const utr = document.getElementById("utrNumber").value.trim();
   const file = document.getElementById("utrScreenshot").files[0];
 
+  if(!email){
+    alert("Please enter your email");
+    return;
+  }
   if(!utr){
     alert("Please enter UTR / Transaction ID");
     return;
@@ -267,7 +275,7 @@ function submitUTR(){
 
     const data = new URLSearchParams();
     data.append("utr", utr);
-    data.append("email", localStorage.getItem("ltp_user_email") || "guest");
+    data.append("email", email);   // ✅ REAL EMAIL NOW
     data.append("image", base64);
 
     fetch(UTR_API, { method:"POST", body:data })
@@ -291,5 +299,3 @@ function submitUTR(){
 
 </body>
 </html>
-
-
