@@ -38,6 +38,18 @@ nav a{
   font-size:14px;
 }
 nav a:hover{color:#ff7a00}
+
+/* PAY NOW */
+.pay-btn{
+  padding:8px 18px;
+  background:#ff7a00;
+  color:#fff !important;
+  border-radius:25px;
+  font-size:13px;
+  font-weight:600;
+}
+.pay-btn:hover{opacity:.9}
+
 .menu-btn{display:none;font-size:24px;cursor:pointer;color:#ff7a00}
 
 /* HERO */
@@ -80,15 +92,6 @@ p{text-align:center;color:#666}
   box-shadow:0 12px 25px rgba(0,0,0,.08);
 }
 
-/* ZONES */
-.zone-green{color:#2e7d32;font-weight:700}
-.zone-yellow{color:#f9a825;font-weight:700}
-.zone-red{color:#c62828;font-weight:700}
-
-/* CRYPTO */
-.green{color:#2e7d32}
-.red{color:#c62828}
-
 /* FOOTER */
 footer{
   text-align:center;
@@ -99,7 +102,7 @@ footer{
   background:#fff3e0;
 }
 
-/* MODAL */
+/* AUTH MODAL */
 .modal{
   display:none;
   position:fixed;
@@ -113,11 +116,6 @@ footer{
   margin:12% auto;
   padding:30px;
   border-radius:14px;
-  animation:pop .3s ease;
-}
-@keyframes pop{
-  from{transform:scale(.85);opacity:0}
-  to{transform:scale(1);opacity:1}
 }
 .modal-content input{
   width:100%;
@@ -126,7 +124,46 @@ footer{
   border-radius:8px;
   border:1px solid #ffd6a0;
 }
-.close{float:right;cursor:pointer;font-size:22px;color:#ff7a00}
+.close{
+  float:right;
+  cursor:pointer;
+  font-size:22px;
+  color:#ff7a00;
+}
+
+/* PAY NOW POPUP */
+.payment-popup{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  z-index:9999;
+}
+.payment-popup-box{
+  position:relative;
+  width:92%;
+  max-width:1000px;
+  height:85vh;
+  margin:5vh auto;
+  background:#fff;
+  border-radius:18px;
+  overflow:hidden;
+}
+.payment-close{
+  position:absolute;
+  top:10px;
+  right:14px;
+  font-size:28px;
+  font-weight:700;
+  color:#ff7a00;
+  cursor:pointer;
+  z-index:10;
+}
+.payment-frame{
+  width:100%;
+  height:100%;
+  border:none;
+}
 
 /* RESPONSIVE */
 @media(max-width:768px){
@@ -149,7 +186,7 @@ footer{
 
 <body>
 
-<!-- 🔐 AUTO REDIRECT ONLY IF ALREADY LOGGED IN -->
+<!-- AUTO REDIRECT IF LOGGED IN -->
 <script>
 if (localStorage.getItem("ltp_logged_in") === "true") {
   window.location.href = "Live%20Trades%20Dashboard.html";
@@ -161,11 +198,7 @@ if (localStorage.getItem("ltp_logged_in") === "true") {
   <div class="menu-btn" onclick="toggleMenu()">⋮</div>
   <nav id="navMenu">
     <a href="#home">Home</a>
-    <a href="#why">Why</a>
-    <a href="#system">System</a>
-    <a href="#market">Market</a>
-    <a href="#features">Features</a>
-    <a href="#plans">Plans</a>
+    <a class="pay-btn" href="javascript:void(0)" onclick="openPaymentPopup()">Pay Now</a>
     <a href="javascript:void(0)" onclick="openAuth()">Login / Sign Up</a>
   </nav>
 </header>
@@ -178,7 +211,7 @@ if (localStorage.getItem("ltp_logged_in") === "true") {
 </div>
 
 <!-- WHY -->
-<section id="why">
+<section>
   <h2>Why Most Traders Lose</h2>
   <div class="grid">
     <div class="card">❌ Over Trading</div>
@@ -188,43 +221,8 @@ if (localStorage.getItem("ltp_logged_in") === "true") {
   </div>
 </section>
 
-<!-- SYSTEM -->
-<section id="system">
-  <h2>Trade Decision System</h2>
-  <div class="grid">
-    <div class="card"><h3 class="zone-green">GREEN ZONE</h3>Trade Allowed</div>
-    <div class="card"><h3 class="zone-yellow">YELLOW ZONE</h3>Wait</div>
-    <div class="card"><h3 class="zone-red">RED ZONE</h3>No Trade</div>
-  </div>
-</section>
-
-<!-- MARKET -->
-<section id="market">
-  <h2>Live Market</h2>
-  <p>Nifty, BankNifty & Crypto</p>
-
-  <iframe src="https://s.tradingview.com/embed-widget/tickers/?symbols=NSE:NIFTY,NSE:BANKNIFTY,BTCUSD,ETHUSD"
-    style="width:100%;height:120px;border:none;border-radius:12px"></iframe>
-
-  <div class="grid">
-    <div class="card"><h3>BTC</h3><div id="btcPrice">--</div><small id="btcChange"></small></div>
-    <div class="card"><h3>ETH</h3><div id="ethPrice">--</div><small id="ethChange"></small></div>
-    <div class="card"><h3>SOL</h3><div id="solPrice">--</div><small id="solChange"></small></div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section id="features">
-  <h2>Features</h2>
-  <div class="grid">
-    <div class="card">Live Option Chain</div>
-    <div class="card">OI & PCR Analysis</div>
-    <div class="card">Over-Trading Lock</div>
-  </div>
-</section>
-
 <!-- PLANS -->
-<section id="plans">
+<section>
   <h2>Plans</h2>
   <div class="grid">
     <div class="card">Starter – ₹999</div>
@@ -243,6 +241,7 @@ Credvantage Financial Advisory Pvt. Ltd.
   <div class="modal-content">
     <span class="close" onclick="closeAuth()">×</span>
     <h3 id="authTitle">Login</h3>
+
     <form onsubmit="submitAuth();return false;">
       <input id="authName" placeholder="Full Name" style="display:none">
       <input id="authEmail" type="email" placeholder="Email" required>
@@ -251,6 +250,7 @@ Credvantage Financial Advisory Pvt. Ltd.
         Continue
       </button>
     </form>
+
     <p style="text-align:center;font-size:14px">
       <span id="toggleText">New user?</span>
       <span id="toggleLink" style="color:#ff7a00;cursor:pointer" onclick="toggleAuth()">Sign up</span>
@@ -258,114 +258,105 @@ Credvantage Financial Advisory Pvt. Ltd.
   </div>
 </div>
 
+<!-- PAY NOW POPUP -->
+<div id="paymentPopup" class="payment-popup">
+  <div class="payment-popup-box">
+    <span class="payment-close" onclick="closePaymentPopup()">×</span>
+    <iframe src="/Payment%20Details.html" class="payment-frame"></iframe>
+  </div>
+</div>
+
 <script>
-/* ================= CONFIG ================= */
-const AUTH_API_URL =
-"https://script.google.com/macros/s/AKfycbyhqnpRxw3guJanAA-vrFBYtv5DTSUSSBBJDDQ7OFX0MsoWxFp3Xo2G9AP4Zreoc3U-MA/exec";
-
-let mode = "login";
-
 /* MENU */
 function toggleMenu(){
-  const m = document.getElementById("navMenu");
-  m.style.display = m.style.display === "flex" ? "none" : "flex";
+  const m=document.getElementById("navMenu");
+  m.style.display=m.style.display==="flex"?"none":"flex";
 }
 
-/* AUTH UI */
+/* AUTH */
+const AUTH_API_URL="https://script.google.com/macros/s/AKfycbyhqnpRxw3guJanAA-vrFBYtv5DTSUSSBBJDDQ7OFX0MsoWxFp3Xo2G9AP4Zreoc3U-MA/exec";
+let mode="login";
+
 function openAuth(){
-  mode = "login";
-  authTitle.innerText = "Login";
-  authName.style.display = "none";
-  toggleText.innerText = "New user?";
-  toggleLink.innerText = "Sign up";
-  authModal.style.display = "block";
+  mode="login";
+  authTitle.innerText="Login";
+  authName.style.display="none";
+  toggleText.innerText="New user?";
+  toggleLink.innerText="Sign up";
+  authModal.style.display="block";
 }
 
 function toggleAuth(){
-  if(mode === "login"){
-    mode = "signup";
-    authTitle.innerText = "Sign Up";
-    authName.style.display = "block";
-    toggleText.innerText = "Already have account?";
-    toggleLink.innerText = "Login";
-  } else {
-    mode = "login";
-    authTitle.innerText = "Login";
-    authName.style.display = "none";
-    toggleText.innerText = "New user?";
-    toggleLink.innerText = "Sign up";
+  if(mode==="login"){
+    mode="signup";
+    authTitle.innerText="Sign Up";
+    authName.style.display="block";
+    toggleText.innerText="Already have account?";
+    toggleLink.innerText="Login";
+  }else{
+    mode="login";
+    authTitle.innerText="Login";
+    authName.style.display="none";
+    toggleText.innerText="New user?";
+    toggleLink.innerText="Sign up";
   }
 }
 
 function closeAuth(){
-  authModal.style.display = "none";
+  authModal.style.display="none";
+  mode="login";
 }
 
-/* 🔒 FINAL AUTH LOGIC – FIXED */
 function submitAuth(){
-  const formData = new URLSearchParams();
-  formData.append("action", mode);
-  formData.append("name", authName.value);
-  formData.append("email", authEmail.value);
-  formData.append("password", authPassword.value);
+  const fd=new URLSearchParams();
+  fd.append("action",mode);
+  fd.append("name",authName.value);
+  fd.append("email",authEmail.value);
+  fd.append("password",authPassword.value);
 
-  fetch(AUTH_API_URL, { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(d => {
-      alert(d.message || "Success");
+  fetch(AUTH_API_URL,{method:"POST",body:fd})
+  .then(r=>r.json())
+  .then(d=>{
+    alert(d.message||"Success");
+    if(mode==="login" && d.status==="success"){
+      localStorage.setItem("ltp_logged_in","true");
+      window.location.href="Live%20Trades%20Dashboard.html";
+    }
+    if(mode==="signup" && d.status==="success"){
+      closeAuth();
+    }
+  })
+  .catch(()=>alert("Network error"));
+}
 
-      /* ✅ LOGIN ONLY */
-      if (mode === "login" && d.status === "success") {
-        localStorage.setItem("ltp_logged_in", "true");
-        localStorage.setItem("ltp_user_email", authEmail.value);
-        window.location.href = "Live%20Trades%20Dashboard.html";
-        return;
-      }
-
-      /* 🚫 SIGNUP SHOULD NOT LOGIN */
-      if (mode === "signup" && d.status === "success") {
-        closeAuth();
-
-        // 🔁 reset back to login
-        mode = "login";
-        authTitle.innerText = "Login";
-        authName.style.display = "none";
-        toggleText.innerText = "New user?";
-        toggleLink.innerText = "Sign up";
-        return;
-      }
-    })
-    .catch(() => alert("Network error"));
+/* PAY NOW POPUP */
+function openPaymentPopup(){
+  document.getElementById("paymentPopup").style.display="block";
+}
+function closePaymentPopup(){
+  document.getElementById("paymentPopup").style.display="none";
 }
 
 /* TYPING */
 const text=["No Guesswork. Only Option Chain.","Trade Less. Trade Smart."];
 let i=0,j=0,t=document.getElementById("typing");
 function type(){
-  if(j < text[i].length){
-    t.textContent += text[i][j++];
+  if(j<text[i].length){
+    t.textContent+=text[i][j++];
     setTimeout(type,80);
-  } else {
-    setTimeout(erase,1200);
-  }
+  }else setTimeout(erase,1200);
 }
 function erase(){
-  if(j > 0){
-    t.textContent = text[i].substring(0,--j);
+  if(j>0){
+    t.textContent=text[i].substring(0,--j);
     setTimeout(erase,40);
-  } else {
-    i = (i+1)%text.length;
+  }else{
+    i=(i+1)%text.length;
     setTimeout(type,300);
   }
 }
 type();
 </script>
 
-
 </body>
 </html>
-
-
-
-
-
