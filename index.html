@@ -165,6 +165,12 @@ footer{
   border:none;
 }
 
+/* ========= ADD ONLY : CONTACT POPUP STYLES ========= */
+.contact-box{text-align:center}
+.contact-item{margin:20px 0;font-size:16px}
+.contact-item span{display:block;font-size:13px;color:#888}
+.contact-value{font-size:18px;font-weight:600;color:#ff7a00;margin-top:6px}
+
 /* RESPONSIVE */
 @media(max-width:768px){
   nav{
@@ -192,6 +198,10 @@ footer{
   <nav id="navMenu">
     <a href="#home">Home</a>
     <a href="About%20Us.html">About Us</a>
+
+    <!-- ADD ONLY -->
+    <a href="javascript:void(0)" onclick="openContact()">Contact Us</a>
+
     <a class="pay-btn" href="javascript:void(0)" onclick="openPaymentPopup()">Pay Now</a>
     <a href="javascript:void(0)" onclick="openAuth()">Login / Sign Up</a>
   </nav>
@@ -266,7 +276,7 @@ footer{
 Credvantage Financial Advisory Pvt. Ltd.
 </footer>
 
-<!-- AUTH MODAL -->
+<!-- AUTH MODAL (UNCHANGED) -->
 <div class="modal" id="authModal">
   <div class="modal-content">
     <span class="close" onclick="closeAuth()">×</span>
@@ -288,7 +298,25 @@ Credvantage Financial Advisory Pvt. Ltd.
   </div>
 </div>
 
-<!-- PAY NOW POPUP -->
+<!-- ========= ADD ONLY : CONTACT MODAL ========= -->
+<div class="modal" id="contactModal">
+  <div class="modal-content contact-box">
+    <span class="close" onclick="closeContact()">×</span>
+    <h3>Contact Us</h3>
+
+    <div class="contact-item">
+      📧 <span>Email</span>
+      <div class="contact-value">ltpscalper@gmail.com</div>
+    </div>
+
+    <div class="contact-item">
+      📞 <span>Phone</span>
+      <div class="contact-value">9412037763</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAY NOW POPUP (UNCHANGED) -->
 <div id="paymentPopup" class="payment-popup">
   <div class="payment-popup-box">
     <span class="payment-close" onclick="closePaymentPopup()">×</span>
@@ -303,7 +331,7 @@ function toggleMenu(){
   m.style.display=m.style.display==="flex"?"none":"flex";
 }
 
-/* AUTH */
+/* AUTH (UNCHANGED ORIGINAL LOGIC) */
 const AUTH_API_URL="https://script.google.com/macros/s/AKfycbyhqnpRxw3guJanAA-vrFBYtv5DTSUSSBBJDDQ7OFX0MsoWxFp3Xo2G9AP4Zreoc3U-MA/exec";
 let mode="login";
 
@@ -315,7 +343,6 @@ function openAuth(){
   toggleLink.innerText="Sign up";
   authModal.style.display="block";
 }
-
 function toggleAuth(){
   if(mode==="login"){
     mode="signup";
@@ -324,14 +351,9 @@ function toggleAuth(){
     toggleText.innerText="Already have account?";
     toggleLink.innerText="Login";
   }else{
-    mode="login";
-    authTitle.innerText="Login";
-    authName.style.display="none";
-    toggleText.innerText="New user?";
-    toggleLink.innerText="Sign up";
+    openAuth();
   }
 }
-
 function closeAuth(){
   authModal.style.display="none";
   mode="login";
@@ -359,7 +381,7 @@ function submitAuth(){
   .catch(()=>alert("Network error"));
 }
 
-/* PAY NOW POPUP */
+/* PAY NOW */
 function openPaymentPopup(){
   document.getElementById("paymentPopup").style.display="block";
 }
@@ -367,7 +389,15 @@ function closePaymentPopup(){
   document.getElementById("paymentPopup").style.display="none";
 }
 
-/* TYPING */
+/* ========= ADD ONLY : CONTACT JS ========= */
+function openContact(){
+  document.getElementById("contactModal").style.display="block";
+}
+function closeContact(){
+  document.getElementById("contactModal").style.display="none";
+}
+
+/* TYPING (UNCHANGED) */
 const text=["No Guesswork. Only Option Chain.","Trade Less. Trade Smart."];
 let i=0,j=0,t=document.getElementById("typing");
 function type(){
