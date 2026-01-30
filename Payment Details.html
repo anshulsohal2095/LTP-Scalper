@@ -5,11 +5,13 @@
 <title>LTP SCALPER | Payment</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- 🔐 LOGIN PROTECTION -->
+<!-- 🔐 LOGIN PROTECTION (DISABLED – PAYMENT FIRST FLOW) -->
 <script>
+/*
 if (localStorage.getItem("ltp_logged_in") !== "true") {
   window.location.href = "index.html";
 }
+*/
 </script>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -200,7 +202,6 @@ footer{
     <div class="payment-head">🏦 Bank Account Details</div>
 
     <div class="details">
-
       <div class="detail">
         <span>Bank Name</span>
         <strong>Unity Small Finance Bank Ltd.</strong>
@@ -225,7 +226,6 @@ footer{
         <span>Payment Mode</span>
         <strong>NEFT / RTGS / IMPS / UPI</strong>
       </div>
-
     </div>
 
     <div class="note">
@@ -254,5 +254,3 @@ function logout(){
 
 </body>
 </html>
-
-
