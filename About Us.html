@@ -45,65 +45,89 @@ nav a:hover{color:#ff7a00}
   text-align:center;
   background:linear-gradient(180deg,#fff3e0,#ffffff);
 }
-.hero h1{font-size:44px;color:#222}
+.hero h1{font-size:42px;color:#222}
 .hero p{
   color:#666;
   max-width:850px;
-  margin:15px auto 0;
+  margin:16px auto 0;
   font-size:16px;
 }
 
 /* SECTION */
 section{
-  padding:80px 20px;
+  padding:75px 20px;
   max-width:1100px;
   margin:auto;
 }
-h2{text-align:center;margin-bottom:10px;color:#222}
+h2{text-align:center;margin-bottom:12px;color:#222}
 .section-desc{
   text-align:center;
   color:#666;
   max-width:850px;
-  margin:10px auto 0;
+  margin:0 auto 30px;
   font-size:15px;
-}
-
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:25px;
-  margin-top:40px;
-}
-.card{
-  background:#ffffff;
-  padding:28px;
-  border-radius:14px;
-  border:1px solid #ffe0b2;
-  box-shadow:0 8px 18px rgba(0,0,0,.05);
-  text-align:center;
 }
 
 /* STORY BOX */
 .story{
   max-width:900px;
-  margin:40px auto 0;
+  margin:0 auto;
   font-size:15px;
   line-height:1.9;
   color:#555;
   background:#fff;
-  padding:35px;
+  padding:36px;
   border-radius:16px;
   border:1px solid #ffe0b2;
 }
 
-/* PROFILE IMAGE */
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:32px;
+  margin-top:40px;
+}
+
+/* CARD */
+.card{
+  background:#ffffff;
+  padding:32px 28px;
+  border-radius:16px;
+  border:2px solid #ffd6a0;
+  box-shadow:0 10px 24px rgba(0,0,0,.06);
+  text-align:center;
+}
+
+/* MENTOR */
+.mentor-card{
+  border:2.5px solid #ff7a00;
+  box-shadow:0 14px 30px rgba(255,122,0,.25);
+}
+.mentor-badge{
+  display:inline-block;
+  margin-bottom:14px;
+  padding:6px 16px;
+  background:#ff7a00;
+  color:#fff;
+  font-size:12px;
+  border-radius:20px;
+  font-weight:600;
+}
+
+/* FOUNDER */
+.founder-card{
+  border:2px solid #ffb066;
+}
+
+/* IMAGE */
 .profile-img{
-  width:120px;
-  height:120px;
+  width:130px;
+  height:130px;
   border-radius:50%;
   object-fit:cover;
-  margin-bottom:15px;
+  margin:10px auto 16px;
+  display:block;
 }
 
 /* FOOTER */
@@ -116,7 +140,15 @@ footer{
   background:#fff3e0;
 }
 
-/* RESPONSIVE */
+/* DESKTOP */
+@media(min-width:768px){
+  .grid{
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+  }
+}
+
+/* MOBILE NAV */
 @media(max-width:768px){
   nav{
     position:absolute;
@@ -142,7 +174,7 @@ footer{
   <div class="menu-btn" onclick="toggleMenu()">⋮</div>
   <nav id="navMenu">
     <a href="index.html">Home</a>
-    <a href="about.html">About Us</a>
+    <a href="About%20Us.html">About Us</a>
   </nav>
 </header>
 
@@ -150,8 +182,8 @@ footer{
 <div class="hero">
   <h1>About LTP Scalper</h1>
   <p>
-    LTP Scalper is a structured option-chain driven scalping system built on mentorship,
-    innovation and disciplined execution — designed for traders who value clarity over chaos.
+    A mentorship-driven option-chain scalping framework built on discipline,
+    structure and real-market execution.
   </p>
 </div>
 
@@ -159,32 +191,30 @@ footer{
 <section>
   <h2>Our Vision</h2>
   <p class="section-desc">
-    To eliminate guesswork and emotional trading by introducing a rule-based,
-    option-chain focused scalping approach that prioritizes risk management and consistency.
+    To remove guesswork and emotional trading by introducing a structured,
+    option-chain focused scalping approach where risk control comes first
+    and opportunity follows discipline.
   </p>
 </section>
 
-<!-- STORY -->
+<!-- JOURNEY -->
 <section>
   <h2>Our Journey</h2>
   <div class="story">
-    The foundation of <b>LTP Scalper</b> was laid with a simple belief —
-    markets reward discipline, not prediction.
-    <br><br>
+    The foundation of <b>LTP Scalper</b> was laid with one belief —
+    markets reward discipline, not prediction.<br><br>
 
-    This strategy was developed in close collaboration with
-    <b>Mohit Patel</b>, who has been a mentor and
-    guiding force throughout the journey. The core innovation and conceptual framework
-    originated from his deep understanding of option chain behaviour and market structure.
-    <br><br>
+    The core idea, strategic thinking and option-chain based innovation
+    were shaped under the mentorship of <b>Mohit Patel</b>,
+    whose deep understanding of market structure formed the backbone of the system.<br><br>
 
-    The responsibility of execution, system building, testing and real-market implementation
-    was undertaken by <b>Anshul Kumar</b>.
-    The focus was always on converting ideas into a practical, usable and disciplined scalping system.
-    <br><br>
+    The responsibility of execution, system architecture,
+    testing and real-market deployment was undertaken by <b>Anshul Kumar</b>,
+    ensuring that strategy translates into a practical,
+    disciplined and trader-friendly system.<br><br>
 
-    LTP Scalper evolved through observation, live market testing and continuous refinement.
-    Every rule and filter exists for one reason only — capital protection first, opportunity second.
+    Every rule inside LTP Scalper exists for one purpose only —
+    <b>capital protection first, opportunity second.</b>
   </div>
 </section>
 
@@ -192,29 +222,34 @@ footer{
 <section>
   <h2>Founder & Mentor</h2>
   <p class="section-desc">
-    A mentorship-driven system powered by disciplined execution.
+    Strategy conceived through mentorship. Executed through discipline.
   </p>
 
-  <div class="grid" style="max-width:900px;margin:auto">
-    <div class="card">
-      <img src="founder.jpg" alt="Founder Anshul Kumar" class="profile-img">
-      <h3>Founder – Anshul Kumar</h3>
-      <p style="font-size:14px;color:#666;line-height:1.7">
-        Founder of LTP Scalper, responsible for execution, system architecture,
-        real-market testing and trader usability. Focused on discipline,
-        risk control and building practical trading frameworks.
+  <div class="grid">
+
+    <!-- MENTOR -->
+    <div class="card mentor-card">
+      <span class="mentor-badge">Concept Architect & Strategic Mentor</span>
+      <img src="mentor.jpg" class="profile-img" alt="Mentor Mohit Patel">
+      <h3>Mohit Patel</h3>
+      <p style="font-size:14px;color:#666;line-height:1.8">
+        The intellectual force behind LTP Scalper.
+        His innovation, option-chain expertise and market insight
+        shaped the strategic logic and structure of the system.
       </p>
     </div>
 
-    <div class="card">
-      <img src="mentor.jpg" alt="Mentor Mohit Patel" class="profile-img">
-      <h3>Mentor – Mohit Patel</h3>
+    <!-- FOUNDER -->
+    <div class="card founder-card">
+      <img src="founder.jpg" class="profile-img" alt="Founder Anshul Kumar">
+      <h3>Anshul Kumar</h3>
       <p style="font-size:14px;color:#666;line-height:1.7">
-        Mentor and conceptual innovator behind LTP Scalper.
-        His experience and understanding of option chain dynamics
-        laid the foundation of the system’s strategic logic.
+        Founder of LTP Scalper, responsible for execution,
+        system design, testing and live-market implementation.
+        Focused on discipline, usability and risk control.
       </p>
     </div>
+
   </div>
 </section>
 
@@ -223,9 +258,9 @@ footer{
   <h2>What Makes LTP Scalper Different</h2>
   <div class="grid">
     <div class="card">📊 Option Chain First Approach</div>
-    <div class="card">🧠 Mentorship Driven Logic</div>
-    <div class="card">⚡ Clear Execution Rules</div>
-    <div class="card">🛡️ Risk Management Priority</div>
+    <div class="card">🧠 Mentorship Driven Strategy</div>
+    <div class="card">⚡ Rule-Based Execution</div>
+    <div class="card">🛡️ Capital Protection Priority</div>
   </div>
 </section>
 
@@ -234,24 +269,15 @@ footer{
   <h2>Disclaimer</h2>
   <div class="story" style="font-size:14px">
     LTP Scalper is an educational and trading assistance platform.
-    We do not provide any guaranteed returns, profit assurances or fixed income promises.
-    <br><br>
+    We do not provide any guaranteed returns or profit assurances.<br><br>
 
-    Trading and investing in financial markets involves substantial risk,
-    including possible loss of capital. Past performance does not guarantee future results.
-    <br><br>
+    Trading and investing in financial markets involves risk,
+    including possible loss of capital. Past performance does not
+    guarantee future results.<br><br>
 
-    All strategies, tools and examples provided are for educational purposes only
-    and should not be considered as investment or trading advice.
-    <br><br>
-
-    Users are advised to consult their own financial advisors before making any trading decisions.
-    LTP Scalper, its founder, mentor or associated entities shall not be responsible
-    for any financial losses incurred.
-    <br><br>
-
-    By using this platform, you acknowledge that you understand the risks involved
-    and take full responsibility for your trading actions.
+    Users are advised to consult their own financial advisors before
+    making any trading decisions. LTP Scalper, its founder, mentor
+    or associated entities shall not be responsible for any losses incurred.
   </div>
 </section>
 
