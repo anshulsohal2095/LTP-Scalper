@@ -60,7 +60,7 @@ nav a:hover{color:#ff7a00}
 }
 .hero h1{font-size:46px;color:#222}
 .typing{color:#ff7a00;font-weight:600;height:28px}
-.hero p{color:#666}
+.hero p{color:#666;max-width:820px;margin:auto}
 
 /* SECTION */
 section{
@@ -186,15 +186,6 @@ footer{
 
 <body>
 
-<!-- AUTO REDIRECT (DISABLED, NOT DELETED) -->
-<script>
-/*
-if (localStorage.getItem("ltp_logged_in") === "true") {
-  window.location.href = "Live%20Trades%20Dashboard.html";
-}
-*/
-</script>
-
 <header>
   <div class="logo">LTP SCALPER</div>
   <div class="menu-btn" onclick="toggleMenu()">⋮</div>
@@ -209,27 +200,63 @@ if (localStorage.getItem("ltp_logged_in") === "true") {
 <div class="hero" id="home">
   <h1>No Guesswork Trading</h1>
   <div class="typing" id="typing"></div>
-  <p>Option Chain–Driven Scalping Platform</p>
+  <p>
+    LTP SCALPER is a professional option-chain driven scalping platform designed for traders who
+    want consistency, discipline and clarity. This system eliminates guesswork, emotional trading
+    and indicator overload by focusing purely on price behaviour and option chain data.
+  </p>
 </div>
 
 <!-- WHY -->
 <section>
-  <h2>Why Most Traders Lose</h2>
+  <h2>Why Most Traders Lose Money</h2>
+  <p>
+    Majority of traders fail not because markets are difficult, but because they trade without a
+    structured system. Emotional decisions, overtrading and ignoring option chain data lead to
+    repeated losses.
+  </p>
   <div class="grid">
-    <div class="card">❌ Over Trading</div>
-    <div class="card">❌ Indicator Confusion</div>
-    <div class="card">❌ Emotional Trades</div>
-    <div class="card">❌ No Option Chain Logic</div>
+    <div class="card">❌ Over trading without confirmation</div>
+    <div class="card">❌ Too many indicators, no clarity</div>
+    <div class="card">❌ Emotional & revenge trading</div>
+    <div class="card">❌ No understanding of option chain</div>
   </div>
 </section>
 
-<!-- PLANS -->
+<!-- HOW -->
 <section>
-  <h2>Plans</h2>
+  <h2>How LTP Scalper Works</h2>
+  <p>
+    LTP Scalper uses real-time option chain behaviour combined with price action to identify
+    high-probability intraday scalping opportunities with controlled risk.
+  </p>
   <div class="grid">
-    <div class="card">Starter – ₹999</div>
-    <div class="card">Pro – ₹2999</div>
-    <div class="card">Elite – ₹4999</div>
+    <div class="card">📊 Live Option Chain Analysis</div>
+    <div class="card">🎯 Pre-defined Entry & Exit Levels</div>
+    <div class="card">⚡ Fast Scalping Logic for Intraday</div>
+    <div class="card">🧠 Rule-based, emotion-free execution</div>
+  </div>
+</section>
+
+<!-- PLAN -->
+<section>
+  <h2>Elite Membership Plan</h2>
+  <p>
+    One premium plan designed for serious traders who want professional-grade scalping access
+    without confusion or multiple packages.
+  </p>
+  <div class="grid" style="max-width:380px;margin:auto">
+    <div class="card">
+      <h3>Elite Access</h3>
+      <p style="font-size:34px;color:#ff7a00;font-weight:700">₹4,999</p>
+      <p><b>Per Month</b></p>
+      <p>
+        Complete access to LTP Scalper including live option-chain based signals, disciplined
+        scalping logic, risk management framework and live trades dashboard.
+      </p>
+      <br>
+      <a class="pay-btn" href="javascript:void(0)" onclick="openPaymentPopup()">Subscribe Now</a>
+    </div>
   </div>
 </section>
 
