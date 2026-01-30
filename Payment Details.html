@@ -7,7 +7,7 @@
 
 <!-- 🔐 LOGIN PROTECTION -->
 <script>
-if (localStorage.getItem("ltp_logged_in") !== "false") {
+if (localStorage.getItem("ltp_logged_in") !== "true") {
   window.location.href = "index.html";
 }
 </script>
@@ -254,4 +254,5 @@ function logout(){
 
 </body>
 </html>
+
 
