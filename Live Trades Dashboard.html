@@ -191,17 +191,52 @@ footer{
   border-top:1px solid #eee;
 }
 
+/* ---------- DISCLAIMER MODAL ---------- */
+#disclaimerModal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+#disclaimerModal .box{
+  background:#fff;
+  max-width:420px;
+  width:90%;
+  padding:22px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
+#disclaimerModal h3{color:#ff8c00;margin-top:0}
+#disclaimerModal p{font-size:13px;color:#444;line-height:1.6}
+
 /* ---------- MOBILE ---------- */
 @media(max-width:600px){
-  .brand{
-    flex-direction:column;
-    align-items:flex-start;
-  }
+  .brand{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
 
 <body>
+
+<!-- DISCLAIMER POPUP -->
+<div id="disclaimerModal">
+  <div class="box">
+    <h3>⚠️ Disclaimer</h3>
+    <p>
+      Ye sabhi trades <strong>sirf educational purposes</strong> ke liye hain.<br><br>
+      Stock market me trading risk se bhari hoti hai.
+      Kisi bhi <strong>profit ya loss</strong> ke liye
+      <strong>poori zimmedari investor/trader ki apni hogi</strong>.
+    </p>
+    <button onclick="acceptDisclaimer()" class="classroom-btn">
+      I Understand & Agree
+    </button>
+  </div>
+</div>
 
 <header>
   <div class="brand">
@@ -209,23 +244,14 @@ footer{
     <div class="tagline">Live Trade • Indian Stock Market</div>
     <div id="marketBadge" class="market-badge">Checking…</div>
     <div id="countdown" class="countdown"></div>
-
-    <!-- ✅ ONLY ADDITION -->
     <a href="Live%20Class.html" class="classroom-btn">CLASSROOM</a>
-
     <button class="logout-btn" onclick="logout()">Logout</button>
   </div>
 </header>
 
 <div class="summary">
-  <div class="card">
-    <h4>Total Trades</h4>
-    <h2 id="totalTrades">0</h2>
-  </div>
-  <div class="card" id="plCard">
-    <h4>Day P/L</h4>
-    <h2 id="dayPL">₹0</h2>
-  </div>
+  <div class="card"><h4>Total Trades</h4><h2 id="totalTrades">0</h2></div>
+  <div class="card" id="plCard"><h4>Day P/L</h4><h2 id="dayPL">₹0</h2></div>
 </div>
 
 <div class="tabs">
@@ -271,7 +297,19 @@ function logout(){
 }
 </script>
 
-<!-- ✅ MARKET TIMER -->
+<script>
+(function(){
+  if(localStorage.getItem("ltp_disclaimer_accepted")!=="true"){
+    disclaimerModal.style.display="flex";
+  }
+})();
+function acceptDisclaimer(){
+  localStorage.setItem("ltp_disclaimer_accepted","true");
+  disclaimerModal.style.display="none";
+}
+</script>
+
+<!-- MARKET TIMER -->
 <script>
 function fmt(sec){
   const h=Math.floor(sec/3600);
@@ -305,11 +343,10 @@ function updateMarket(){
     marketBadge.innerText="POST-MARKET";
   }
 }
-updateMarket();
-setInterval(updateMarket,1000);
+updateMarket();setInterval(updateMarket,1000);
 </script>
 
-<!-- ✅ GOOGLE SHEET LIVE DATA (UNCHANGED) -->
+<!-- GOOGLE SHEET LIVE DATA -->
 <script>
 const API="https://script.google.com/macros/s/AKfycbwR38Ai6MGtf-ftAvOijHND1ornYWrwWDSoXCO0s86DVI_p7tZqE8MnGWZWq_iW0AVy_A/exec";
 let liveCount=0,closedCount=0,totalPL=0;
