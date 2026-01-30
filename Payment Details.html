@@ -64,12 +64,6 @@ header{
   border:1px solid #ffb703;
   color:#444;
 }
-.pill.logout{
-  background:var(--red);
-  color:#fff;
-  border:none;
-  cursor:pointer;
-}
 
 /* ===== HERO ===== */
 .hero{
@@ -184,8 +178,7 @@ footer{
 <header>
   <div class="topbar">
     <div class="logo">LTP SCALPER</div>
-    <a href="dashboard.html" class="pill back">← Back to Dashboard</a>
-    <button class="pill logout" onclick="logout()">Logout</button>
+    <a href="index.html" class="pill back">← Back to Home</a>
   </div>
 </header>
 
@@ -244,13 +237,6 @@ footer{
 © 2026 <strong>Credvantage Financial Advisory Pvt. Ltd.</strong><br>
 Payments are accepted only in the official company account.
 </footer>
-
-<script>
-function logout(){
-  localStorage.clear();
-  window.location.href="index.html";
-}
-</script>
 
 </body>
 </html>
