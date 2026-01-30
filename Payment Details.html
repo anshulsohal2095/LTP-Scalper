@@ -234,8 +234,6 @@ footer{
     <button class="confirm-btn" onclick="submitUTR()">
       Submit for Verification
     </button>
-
-    <p id="utrMsg" style="text-align:center;font-size:12px;margin-top:10px"></p>
   </div>
 </div>
 
@@ -243,6 +241,7 @@ footer{
 function goBackHome(){
   if (window.parent && window.parent.closePaymentPopup) {
     window.parent.closePaymentPopup();
+    window.parent.location.href = "index.html";
   } else {
     window.location.href = "index.html";
   }
@@ -256,19 +255,19 @@ function closeUTRPopup(){
 }
 
 function submitUTR(){
-  const utr=document.getElementById("utrNumber").value.trim();
+  const utr = document.getElementById("utrNumber").value.trim();
   if(!utr){
     alert("Please enter UTR / Transaction ID");
     return;
   }
 
-  document.getElementById("utrMsg").innerText =
-    "✅ UTR submitted. Verification in progress.";
-
-  // ✅ AUTO CLOSE AFTER SUBMIT
-  setTimeout(()=>{
-    closeUTRPopup();
-  },1500);
+  // 👉 YAHI FINAL ACTION
+  if (window.parent && window.parent.closePaymentPopup) {
+    window.parent.closePaymentPopup();
+    window.parent.location.href = "index.html";
+  } else {
+    window.location.href = "index.html";
+  }
 }
 </script>
 
