@@ -39,7 +39,6 @@ nav a{
 }
 nav a:hover{color:#ff7a00}
 
-/* PAY NOW */
 .pay-btn{
   padding:8px 18px;
   background:#ff7a00;
@@ -48,11 +47,9 @@ nav a:hover{color:#ff7a00}
   font-size:13px;
   font-weight:600;
 }
-.pay-btn:hover{opacity:.9}
-
 .menu-btn{display:none;font-size:24px;cursor:pointer;color:#ff7a00}
 
-/* ================= LIVE TICKER (ADD) ================= */
+/* LIVE TICKER */
 .ticker-wrap{
   background:#fff;
   border-top:2px solid #ff7a00;
@@ -60,23 +57,17 @@ nav a:hover{color:#ff7a00}
   overflow:hidden;
   padding:10px 0;
 }
-
-@media(max-width:768px){
-  .ticker-wrap{display:none}
-}
-
+@media(max-width:768px){.ticker-wrap{display:none}}
 .ticker{
   display:flex;
   width:max-content;
   white-space:nowrap;
-  animation: tickerScroll 90s linear infinite;
+  animation:tickerScroll 90s linear infinite;
 }
-
 @keyframes tickerScroll{
   from{transform:translateX(0)}
   to{transform:translateX(-50%)}
 }
-
 .ticker-item{
   display:flex;
   align-items:center;
@@ -86,10 +77,7 @@ nav a:hover{color:#ff7a00}
   background:#fffdf3;
   border-radius:8px;
   font-weight:600;
-  flex-shrink:0;
 }
-
-.ticker-symbol{color:#000}
 .ticker-price.up{color:#0a9b3f}
 .ticker-price.down{color:#d60000}
 
@@ -99,17 +87,13 @@ nav a:hover{color:#ff7a00}
   text-align:center;
   background:linear-gradient(180deg,#fff3e0,#ffffff);
 }
-.hero h1{font-size:46px;color:#222}
+.hero h1{font-size:46px}
 .typing{color:#ff7a00;font-weight:600;height:28px}
-.hero p{color:#666;max-width:820px;margin:auto}
+.hero p{max-width:820px;margin:auto;color:#666}
 
 /* SECTION */
-section{
-  padding:80px 20px;
-  max-width:1100px;
-  margin:auto;
-}
-h2{text-align:center;margin-bottom:10px;color:#222}
+section{padding:80px 20px;max-width:1100px;margin:auto}
+h2{text-align:center}
 p{text-align:center;color:#666}
 
 /* GRID */
@@ -120,7 +104,7 @@ p{text-align:center;color:#666}
   margin-top:40px;
 }
 .card{
-  background:#ffffff;
+  background:#fff;
   padding:25px;
   border-radius:14px;
   border:1px solid #ffe0b2;
@@ -128,23 +112,19 @@ p{text-align:center;color:#666}
   box-shadow:0 8px 18px rgba(0,0,0,.05);
   transition:.3s;
 }
-.card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 12px 25px rgba(0,0,0,.08);
-}
+.card:hover{transform:translateY(-6px)}
 
 /* FOOTER */
 footer{
   text-align:center;
   padding:30px;
   border-top:1px solid #ffe0b2;
-  color:#666;
-  font-size:13px;
   background:#fff3e0;
+  font-size:13px;
 }
 
-/* AUTH MODAL */
-.modal{
+/* MODALS */
+.modal,.payment-popup{
   display:none;
   position:fixed;
   inset:0;
@@ -152,7 +132,7 @@ footer{
   z-index:2000;
 }
 .modal-content{
-  background:#ffffff;
+  background:#fff;
   max-width:420px;
   margin:12% auto;
   padding:30px;
@@ -172,14 +152,7 @@ footer{
   color:#ff7a00;
 }
 
-/* PAY NOW POPUP */
-.payment-popup{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.65);
-  z-index:9999;
-}
+/* PAYMENT */
 .payment-popup-box{
   position:relative;
   width:92%;
@@ -195,10 +168,8 @@ footer{
   top:10px;
   right:14px;
   font-size:28px;
-  font-weight:700;
   color:#ff7a00;
   cursor:pointer;
-  z-index:10;
 }
 .payment-frame{
   width:100%;
@@ -206,19 +177,12 @@ footer{
   border:none;
 }
 
-/* CONTACT */
-.contact-box{text-align:center}
-.contact-item{margin:20px 0;font-size:16px}
-.contact-item span{display:block;font-size:13px;color:#888}
-.contact-value{font-size:18px;font-weight:600;color:#ff7a00;margin-top:6px}
-
-/* RESPONSIVE */
 @media(max-width:768px){
   nav{
     position:absolute;
     top:65px;
     right:20px;
-    background:#ffffff;
+    background:#fff;
     border:1px solid #ffe0b2;
     border-radius:10px;
     padding:15px;
@@ -245,12 +209,10 @@ footer{
   </nav>
 </header>
 
-<!-- ===== LIVE TICKER ===== -->
 <div class="ticker-wrap">
   <div class="ticker" id="liveTicker"></div>
 </div>
 
-<!-- HERO -->
 <div class="hero" id="home">
   <h1>No Guesswork Trading</h1>
   <div class="typing" id="typing"></div>
@@ -260,10 +222,8 @@ footer{
   </p>
 </div>
 
-<!-- WHY -->
 <section>
   <h2>Why Most Traders Lose Money</h2>
-  <p>Majority of traders fail not because markets are difficult, but because they trade without a structured system.</p>
   <div class="grid">
     <div class="card">❌ Over trading without confirmation</div>
     <div class="card">❌ Too many indicators, no clarity</div>
@@ -272,10 +232,8 @@ footer{
   </div>
 </section>
 
-<!-- HOW -->
 <section>
   <h2>How LTP Scalper Works</h2>
-  <p>Uses real-time option chain behaviour combined with price action.</p>
   <div class="grid">
     <div class="card">📊 Live Option Chain Analysis</div>
     <div class="card">🎯 Pre-defined Entry & Exit Levels</div>
@@ -284,15 +242,12 @@ footer{
   </div>
 </section>
 
-<!-- PLAN -->
 <section>
   <h2>Elite Membership Plan</h2>
-  <p>One premium plan designed for serious traders.</p>
   <div class="grid" style="max-width:380px;margin:auto">
     <div class="card">
       <h3>Elite Access</h3>
       <p style="font-size:34px;color:#ff7a00;font-weight:700">₹4,999</p>
-      <p><b>Per Month</b></p>
       <a class="pay-btn" href="javascript:void(0)" onclick="openPaymentPopup()">Subscribe Now</a>
     </div>
   </div>
@@ -303,7 +258,7 @@ footer{
 Credvantage Financial Advisory Pvt. Ltd.
 </footer>
 
-<!-- AUTH MODAL -->
+<!-- ================= AUTH MODAL ================= -->
 <div class="modal" id="authModal">
   <div class="modal-content">
     <span class="close" onclick="closeAuth()">×</span>
@@ -323,19 +278,13 @@ Credvantage Financial Advisory Pvt. Ltd.
   </div>
 </div>
 
-<!-- CONTACT MODAL -->
+<!-- CONTACT -->
 <div class="modal" id="contactModal">
-  <div class="modal-content contact-box">
+  <div class="modal-content">
     <span class="close" onclick="closeContact()">×</span>
     <h3>Contact Us</h3>
-    <div class="contact-item">
-      📧 <span>Email</span>
-      <div class="contact-value">ltpscalper@gmail.com</div>
-    </div>
-    <div class="contact-item">
-      📞 <span>Phone</span>
-      <div class="contact-value">9412037763</div>
-    </div>
+    <p>📧 ltpscalper@gmail.com</p>
+    <p>📞 9412037763</p>
   </div>
 </div>
 
@@ -343,17 +292,20 @@ Credvantage Financial Advisory Pvt. Ltd.
 <div id="paymentPopup" class="payment-popup">
   <div class="payment-popup-box">
     <span class="payment-close" onclick="closePaymentPopup()">×</span>
-    <iframe src="/Payment%20Details.html" class="payment-frame"></iframe>
+    <iframe
+      src="/Payment%20Details.html"
+      class="payment-frame"
+      sandbox="allow-scripts allow-forms allow-same-origin">
+    </iframe>
   </div>
 </div>
 
 <script>
 function toggleMenu(){
-  const m=document.getElementById("navMenu");
-  m.style.display=m.style.display==="flex"?"none":"flex";
+  navMenu.style.display=navMenu.style.display==="flex"?"none":"flex";
 }
 
-/* AUTH LOGIC (UNCHANGED) */
+/* AUTH LOGIC – FIXED */
 const AUTH_API_URL="https://script.google.com/macros/s/AKfycbyhqnpRxw3guJanAA-vrFBYtv5DTSUSSBBJDDQ7OFX0MsoWxFp3Xo2G9AP4Zreoc3U-MA/exec";
 let mode="login";
 
@@ -365,6 +317,7 @@ function openAuth(){
   toggleLink.innerText="Sign up";
   authModal.style.display="block";
 }
+
 function toggleAuth(){
   if(mode==="login"){
     mode="signup";
@@ -373,9 +326,14 @@ function toggleAuth(){
     toggleText.innerText="Already have account?";
     toggleLink.innerText="Login";
   }else{
-    openAuth();
+    mode="login";
+    authTitle.innerText="Login";
+    authName.style.display="none";
+    toggleText.innerText="New user?";
+    toggleLink.innerText="Sign up";
   }
 }
+
 function closeAuth(){
   authModal.style.display="none";
   mode="login";
@@ -411,40 +369,38 @@ function closePaymentPopup(){paymentPopup.style.display="none"}
 function openContact(){contactModal.style.display="block"}
 function closeContact(){contactModal.style.display="none"}
 
-/* TYPING EFFECT */
+/* TYPING */
 const text=["No Guesswork. Only Option Chain.","Trade Less. Trade Smart."];
-let i=0,j=0,t=document.getElementById("typing");
+let i=0,j=0;
 function type(){
-  if(j<text[i].length){t.textContent+=text[i][j++];setTimeout(type,80)}
+  if(j<text[i].length){typing.textContent+=text[i][j++];setTimeout(type,80)}
   else setTimeout(erase,1200);
 }
 function erase(){
-  if(j>0){t.textContent=text[i].substring(0,--j);setTimeout(erase,40)}
+  if(j>0){typing.textContent=text[i].substring(0,--j);setTimeout(erase,40)}
   else{i=(i+1)%text.length;setTimeout(type,300)}
 }
 type();
 
-/* ===== LIVE TICKER JS ===== */
+/* LIVE TICKER */
 let oldPrices={};
 async function loadLiveTicker(){
-  const res = await fetch("https://script.google.com/macros/s/AKfycbzMZLG-pAleRMpVvUAusafaivILnONGqhd8Oc_1K9ILhIrxLmmGxxZvoZVNnWLTXJT5BA/exec");
-  const data = await res.json();
-  let html="";
-  data.forEach(s=>{
-    let cls="";
+  const r=await fetch("https://script.google.com/macros/s/AKfycbzMZLG-pAleRMpVvUAusafaivILnONGqhd8Oc_1K9ILhIrxLmmGxxZvoZVNnWLTXJT5BA/exec");
+  const d=await r.json();
+  let h="";
+  d.forEach(s=>{
+    let c="";
     if(oldPrices[s.symbol]){
-      if(s.price>oldPrices[s.symbol]) cls="up";
-      else if(s.price<oldPrices[s.symbol]) cls="down";
+      if(s.price>oldPrices[s.symbol])c="up";
+      else if(s.price<oldPrices[s.symbol])c="down";
     }
     oldPrices[s.symbol]=s.price;
-    html+=`
-      <div class="ticker-item">
-        <span class="ticker-symbol">${s.symbol}</span>
-        <span class="ticker-price ${cls}">₹${s.price}</span>
-      </div>
-    `;
+    h+=`<div class="ticker-item">
+      <span>${s.symbol}</span>
+      <span class="ticker-price ${c}">₹${s.price}</span>
+    </div>`;
   });
-  liveTicker.innerHTML=html+html;
+  liveTicker.innerHTML=h+h;
 }
 loadLiveTicker();
 setInterval(loadLiveTicker,5000);
