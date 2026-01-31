@@ -41,6 +41,7 @@ header{
   align-items:center;
   gap:12px;
   flex-wrap:wrap;
+  width:100%;
 }
 .brand h1{
   margin:0;
@@ -48,6 +49,9 @@ header{
   font-weight:700;
   color:var(--orange);
 }
+
+/* PUSH RIGHT */
+.spacer{flex:1}
 
 /* LIVE DOT */
 .live-dot{
@@ -224,6 +228,10 @@ tr:nth-child(even){background:var(--light-yellow)}
     <div id="marketBadge" class="market-badge">Checking…</div>
     <div id="countdown" class="countdown"></div>
     <a href="Live%20Class.html" class="classroom-btn">CLASSROOM</a>
+
+    <div class="spacer"></div>
+
+    <!-- LOGOUT TOP RIGHT -->
     <button class="logout-btn" onclick="logout()">Logout</button>
   </div>
 </header>
@@ -241,29 +249,29 @@ tr:nth-child(even){background:var(--light-yellow)}
 </div>
 
 <div class="container">
-<div class="table-wrap">
-<table id="liveTable">
-<thead>
-<tr>
-<th>Symbol</th><th>Type</th><th>Entry</th><th>Target</th><th>SL</th>
-<th>Lots</th><th>Qty</th><th>Status</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</div>
+  <div class="table-wrap">
+    <table id="liveTable">
+      <thead>
+        <tr>
+          <th>Symbol</th><th>Type</th><th>Entry</th><th>Target</th><th>SL</th>
+          <th>Lots</th><th>Qty</th><th>Status</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 
-<div class="table-wrap">
-<table id="closedTable" class="hidden">
-<thead>
-<tr>
-<th>Symbol</th><th>Type</th><th>Entry</th><th>Exit</th>
-<th>Lots</th><th>Qty</th><th>P/L</th><th>Result</th><th>Status</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</div>
+  <div class="table-wrap">
+    <table id="closedTable" class="hidden">
+      <thead>
+        <tr>
+          <th>Symbol</th><th>Type</th><th>Entry</th><th>Exit</th>
+          <th>Lots</th><th>Qty</th><th>P/L</th><th>Result</th><th>Status</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 </div>
 
 <footer style="text-align:center;padding:14px;font-size:11px;color:#777;border-top:1px solid #eee">
@@ -287,7 +295,7 @@ function acceptDisclaimer(){
 }
 </script>
 
-<!-- ✅ MARKET OPEN / CLOSE TIMER (RESTORED) -->
+<!-- MARKET TIMER -->
 <script>
 function fmt(sec){
   const h=Math.floor(sec/3600);
@@ -325,7 +333,7 @@ updateMarket();
 setInterval(updateMarket,1000);
 </script>
 
-<!-- 🔴 GOOGLE SHEET LIVE DATA (UNCHANGED) -->
+<!-- GOOGLE SHEET LIVE DATA -->
 <script>
 const API="https://script.google.com/macros/s/AKfycbwR38Ai6MGtf-ftAvOijHND1ornYWrwWDSoXCO0s86DVI_p7tZqE8MnGWZWq_iW0AVy_A/exec";
 let liveCount=0,closedCount=0,totalPL=0;
@@ -377,7 +385,7 @@ if(totalPL>0)plCard.classList.add("pl-plus");
 if(totalPL<0)plCard.classList.add("pl-minus");
 }
 
-loadLive(); loadClosed();
+loadLive();loadClosed();
 setInterval(loadLive,5000);
 setInterval(loadClosed,5000);
 </script>
