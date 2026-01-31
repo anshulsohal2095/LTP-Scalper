@@ -5,11 +5,17 @@
 <title>LTP SCALPER | Trading Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- 🔐 LOGIN PROTECTION -->
+<!-- 🔐 STRONG LOGIN PROTECTION (VERCEL SAFE) -->
 <script>
-if (localStorage.getItem("ltp_logged_in") !== "true") {
-  window.location.href = "index.html";
-}
+(function () {
+  try {
+    if (localStorage.getItem("ltp_logged_in") !== "true") {
+      window.location.replace("/index.html");
+    }
+  } catch (e) {
+    window.location.replace("/index.html");
+  }
+})();
 </script>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -302,7 +308,7 @@ All trades are for educational purposes only.
 <script>
 function logout(){
   localStorage.clear();
-  window.location.href="index.html";
+  window.location.href="/index.html";
 }
 </script>
 
@@ -412,9 +418,9 @@ setInterval(loadClosed,5000);
 </script>
 
 <script>
-/* ✅ VERCEL SAFE FILE LINK */
+/* F&O STOCKS LIST PAGE */
 function openFOStocks(){
-  window.location.href = "/F%26O%20Stocks%20list.html";
+  window.location.href="/F%26O%20Stocks%20list.html";
 }
 </script>
 
