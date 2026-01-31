@@ -39,8 +39,8 @@ header{
 .topbar{
   display:flex;
   align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
+  justify-content:space-between;
+  width:100%;
 }
 
 /* LOGO */
@@ -48,35 +48,28 @@ header{
   font-size:20px;
   font-weight:700;
   color:var(--orange);
-  margin-right:6px;
   white-space:nowrap;
 }
-
-/* PILLS */
-.pill{
-  padding:6px 14px;
-  border-radius:25px;
-  font-size:12px;
+.logo span{
+  font-size:14px;
   font-weight:600;
-  white-space:nowrap;
-  text-decoration:none;
-  display:inline-block;
+  color:#555;
+  margin-left:8px;
 }
 
-.pill.trade{
-  background:#fff6db;
-  border:1px solid #ffb703;
-  color:#444;
-}
-.pill.post{
-  background:var(--purple);
-  color:#fff;
-}
-.pill.logout{
-  background:var(--red);
+/* BACK BUTTON */
+.back-btn{
+  background:#ff8c00;
   color:#fff;
   border:none;
+  padding:8px 18px;
+  border-radius:22px;
+  font-size:12px;
+  font-weight:600;
   cursor:pointer;
+}
+.back-btn:hover{
+  background:#e67600;
 }
 
 /* ===== HERO ===== */
@@ -153,16 +146,11 @@ footer{
 
 <header>
   <div class="topbar">
-    <div class="logo">LTP SCALPER</div>
+    <div class="logo">
+      LTP SCALPER <span>Live Class</span>
+    </div>
 
-    <!-- ✅ FIXED LINK -->
-    <a href="Live Trades Dashboard.html" class="pill trade">
-      Live Trade • Indian Stock Market
-    </a>
-
-    <div class="pill post">POST-MARKET</div>
-
-    <button class="pill logout" onclick="logout()">Logout</button>
+    <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
   </div>
 </header>
 
@@ -217,16 +205,20 @@ Educational purpose only.
 </footer>
 
 <script>
+function goBack(){
+  window.history.back();
+}
+
 function logout(){
   localStorage.clear();
   window.location.href="index.html";
 }
 
-/* ===== SAFE TIME LOCK (NO ERROR IF ELEMENTS MISSING) ===== */
+/* ===== SAFE TIME LOCK (UNCHANGED) ===== */
 (function(){
   const btn = document.getElementById("joinBtn");
   const msg = document.getElementById("timeMsg");
-  if(!btn || !msg) return; // ✅ prevents JS crash
+  if(!btn || !msg) return;
 
   const now = new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"});
   const d = new Date(now);
