@@ -49,20 +49,6 @@ header{
   color:var(--orange);
 }
 
-/* LIVE DOT */
-.live-dot{
-  width:10px;height:10px;
-  background:#e53935;
-  border-radius:50%;
-  display:none
-}
-.blink{animation:blink 1s infinite}
-@keyframes blink{
-  0%{opacity:1}
-  50%{opacity:.2}
-  100%{opacity:1}
-}
-
 /* TAGLINE */
 .tagline{
   font-size:12px;
@@ -73,20 +59,6 @@ header{
   border-radius:20px;
   border:1px solid #ffb703;
 }
-
-/* MARKET BADGE */
-.market-badge{
-  font-size:11px;
-  font-weight:700;
-  padding:5px 12px;
-  border-radius:20px;
-  color:#fff;
-}
-.preopen{background:#f39c12}
-.open{background:#2ecc71}
-.post{background:#9b59b6}
-.closed{background:#e74c3c}
-.countdown{font-size:11px;font-weight:600;color:#555}
 
 /* BUTTONS */
 .logout-btn{
@@ -169,7 +141,6 @@ th{
 td{padding:12px;text-align:center;font-size:13px}
 tr:nth-child(even){background:var(--light-yellow)}
 
-/* STATUS */
 .status{
   padding:5px 12px;
   border-radius:20px;
@@ -179,27 +150,16 @@ tr:nth-child(even){background:var(--light-yellow)}
 }
 .LIVE{background:#ff9800}
 .CLOSED{background:#607d8b}
-
-/* RESULT COLORS */
 .RESULT-TARGET{background:#2ecc71}
 .RESULT-SL{background:#e74c3c}
 
 .hidden{display:none}
 
-/* ---------- FOOTER ---------- */
-footer{
-  text-align:center;
-  padding:14px;
-  font-size:11px;
-  color:#777;
-  border-top:1px solid #eee;
-}
-
-/* ---------- DISCLAIMER MODAL ---------- */
+/* ---------- DISCLAIMER ---------- */
 #disclaimerModal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.65);
+  background:rgba(0,0,0,.6);
   display:none;
   align-items:center;
   justify-content:center;
@@ -207,19 +167,11 @@ footer{
 }
 #disclaimerModal .box{
   background:#fff;
-  max-width:420px;
-  width:90%;
-  padding:22px;
-  border-radius:18px;
+  max-width:520px;
+  width:92%;
+  padding:26px;
+  border-radius:20px;
   text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,.25);
-}
-#disclaimerModal h3{color:#ff8c00;margin-top:0}
-#disclaimerModal p{font-size:13px;color:#444;line-height:1.6}
-
-/* ---------- MOBILE ---------- */
-@media(max-width:600px){
-  .brand{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
@@ -229,8 +181,8 @@ footer{
 <!-- DISCLAIMER -->
 <div id="disclaimerModal">
   <div class="box">
-    <h3>⚠️ Disclaimer</h3>
-    <p>
+    <h3 style="color:#ff8c00;margin-top:0">⚠️ Disclaimer</h3>
+    <p style="font-size:14px;line-height:1.6">
       All trades shown here are strictly for <strong>educational purposes only</strong>.
     </p>
     <button onclick="acceptDisclaimer()" class="classroom-btn">I Understand & Agree</button>
@@ -239,10 +191,8 @@ footer{
 
 <header>
   <div class="brand">
-    <h1>LTP SCALPER <span id="liveDot" class="live-dot"></span></h1>
+    <h1>LTP SCALPER</h1>
     <div class="tagline">Live Trade • Indian Stock Market</div>
-    <div id="marketBadge" class="market-badge">Checking…</div>
-    <div id="countdown" class="countdown"></div>
     <a href="Live%20Class.html" class="classroom-btn">CLASSROOM</a>
     <button class="logout-btn" onclick="logout()">Logout</button>
   </div>
@@ -253,7 +203,6 @@ footer{
   <div class="card" id="plCard"><h4>Day P/L</h4><h2 id="dayPL">₹0</h2></div>
 </div>
 
-<!-- ✅ TABS (Aritrage added, nothing removed) -->
 <div class="tabs">
   <div class="tab active" onclick="showTab('live',this)">LIVE TRADES</div>
   <div class="tab" onclick="showTab('closed',this)">CLOSED TRADES</div>
@@ -287,7 +236,7 @@ footer{
 </div>
 </div>
 
-<footer>
+<footer style="text-align:center;padding:14px;font-size:11px;color:#777;border-top:1px solid #eee">
 © 2026 <strong>Credvantage Financial Advisory Pvt. Ltd.</strong><br>
 All trades are for educational purposes only.
 </footer>
@@ -297,9 +246,7 @@ function logout(){
   localStorage.clear();
   window.location.href="index.html";
 }
-</script>
 
-<script>
 (function(){
   if(localStorage.getItem("ltp_disclaimer_accepted")!=="true"){
     disclaimerModal.style.display="flex";
@@ -311,44 +258,7 @@ function acceptDisclaimer(){
 }
 </script>
 
-<!-- MARKET TIMER -->
-<script>
-function fmt(sec){
-  const h=Math.floor(sec/3600);
-  const m=Math.floor((sec%3600)/60);
-  const s=Math.floor(sec%60);
-  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-}
-function updateMarket(){
-  const now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
-  const day=now.getDay();
-  liveDot.style.display="none";
-  countdown.innerText="";
-  if(day===0||day===6){
-    marketBadge.className="market-badge closed";
-    marketBadge.innerText="MARKET CLOSED";return;
-  }
-  const openT=new Date(now);openT.setHours(9,15,0,0);
-  const closeT=new Date(now);closeT.setHours(15,30,0,0);
-  if(now<openT){
-    marketBadge.className="market-badge preopen";
-    marketBadge.innerText="PRE-OPEN";
-    countdown.innerText=`Market opens in ${fmt((openT-now)/1000)}`;
-  }else if(now<closeT){
-    marketBadge.className="market-badge open";
-    marketBadge.innerText="MARKET OPEN";
-    liveDot.style.display="inline-block";
-    liveDot.classList.add("blink");
-    countdown.innerText=`Market closes in ${fmt((closeT-now)/1000)}`;
-  }else{
-    marketBadge.className="market-badge post";
-    marketBadge.innerText="POST-MARKET";
-  }
-}
-updateMarket();setInterval(updateMarket,1000);
-</script>
-
-<!-- GOOGLE SHEET LIVE DATA (UNCHANGED) -->
+<!-- 🔴 GOOGLE SHEET LIVE DATA (RESTORED) -->
 <script>
 const API="https://script.google.com/macros/s/AKfycbwR38Ai6MGtf-ftAvOijHND1ornYWrwWDSoXCO0s86DVI_p7tZqE8MnGWZWq_iW0AVy_A/exec";
 let liveCount=0,closedCount=0,totalPL=0;
@@ -362,7 +272,7 @@ function showTab(tab,el){
 
 function loadLive(){
 fetch(API+"?action=live").then(r=>r.json()).then(d=>{
-liveCount=d.length;updateSummary();
+liveCount=d.length;
 liveTable.querySelector("tbody").innerHTML=d.map(t=>`
 <tr>
 <td>${t.symbol}</td><td>${t.type}</td><td>${t.entry}</td>
@@ -370,21 +280,22 @@ liveTable.querySelector("tbody").innerHTML=d.map(t=>`
 <td>${t.lots}</td><td>${t.qty}</td>
 <td><span class="status LIVE">LIVE</span></td>
 </tr>`).join("");
+updateSummary();
 });
 }
 
 function loadClosed(){
 fetch(API+"?action=closed").then(r=>r.json()).then(d=>{
-closedCount=d.length;totalPL=0;
+closedCount=d.length; totalPL=0;
 closedTable.querySelector("tbody").innerHTML=d.map(t=>{
 totalPL+=Number(t.pl);
-const resultClass = t.result==="TARGET" ? "RESULT-TARGET" : "RESULT-SL";
+const rc=t.result==="TARGET"?"RESULT-TARGET":"RESULT-SL";
 return`
 <tr>
 <td>${t.symbol}</td><td>${t.type}</td><td>${t.entry}</td>
 <td>${t.exit}</td><td>${t.lots}</td><td>${t.qty}</td>
 <td style="font-weight:700;color:${t.pl>=0?'#2ecc71':'#e74c3c'}">${t.pl}</td>
-<td><span class="status ${resultClass}">${t.result}</span></td>
+<td><span class="status ${rc}">${t.result}</span></td>
 <td><span class="status CLOSED">CLOSED</span></td>
 </tr>`}).join("");
 updateSummary();
@@ -399,12 +310,11 @@ if(totalPL>0)plCard.classList.add("pl-plus");
 if(totalPL<0)plCard.classList.add("pl-minus");
 }
 
-loadLive();loadClosed();
+loadLive(); loadClosed();
 setInterval(loadLive,5000);
 setInterval(loadClosed,5000);
 </script>
 
-<!-- ✅ NEW FUNCTION ONLY -->
 <script>
 function openFOStocks(){
   window.location.href="/F%26O%20Stocks%20list.html";
