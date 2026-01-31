@@ -258,7 +258,7 @@ footer{
 Credvantage Financial Advisory Pvt. Ltd.
 </footer>
 
-<!-- ================= AUTH MODAL ================= -->
+<!-- AUTH MODAL -->
 <div class="modal" id="authModal">
   <div class="modal-content">
     <span class="close" onclick="closeAuth()">×</span>
@@ -305,7 +305,7 @@ function toggleMenu(){
   navMenu.style.display=navMenu.style.display==="flex"?"none":"flex";
 }
 
-/* AUTH LOGIC – FIXED */
+/* AUTH */
 const AUTH_API_URL="https://script.google.com/macros/s/AKfycbyhqnpRxw3guJanAA-vrFBYtv5DTSUSSBBJDDQ7OFX0MsoWxFp3Xo2G9AP4Zreoc3U-MA/exec";
 let mode="login";
 
@@ -317,7 +317,6 @@ function openAuth(){
   toggleLink.innerText="Sign up";
   authModal.style.display="block";
 }
-
 function toggleAuth(){
   if(mode==="login"){
     mode="signup";
@@ -333,11 +332,7 @@ function toggleAuth(){
     toggleLink.innerText="Sign up";
   }
 }
-
-function closeAuth(){
-  authModal.style.display="none";
-  mode="login";
-}
+function closeAuth(){authModal.style.display="none";mode="login"}
 
 function submitAuth(){
   const fd=new URLSearchParams();
@@ -345,7 +340,6 @@ function submitAuth(){
   fd.append("name",authName.value);
   fd.append("email",authEmail.value);
   fd.append("password",authPassword.value);
-
   fetch(AUTH_API_URL,{method:"POST",body:fd})
   .then(r=>r.json())
   .then(d=>{
@@ -354,11 +348,8 @@ function submitAuth(){
       localStorage.setItem("ltp_logged_in","true");
       window.location.href="Live%20Trades%20Dashboard.html";
     }
-    if(mode==="signup" && d.status==="success"){
-      closeAuth();
-    }
-  })
-  .catch(()=>alert("Network error"));
+    if(mode==="signup" && d.status==="success") closeAuth();
+  });
 }
 
 /* PAYMENT */
@@ -368,6 +359,14 @@ function closePaymentPopup(){paymentPopup.style.display="none"}
 /* CONTACT */
 function openContact(){contactModal.style.display="block"}
 function closeContact(){contactModal.style.display="none"}
+
+/* PAYMENT SUCCESS LISTENER – FINAL FIX */
+window.addEventListener("message",function(e){
+  if(e.data==="PAYMENT_SUCCESS" || (e.data && e.data.type==="PAYMENT_SUCCESS")){
+    closePaymentPopup();
+    alert("Payment Successful 🎉");
+  }
+});
 
 /* TYPING */
 const text=["No Guesswork. Only Option Chain.","Trade Less. Trade Smart."];
