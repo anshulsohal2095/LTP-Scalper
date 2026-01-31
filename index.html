@@ -5,7 +5,7 @@
 <title>LTP SCALPER – Option Chain Driven Trading</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://script.google.com/macros/s/AKfycbwvCjEYRrmFNPnnLNx0L3e685GIjqd2N6KHZqVozSUFM02RpS4Wnwl1fPTh32zxGtjq/exec">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 html{scroll-behavior:smooth}
@@ -51,6 +51,47 @@ nav a:hover{color:#ff7a00}
 .pay-btn:hover{opacity:.9}
 
 .menu-btn{display:none;font-size:24px;cursor:pointer;color:#ff7a00}
+
+/* ================= LIVE TICKER (ADD) ================= */
+.ticker-wrap{
+  background:#fff;
+  border-top:2px solid #ff7a00;
+  border-bottom:2px solid #ff7a00;
+  overflow:hidden;
+  padding:10px 0;
+}
+
+@media(max-width:768px){
+  .ticker-wrap{display:none}
+}
+
+.ticker{
+  display:flex;
+  width:max-content;
+  white-space:nowrap;
+  animation: tickerScroll 90s linear infinite;
+}
+
+@keyframes tickerScroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+.ticker-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-right:30px;
+  padding:6px 14px;
+  background:#fffdf3;
+  border-radius:8px;
+  font-weight:600;
+  flex-shrink:0;
+}
+
+.ticker-symbol{color:#000}
+.ticker-price.up{color:#0a9b3f}
+.ticker-price.down{color:#d60000}
 
 /* HERO */
 .hero{
@@ -165,7 +206,7 @@ footer{
   border:none;
 }
 
-/* ========= ADD ONLY : CONTACT POPUP STYLES ========= */
+/* CONTACT */
 .contact-box{text-align:center}
 .contact-item{margin:20px 0;font-size:16px}
 .contact-item span{display:block;font-size:13px;color:#888}
@@ -198,14 +239,16 @@ footer{
   <nav id="navMenu">
     <a href="#home">Home</a>
     <a href="About%20Us.html">About Us</a>
-
-    <!-- ADD ONLY -->
     <a href="javascript:void(0)" onclick="openContact()">Contact Us</a>
-
     <a class="pay-btn" href="javascript:void(0)" onclick="openPaymentPopup()">Pay Now</a>
     <a href="javascript:void(0)" onclick="openAuth()">Login / Sign Up</a>
   </nav>
 </header>
+
+<!-- ===== LIVE TICKER ===== -->
+<div class="ticker-wrap">
+  <div class="ticker" id="liveTicker"></div>
+</div>
 
 <!-- HERO -->
 <div class="hero" id="home">
@@ -213,19 +256,14 @@ footer{
   <div class="typing" id="typing"></div>
   <p>
     LTP SCALPER is a professional option-chain driven scalping platform designed for traders who
-    want consistency, discipline and clarity. This system eliminates guesswork, emotional trading
-    and indicator overload by focusing purely on price behaviour and option chain data.
+    want consistency, discipline and clarity.
   </p>
 </div>
 
 <!-- WHY -->
 <section>
   <h2>Why Most Traders Lose Money</h2>
-  <p>
-    Majority of traders fail not because markets are difficult, but because they trade without a
-    structured system. Emotional decisions, overtrading and ignoring option chain data lead to
-    repeated losses.
-  </p>
+  <p>Majority of traders fail not because markets are difficult, but because they trade without a structured system.</p>
   <div class="grid">
     <div class="card">❌ Over trading without confirmation</div>
     <div class="card">❌ Too many indicators, no clarity</div>
@@ -237,35 +275,24 @@ footer{
 <!-- HOW -->
 <section>
   <h2>How LTP Scalper Works</h2>
-  <p>
-    LTP Scalper uses real-time option chain behaviour combined with price action to identify
-    high-probability intraday scalping opportunities with controlled risk.
-  </p>
+  <p>Uses real-time option chain behaviour combined with price action.</p>
   <div class="grid">
     <div class="card">📊 Live Option Chain Analysis</div>
     <div class="card">🎯 Pre-defined Entry & Exit Levels</div>
-    <div class="card">⚡ Fast Scalping Logic for Intraday</div>
-    <div class="card">🧠 Rule-based, emotion-free execution</div>
+    <div class="card">⚡ Fast Scalping Logic</div>
+    <div class="card">🧠 Rule-based execution</div>
   </div>
 </section>
 
 <!-- PLAN -->
 <section>
   <h2>Elite Membership Plan</h2>
-  <p>
-    One premium plan designed for serious traders who want professional-grade scalping access
-    without confusion or multiple packages.
-  </p>
+  <p>One premium plan designed for serious traders.</p>
   <div class="grid" style="max-width:380px;margin:auto">
     <div class="card">
       <h3>Elite Access</h3>
       <p style="font-size:34px;color:#ff7a00;font-weight:700">₹4,999</p>
       <p><b>Per Month</b></p>
-      <p>
-        Complete access to LTP Scalper including live option-chain based signals, disciplined
-        scalping logic, risk management framework and live trades dashboard.
-      </p>
-      <br>
       <a class="pay-btn" href="javascript:void(0)" onclick="openPaymentPopup()">Subscribe Now</a>
     </div>
   </div>
@@ -276,12 +303,11 @@ footer{
 Credvantage Financial Advisory Pvt. Ltd.
 </footer>
 
-<!-- AUTH MODAL (UNCHANGED) -->
+<!-- AUTH MODAL -->
 <div class="modal" id="authModal">
   <div class="modal-content">
     <span class="close" onclick="closeAuth()">×</span>
     <h3 id="authTitle">Login</h3>
-
     <form onsubmit="submitAuth();return false;">
       <input id="authName" placeholder="Full Name" style="display:none">
       <input id="authEmail" type="email" placeholder="Email" required>
@@ -290,7 +316,6 @@ Credvantage Financial Advisory Pvt. Ltd.
         Continue
       </button>
     </form>
-
     <p style="text-align:center;font-size:14px">
       <span id="toggleText">New user?</span>
       <span id="toggleLink" style="color:#ff7a00;cursor:pointer" onclick="toggleAuth()">Sign up</span>
@@ -298,17 +323,15 @@ Credvantage Financial Advisory Pvt. Ltd.
   </div>
 </div>
 
-<!-- ========= ADD ONLY : CONTACT MODAL ========= -->
+<!-- CONTACT MODAL -->
 <div class="modal" id="contactModal">
   <div class="modal-content contact-box">
     <span class="close" onclick="closeContact()">×</span>
     <h3>Contact Us</h3>
-
     <div class="contact-item">
       📧 <span>Email</span>
       <div class="contact-value">ltpscalper@gmail.com</div>
     </div>
-
     <div class="contact-item">
       📞 <span>Phone</span>
       <div class="contact-value">9412037763</div>
@@ -316,7 +339,7 @@ Credvantage Financial Advisory Pvt. Ltd.
   </div>
 </div>
 
-<!-- PAY NOW POPUP (UNCHANGED) -->
+<!-- PAYMENT POPUP -->
 <div id="paymentPopup" class="payment-popup">
   <div class="payment-popup-box">
     <span class="payment-close" onclick="closePaymentPopup()">×</span>
@@ -325,13 +348,12 @@ Credvantage Financial Advisory Pvt. Ltd.
 </div>
 
 <script>
-/* MENU */
 function toggleMenu(){
   const m=document.getElementById("navMenu");
   m.style.display=m.style.display==="flex"?"none":"flex";
 }
 
-/* AUTH (UNCHANGED ORIGINAL LOGIC) */
+/* AUTH LOGIC (UNCHANGED) */
 const AUTH_API_URL="https://script.google.com/macros/s/AKfycbyhqnpRxw3guJanAA-vrFBYtv5DTSUSSBBJDDQ7OFX0MsoWxFp3Xo2G9AP4Zreoc3U-MA/exec";
 let mode="login";
 
@@ -381,41 +403,51 @@ function submitAuth(){
   .catch(()=>alert("Network error"));
 }
 
-/* PAY NOW */
-function openPaymentPopup(){
-  document.getElementById("paymentPopup").style.display="block";
-}
-function closePaymentPopup(){
-  document.getElementById("paymentPopup").style.display="none";
-}
+/* PAYMENT */
+function openPaymentPopup(){paymentPopup.style.display="block"}
+function closePaymentPopup(){paymentPopup.style.display="none"}
 
-/* ========= ADD ONLY : CONTACT JS ========= */
-function openContact(){
-  document.getElementById("contactModal").style.display="block";
-}
-function closeContact(){
-  document.getElementById("contactModal").style.display="none";
-}
+/* CONTACT */
+function openContact(){contactModal.style.display="block"}
+function closeContact(){contactModal.style.display="none"}
 
-/* TYPING (UNCHANGED) */
+/* TYPING EFFECT */
 const text=["No Guesswork. Only Option Chain.","Trade Less. Trade Smart."];
 let i=0,j=0,t=document.getElementById("typing");
 function type(){
-  if(j<text[i].length){
-    t.textContent+=text[i][j++];
-    setTimeout(type,80);
-  }else setTimeout(erase,1200);
+  if(j<text[i].length){t.textContent+=text[i][j++];setTimeout(type,80)}
+  else setTimeout(erase,1200);
 }
 function erase(){
-  if(j>0){
-    t.textContent=text[i].substring(0,--j);
-    setTimeout(erase,40);
-  }else{
-    i=(i+1)%text.length;
-    setTimeout(type,300);
-  }
+  if(j>0){t.textContent=text[i].substring(0,--j);setTimeout(erase,40)}
+  else{i=(i+1)%text.length;setTimeout(type,300)}
 }
 type();
+
+/* ===== LIVE TICKER JS ===== */
+let oldPrices={};
+async function loadLiveTicker(){
+  const res = await fetch("https://script.google.com/macros/s/AKfycbzMZLG-pAleRMpVvUAusafaivILnONGqhd8Oc_1K9ILhIrxLmmGxxZvoZVNnWLTXJT5BA/exec");
+  const data = await res.json();
+  let html="";
+  data.forEach(s=>{
+    let cls="";
+    if(oldPrices[s.symbol]){
+      if(s.price>oldPrices[s.symbol]) cls="up";
+      else if(s.price<oldPrices[s.symbol]) cls="down";
+    }
+    oldPrices[s.symbol]=s.price;
+    html+=`
+      <div class="ticker-item">
+        <span class="ticker-symbol">${s.symbol}</span>
+        <span class="ticker-price ${cls}">₹${s.price}</span>
+      </div>
+    `;
+  });
+  liveTicker.innerHTML=html+html;
+}
+loadLiveTicker();
+setInterval(loadLiveTicker,5000);
 </script>
 
 </body>
