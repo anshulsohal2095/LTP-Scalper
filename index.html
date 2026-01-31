@@ -364,7 +364,7 @@ function closeContact(){contactModal.style.display="none"}
 window.addEventListener("message",function(e){
   if(e.data==="PAYMENT_SUCCESS" || (e.data && e.data.type==="PAYMENT_SUCCESS")){
     closePaymentPopup();
-    alert("Payment Successful 🎉");
+    alert("After Confirmation Payment, your access will be activated manually.");
   }
 });
 
@@ -407,3 +407,4 @@ setInterval(loadLiveTicker,5000);
 
 </body>
 </html>
+
