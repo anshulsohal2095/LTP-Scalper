@@ -180,7 +180,7 @@ tr:nth-child(even){background:var(--light-yellow)}
 .LIVE{background:#ff9800}
 .CLOSED{background:#607d8b}
 
-/* ✅ RESULT COLORS FIX */
+/* RESULT COLORS */
 .RESULT-TARGET{background:#2ecc71}
 .RESULT-SL{background:#e74c3c}
 
@@ -253,10 +253,12 @@ footer{
   <div class="card" id="plCard"><h4>Day P/L</h4><h2 id="dayPL">₹0</h2></div>
 </div>
 
+<!-- ✅ TABS (Aritrage added, nothing removed) -->
 <div class="tabs">
   <div class="tab active" onclick="showTab('live',this)">LIVE TRADES</div>
   <div class="tab" onclick="showTab('closed',this)">CLOSED TRADES</div>
   <div class="tab" onclick="openFOStocks()">F&O Stocks list</div>
+  <div class="tab" onclick="openArbitrage()">Aritrage</div>
 </div>
 
 <div class="container">
@@ -402,9 +404,13 @@ setInterval(loadLive,5000);
 setInterval(loadClosed,5000);
 </script>
 
+<!-- ✅ NEW FUNCTION ONLY -->
 <script>
 function openFOStocks(){
   window.location.href="/F%26O%20Stocks%20list.html";
+}
+function openArbitrage(){
+  window.location.href="/Arbitrage%20stocks.html";
 }
 </script>
 
