@@ -269,29 +269,29 @@ footer{
 </div>
 
 <div class="container">
-<div class="table-wrap">
-<table id="liveTable">
-<thead>
-<tr>
-<th>Symbol</th><th>Type</th><th>Entry</th><th>Target</th><th>SL</th>
-<th>Lots</th><th>Qty</th><th>Status</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</div>
+  <div class="table-wrap">
+    <table id="liveTable">
+      <thead>
+        <tr>
+          <th>Symbol</th><th>Type</th><th>Entry</th><th>Target</th><th>SL</th>
+          <th>Lots</th><th>Qty</th><th>Status</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 
-<div class="table-wrap">
-<table id="closedTable" class="hidden">
-<thead>
-<tr>
-<th>Symbol</th><th>Type</th><th>Entry</th><th>Exit</th>
-<th>Lots</th><th>Qty</th><th>P/L</th><th>Result</th><th>Status</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</div>
+  <div class="table-wrap">
+    <table id="closedTable" class="hidden">
+      <thead>
+        <tr>
+          <th>Symbol</th><th>Type</th><th>Entry</th><th>Exit</th>
+          <th>Lots</th><th>Qty</th><th>P/L</th><th>Result</th><th>Status</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 </div>
 
 <footer>
@@ -356,7 +356,7 @@ updateMarket();
 setInterval(updateMarket,1000);
 </script>
 
-<!-- GOOGLE SHEET LIVE DATA (UNCHANGED) -->
+<!-- GOOGLE SHEET LIVE DATA -->
 <script>
 const API="https://script.google.com/macros/s/AKfycbwR38Ai6MGtf-ftAvOijHND1ornYWrwWDSoXCO0s86DVI_p7tZqE8MnGWZWq_iW0AVy_A/exec";
 let liveCount=0,closedCount=0,totalPL=0;
@@ -412,8 +412,9 @@ setInterval(loadClosed,5000);
 </script>
 
 <script>
+/* ✅ VERCEL SAFE FILE LINK */
 function openFOStocks(){
-  window.location.href="F%26O%20STOCKS.html";
+  window.location.href = "/F%26O%20Stocks%20list.html";
 }
 </script>
 
