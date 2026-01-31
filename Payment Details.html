@@ -239,18 +239,15 @@ footer{
 const UTR_API =
 "https://script.google.com/macros/s/AKfycbzeinLijG8t-KmPKswOrWqtoEUxHklBk6ElkTX8l8Ocj0yhjs7YwmSsmILbP2jW07lR/exec";
 
-/* ✅ BACK = ONLY CLOSE POPUP */
 function goBackHome(){
   if(window.parent){
     window.parent.postMessage("PAYMENT_CLOSE","*");
   }
 }
 
-/* POPUP */
 function openUTRPopup(){utrPopup.style.display="block"}
 function closeUTRPopup(){utrPopup.style.display="none"}
 
-/* ✅ SUBMIT = PAYMENT SUCCESS */
 function submitUTR(){
   const email = payerEmail.value.trim();
   const utr = utrNumber.value.trim();
@@ -282,4 +279,3 @@ function submitUTR(){
 
 </body>
 </html>
-
