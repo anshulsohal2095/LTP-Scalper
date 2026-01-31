@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LTP SCALPER | F&O Stocks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- 🔐 LOGIN PROTECTION -->
+<script>
+if (localStorage.getItem("ltp_logged_in") !== "true") {
+  window.location.href = "index.html";
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --orange:#ff8c00;
+  --light-orange:#ffb703;
+  --light-yellow:#fff6db;
+  --dark:#222;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+}
+
+body{
+  font-family:Poppins,sans-serif;
+  background:#fffaf2;
+  color:#333;
+  overflow-x:hidden;
+}
+
+/* ---------- HEADER ---------- */
+header{
+  background:#fff;
+  border-bottom:2px solid var(--light-orange);
+  padding:16px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.brand h1{
+  margin:0;
+  font-size:22px;
+  font-weight:700;
+  color:var(--orange);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* LIVE DOT */
+.live-dot{
+  width:10px;
+  height:10px;
+  background:#e53935;
+  border-radius:50%;
+  display:none;
+}
+.blink{animation:blink 1s infinite}
+@keyframes blink{
+  0%{opacity:1}
+  50%{opacity:.2}
+  100%{opacity:1}
+}
+
+/* TAGLINE */
+.tagline{
+  font-size:12px;
+  font-weight:600;
+  color:#444;
+  background:#fff6db;
+  padding:5px 12px;
+  border-radius:20px;
+  border:1px solid #ffb703;
+}
+
+/* MARKET BADGE */
+.market-badge{
+  font-size:11px;
+  font-weight:700;
+  padding:5px 12px;
+  border-radius:20px;
+  color:#fff;
+}
+.preopen{background:#f39c12}
+.open{background:#2ecc71}
+.post{background:#9b59b6}
+.closed{background:#e74c3c}
+.countdown{font-size:11px;font-weight:600;color:#555}
+
+/* BUTTONS */
+.logout-btn{
+  background:#e74c3c;
+  color:#fff;
+  border:none;
+  padding:7px 14px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:600;
+  cursor:pointer;
+}
+.classroom-btn{
+  background:#ff8c00;
+  color:#fff;
+  border:none;
+  padding:7px 14px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:600;
+  cursor:pointer;
+  text-decoration:none;
+}
+
+/* ---------- PAGE CONTAINER ---------- */
+.container{
+  width:100%;
+  padding:16px;
+}
+
+/* ---------- TABLE ---------- */
+.hsset-box{
+  width:100%;
+  background:#ffffff;
+  border-radius:14px;
+  box-shadow:0 8px 22px rgba(0,0,0,.08);
+  overflow-x:auto;
+}
+
+.hsset-table{
+  width:100%;
+  min-width:1400px;
+  border-collapse:collapse;
+  font-size:13px;
+}
+
+.hsset-table thead th{
+  background:#2f5f4a;
+  color:#fff;
+  padding:12px 10px;
+  position:sticky;
+  top:0;
+  z-index:2;
+  white-space:nowrap;
+}
+
+.hsset-table tbody td{
+  padding:10px;
+  border-bottom:1px solid #eee;
+  white-space:nowrap;
+}
+
+.hsset-table tbody tr:hover{
+  background:#fff7e0;
+}
+
+/* CELLS */
+.symbol{font-weight:700;color:#000}
+.price{font-weight:600}
+
+.trend-bullish{
+  background:#1b7f3b;
+  color:#fff;
+  font-weight:700;
+  text-align:center;
+  border-radius:6px;
+  padding:4px 8px;
+}
+
+.trend-bearish{
+  background:#d60000;
+  color:#fff;
+  font-weight:700;
+  text-align:center;
+  border-radius:6px;
+  padding:4px 8px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hsset-table{
+    font-size:12px;
+    min-width:1200px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== HEADER (SAME AS DASHBOARD) ===== -->
+<header>
+  <div class="brand">
+    <h1>LTP SCALPER <span id="liveDot" class="live-dot"></span></h1>
+    <div class="tagline">Live Trade • Indian Stock Market</div>
+    <div id="marketBadge" class="market-badge">Checking…</div>
+    <div id="countdown" class="countdown"></div>
+    <a href="Live%20Class.html" class="classroom-btn">CLASSROOM</a>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+</header>
+
+<!-- ===== TABLE SECTION ===== -->
+<div class="container">
+  <div class="hsset-box">
+    <table class="hsset-table">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Industry</th>
+          <th>Symbol</th>
+          <th>ISIN</th>
+          <th>Price</th>
+          <th>High</th>
+          <th>Low</th>
+          <th>Volume</th>
+          <th>Trend</th>
+          <th>S1</th>
+          <th>S2</th>
+          <th>R1</th>
+          <th>R2</th>
+        </tr>
+      </thead>
+      <tbody id="hssetData"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+function logout(){
+  localStorage.clear();
+  window.location.href="index.html";
+}
+</script>
+
+<!-- MARKET TIMER (SAME LOGIC) -->
+<script>
+function fmt(sec){
+  const h=Math.floor(sec/3600);
+  const m=Math.floor((sec%3600)/60);
+  const s=Math.floor(sec%60);
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+function updateMarket(){
+  const now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
+  const day=now.getDay();
+  liveDot.style.display="none";
+  countdown.innerText="";
+  if(day===0||day===6){
+    marketBadge.className="market-badge closed";
+    marketBadge.innerText="MARKET CLOSED";return;
+  }
+  const openT=new Date(now);openT.setHours(9,15,0,0);
+  const closeT=new Date(now);closeT.setHours(15,30,0,0);
+  if(now<openT){
+    marketBadge.className="market-badge preopen";
+    marketBadge.innerText="PRE-OPEN";
+    countdown.innerText=`Market opens in ${fmt((openT-now)/1000)}`;
+  }else if(now<closeT){
+    marketBadge.className="market-badge open";
+    marketBadge.innerText="MARKET OPEN";
+    liveDot.style.display="inline-block";
+    liveDot.classList.add("blink");
+    countdown.innerText=`Market closes in ${fmt((closeT-now)/1000)}`;
+  }else{
+    marketBadge.className="market-badge post";
+    marketBadge.innerText="POST-MARKET";
+  }
+}
+updateMarket();
+setInterval(updateMarket,1000);
+</script>
+
+<!-- HSSET DATA -->
+<script>
+async function loadHSSET(){
+  try{
+    const res = await fetch("https://script.google.com/macros/s/AKfycby0JabrCeyvrElAoS2lQzlLzWn_lUparj-sdqOk8Nco5Idb4JS_1ssYpac__4kD2GOkgA/exec");
+    const raw = await res.json();
+
+    let data=[];
+    if(Array.isArray(raw)) data=raw;
+    else if(Array.isArray(raw.data)) data=raw.data;
+    else data=[raw];
+
+    let html="";
+    data.forEach(s=>{
+      html+=`
+        <tr>
+          <td>${s.company||'-'}</td>
+          <td>${s.industry||'-'}</td>
+          <td class="symbol">${s.symbol||'-'}</td>
+          <td>${s.isin||'-'}</td>
+          <td class="price">₹${s.price||'-'}</td>
+          <td>${s.high||'-'}</td>
+          <td>${s.low||'-'}</td>
+          <td>${s.volume?Number(s.volume).toLocaleString():'-'}</td>
+          <td class="${s.trend==='BULLISH'?'trend-bullish':'trend-bearish'}">${s.trend||'-'}</td>
+          <td>${s.s1||'-'}</td>
+          <td>${s.s2||'-'}</td>
+          <td>${s.r1||'-'}</td>
+          <td>${s.r2||'-'}</td>
+        </tr>
+      `;
+    });
+
+    hssetData.innerHTML=html;
+  }catch(e){
+    console.error("HSSET ERROR:",e);
+  }
+}
+
+loadHSSET();
+setInterval(loadHSSET,15000);
+</script>
+
+</body>
+</html>
