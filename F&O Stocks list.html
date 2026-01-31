@@ -61,6 +61,12 @@ header{
   font-weight:700;
   color:var(--orange);
 }
+.brand h1 span{
+  font-size:14px;
+  font-weight:600;
+  color:#555;
+  margin-left:10px;
+}
 
 /* BACK BUTTON */
 .back-btn{
@@ -164,7 +170,10 @@ footer{
 <!-- ===== HEADER ===== -->
 <header>
   <div class="brand">
-    <h1>LTP SCALPER</h1>
+    <h1>
+      LTP SCALPER
+      <span>Futures &amp; Options Stocks</span>
+    </h1>
     <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
   </div>
 </header>
@@ -200,7 +209,6 @@ footer{
   All data shown is for educational purposes only.
 </footer>
 
-<!-- 🔙 BACK -->
 <script>
 function goBack(){
   window.history.back();
