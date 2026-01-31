@@ -7,9 +7,11 @@
 
 <!-- 🔐 LOGIN PROTECTION -->
 <script>
-if (localStorage.getItem("ltp_logged_in") !== "true") {
-  window.location.href = "index.html";
-}
+(function(){
+  if(localStorage.getItem("ltp_logged_in")!=="true"){
+    window.location.replace("/index.html");
+  }
+})();
 </script>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,7 +23,6 @@ if (localStorage.getItem("ltp_logged_in") !== "true") {
   --light-yellow:#fff6db;
   --dark:#222;
 }
-
 *{box-sizing:border-box}
 
 html,body{
@@ -75,7 +76,7 @@ header{
   100%{opacity:1}
 }
 
-/* TAGLINE */
+/* TAGLINE (CLICKABLE) */
 .tagline{
   font-size:12px;
   font-weight:600;
@@ -84,7 +85,9 @@ header{
   padding:5px 12px;
   border-radius:20px;
   border:1px solid #ffb703;
+  cursor:pointer;
 }
+.tagline:hover{background:#ffefc7}
 
 /* MARKET BADGE */
 .market-badge{
@@ -177,7 +180,6 @@ header{
   border-radius:6px;
   padding:4px 8px;
 }
-
 .trend-bearish{
   background:#d60000;
   color:#fff;
@@ -199,19 +201,25 @@ header{
 
 <body>
 
-<!-- ===== HEADER (SAME AS DASHBOARD) ===== -->
+<!-- ===== HEADER ===== -->
 <header>
   <div class="brand">
     <h1>LTP SCALPER <span id="liveDot" class="live-dot"></span></h1>
-    <div class="tagline">Live Trade • Indian Stock Market</div>
+
+    <!-- 🔗 CONNECTED TO LIVE DASHBOARD -->
+    <div class="tagline" onclick="openLiveDashboard()">
+      Live Trade • Indian Stock Market
+    </div>
+
     <div id="marketBadge" class="market-badge">Checking…</div>
     <div id="countdown" class="countdown"></div>
+
     <a href="Live%20Class.html" class="classroom-btn">CLASSROOM</a>
     <button class="logout-btn" onclick="logout()">Logout</button>
   </div>
 </header>
 
-<!-- ===== TABLE SECTION ===== -->
+<!-- ===== TABLE ===== -->
 <div class="container">
   <div class="hsset-box">
     <table class="hsset-table">
@@ -240,11 +248,11 @@ header{
 <script>
 function logout(){
   localStorage.clear();
-  window.location.href="index.html";
+  window.location.href="/index.html";
 }
 </script>
 
-<!-- MARKET TIMER (SAME LOGIC) -->
+<!-- MARKET TIMER -->
 <script>
 function fmt(sec){
   const h=Math.floor(sec/3600);
@@ -282,7 +290,7 @@ updateMarket();
 setInterval(updateMarket,1000);
 </script>
 
-<!-- HSSET DATA -->
+<!-- HSSET DATA (UNCHANGED) -->
 <script>
 async function loadHSSET(){
   try{
@@ -320,9 +328,15 @@ async function loadHSSET(){
     console.error("HSSET ERROR:",e);
   }
 }
-
 loadHSSET();
 setInterval(loadHSSET,15000);
+</script>
+
+<script>
+/* 🔗 LIVE DASHBOARD LINK */
+function openLiveDashboard(){
+  window.location.href="/Live%20Trades%20Dashboard.html";
+}
 </script>
 
 </body>
