@@ -49,6 +49,20 @@ header{
   color:var(--orange);
 }
 
+/* LIVE DOT */
+.live-dot{
+  width:10px;height:10px;
+  background:#e53935;
+  border-radius:50%;
+  display:none
+}
+.blink{animation:blink 1s infinite}
+@keyframes blink{
+  0%{opacity:1}
+  50%{opacity:.2}
+  100%{opacity:1}
+}
+
 /* TAGLINE */
 .tagline{
   font-size:12px;
@@ -59,6 +73,20 @@ header{
   border-radius:20px;
   border:1px solid #ffb703;
 }
+
+/* MARKET BADGE */
+.market-badge{
+  font-size:11px;
+  font-weight:700;
+  padding:5px 12px;
+  border-radius:20px;
+  color:#fff;
+}
+.preopen{background:#f39c12}
+.open{background:#2ecc71}
+.post{background:#9b59b6}
+.closed{background:#e74c3c}
+.countdown{font-size:11px;font-weight:600;color:#555}
 
 /* BUTTONS */
 .logout-btn{
@@ -191,8 +219,10 @@ tr:nth-child(even){background:var(--light-yellow)}
 
 <header>
   <div class="brand">
-    <h1>LTP SCALPER</h1>
+    <h1>LTP SCALPER <span id="liveDot" class="live-dot"></span></h1>
     <div class="tagline">Live Trade • Indian Stock Market</div>
+    <div id="marketBadge" class="market-badge">Checking…</div>
+    <div id="countdown" class="countdown"></div>
     <a href="Live%20Class.html" class="classroom-btn">CLASSROOM</a>
     <button class="logout-btn" onclick="logout()">Logout</button>
   </div>
@@ -246,7 +276,6 @@ function logout(){
   localStorage.clear();
   window.location.href="index.html";
 }
-
 (function(){
   if(localStorage.getItem("ltp_disclaimer_accepted")!=="true"){
     disclaimerModal.style.display="flex";
@@ -258,7 +287,45 @@ function acceptDisclaimer(){
 }
 </script>
 
-<!-- 🔴 GOOGLE SHEET LIVE DATA (RESTORED) -->
+<!-- ✅ MARKET OPEN / CLOSE TIMER (RESTORED) -->
+<script>
+function fmt(sec){
+  const h=Math.floor(sec/3600);
+  const m=Math.floor((sec%3600)/60);
+  const s=Math.floor(sec%60);
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+function updateMarket(){
+  const now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
+  const day=now.getDay();
+  liveDot.style.display="none";
+  countdown.innerText="";
+  if(day===0||day===6){
+    marketBadge.className="market-badge closed";
+    marketBadge.innerText="MARKET CLOSED";return;
+  }
+  const openT=new Date(now);openT.setHours(9,15,0,0);
+  const closeT=new Date(now);closeT.setHours(15,30,0,0);
+  if(now<openT){
+    marketBadge.className="market-badge preopen";
+    marketBadge.innerText="PRE-OPEN";
+    countdown.innerText=`Market opens in ${fmt((openT-now)/1000)}`;
+  }else if(now<closeT){
+    marketBadge.className="market-badge open";
+    marketBadge.innerText="MARKET OPEN";
+    liveDot.style.display="inline-block";
+    liveDot.classList.add("blink");
+    countdown.innerText=`Market closes in ${fmt((closeT-now)/1000)}`;
+  }else{
+    marketBadge.className="market-badge post";
+    marketBadge.innerText="POST-MARKET";
+  }
+}
+updateMarket();
+setInterval(updateMarket,1000);
+</script>
+
+<!-- 🔴 GOOGLE SHEET LIVE DATA (UNCHANGED) -->
 <script>
 const API="https://script.google.com/macros/s/AKfycbwR38Ai6MGtf-ftAvOijHND1ornYWrwWDSoXCO0s86DVI_p7tZqE8MnGWZWq_iW0AVy_A/exec";
 let liveCount=0,closedCount=0,totalPL=0;
