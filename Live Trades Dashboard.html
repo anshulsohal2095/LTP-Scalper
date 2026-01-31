@@ -47,9 +47,6 @@ header{
   font-size:22px;
   font-weight:700;
   color:var(--orange);
-  display:flex;
-  align-items:center;
-  gap:8px;
 }
 
 /* LIVE DOT */
@@ -171,15 +168,22 @@ th{
 }
 td{padding:12px;text-align:center;font-size:13px}
 tr:nth-child(even){background:var(--light-yellow)}
+
+/* STATUS */
 .status{
   padding:5px 12px;
   border-radius:20px;
   font-size:11px;
   color:#fff;
-  font-weight:600;
+  font-weight:700;
 }
 .LIVE{background:#ff9800}
 .CLOSED{background:#607d8b}
+
+/* ✅ RESULT COLORS FIX */
+.RESULT-TARGET{background:#2ecc71}
+.RESULT-SL{background:#e74c3c}
+
 .hidden{display:none}
 
 /* ---------- FOOTER ---------- */
@@ -210,15 +214,8 @@ footer{
   text-align:center;
   box-shadow:0 20px 40px rgba(0,0,0,.25);
 }
-#disclaimerModal h3{
-  color:#ff8c00;
-  margin-top:0;
-}
-#disclaimerModal p{
-  font-size:13px;
-  color:#444;
-  line-height:1.6;
-}
+#disclaimerModal h3{color:#ff8c00;margin-top:0}
+#disclaimerModal p{font-size:13px;color:#444;line-height:1.6}
 
 /* ---------- MOBILE ---------- */
 @media(max-width:600px){
@@ -229,20 +226,14 @@ footer{
 
 <body>
 
-<!-- DISCLAIMER POPUP -->
+<!-- DISCLAIMER -->
 <div id="disclaimerModal">
   <div class="box">
     <h3>⚠️ Disclaimer</h3>
     <p>
-      All trades shown here are strictly for <strong>educational purposes only</strong>.<br><br>
-      Trading and investing in the stock market involves risk.
-      <strong>LTP SCALPER / Credvantage Financial Advisory Pvt. Ltd.</strong>
-      shall not be responsible for any <strong>profit or loss</strong>.
-      Users are solely responsible for their own trading decisions.
+      All trades shown here are strictly for <strong>educational purposes only</strong>.
     </p>
-    <button onclick="acceptDisclaimer()" class="classroom-btn">
-      I Understand & Agree
-    </button>
+    <button onclick="acceptDisclaimer()" class="classroom-btn">I Understand & Agree</button>
   </div>
 </div>
 
@@ -269,29 +260,29 @@ footer{
 </div>
 
 <div class="container">
-  <div class="table-wrap">
-    <table id="liveTable">
-      <thead>
-        <tr>
-          <th>Symbol</th><th>Type</th><th>Entry</th><th>Target</th><th>SL</th>
-          <th>Lots</th><th>Qty</th><th>Status</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+<div class="table-wrap">
+<table id="liveTable">
+<thead>
+<tr>
+<th>Symbol</th><th>Type</th><th>Entry</th><th>Target</th><th>SL</th>
+<th>Lots</th><th>Qty</th><th>Status</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
 
-  <div class="table-wrap">
-    <table id="closedTable" class="hidden">
-      <thead>
-        <tr>
-          <th>Symbol</th><th>Type</th><th>Entry</th><th>Exit</th>
-          <th>Lots</th><th>Qty</th><th>P/L</th><th>Result</th><th>Status</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+<div class="table-wrap">
+<table id="closedTable" class="hidden">
+<thead>
+<tr>
+<th>Symbol</th><th>Type</th><th>Entry</th><th>Exit</th>
+<th>Lots</th><th>Qty</th><th>P/L</th><th>Result</th><th>Status</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
 </div>
 
 <footer>
@@ -352,11 +343,10 @@ function updateMarket(){
     marketBadge.innerText="POST-MARKET";
   }
 }
-updateMarket();
-setInterval(updateMarket,1000);
+updateMarket();setInterval(updateMarket,1000);
 </script>
 
-<!-- GOOGLE SHEET LIVE DATA -->
+<!-- GOOGLE SHEET LIVE DATA (UNCHANGED) -->
 <script>
 const API="https://script.google.com/macros/s/AKfycbwR38Ai6MGtf-ftAvOijHND1ornYWrwWDSoXCO0s86DVI_p7tZqE8MnGWZWq_iW0AVy_A/exec";
 let liveCount=0,closedCount=0,totalPL=0;
@@ -386,12 +376,13 @@ fetch(API+"?action=closed").then(r=>r.json()).then(d=>{
 closedCount=d.length;totalPL=0;
 closedTable.querySelector("tbody").innerHTML=d.map(t=>{
 totalPL+=Number(t.pl);
+const resultClass = t.result==="TARGET" ? "RESULT-TARGET" : "RESULT-SL";
 return`
 <tr>
 <td>${t.symbol}</td><td>${t.type}</td><td>${t.entry}</td>
 <td>${t.exit}</td><td>${t.lots}</td><td>${t.qty}</td>
 <td style="font-weight:700;color:${t.pl>=0?'#2ecc71':'#e74c3c'}">${t.pl}</td>
-<td><span class="status ${t.result}">${t.result}</span></td>
+<td><span class="status ${resultClass}">${t.result}</span></td>
 <td><span class="status CLOSED">CLOSED</span></td>
 </tr>`}).join("");
 updateSummary();
@@ -412,9 +403,8 @@ setInterval(loadClosed,5000);
 </script>
 
 <script>
-/* ✅ VERCEL SAFE FILE LINK */
 function openFOStocks(){
-  window.location.href = "/F%26O%20Stocks%20list.html";
+  window.location.href="/F%26O%20Stocks%20list.html";
 }
 </script>
 
