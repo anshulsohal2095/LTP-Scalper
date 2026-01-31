@@ -268,7 +268,7 @@ function submitUTR(){
 
     fetch(UTR_API,{method:"POST",body:data})
       .then(()=>{
-        alert("Payment details submitted successfully. Please login.");
+        alert("Payment details submitted successfully. wait for confirmation.");
         if(window.parent){
           window.parent.postMessage("PAYMENT_SUCCESS","*");
         }
@@ -282,3 +282,4 @@ function submitUTR(){
 
 </body>
 </html>
+
