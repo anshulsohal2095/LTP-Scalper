@@ -5,10 +5,14 @@
 <title>LTP SCALPER | F&O Stocks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- 🔐 LOGIN PROTECTION -->
+<!-- 🔐 LOGIN PROTECTION (VERCEL SAFE) -->
 <script>
 (function(){
-  if(localStorage.getItem("ltp_logged_in")!=="true"){
+  try{
+    if(localStorage.getItem("ltp_logged_in")!=="true"){
+      window.location.replace("/index.html");
+    }
+  }catch(e){
     window.location.replace("/index.html");
   }
 })();
@@ -50,15 +54,25 @@ header{
   align-items:center;
   gap:12px;
   flex-wrap:wrap;
+  width:100%;
 }
 .brand h1{
   margin:0;
   font-size:22px;
   font-weight:700;
   color:var(--orange);
-  display:flex;
-  align-items:center;
-  gap:8px;
+}
+
+/* TOP RIGHT TITLE */
+.page-title{
+  margin-left:auto;
+  font-size:13px;
+  font-weight:700;
+  color:#444;
+  background:#fff6db;
+  padding:6px 14px;
+  border-radius:20px;
+  border:1px solid #ffb703;
 }
 
 /* LIVE DOT */
@@ -76,7 +90,7 @@ header{
   100%{opacity:1}
 }
 
-/* TAGLINE (CLICKABLE) */
+/* TAGLINE */
 .tagline{
   font-size:12px;
   font-weight:600;
@@ -168,7 +182,6 @@ header{
   background:#fff7e0;
 }
 
-/* CELLS */
 .symbol{font-weight:700;color:#000}
 .price{font-weight:600}
 
@@ -189,11 +202,25 @@ header{
   padding:4px 8px;
 }
 
+/* ---------- FOOTER ---------- */
+footer{
+  text-align:center;
+  padding:16px;
+  font-size:11px;
+  color:#777;
+  border-top:1px solid #eee;
+  background:#fff;
+}
+
 /* MOBILE */
 @media(max-width:768px){
   .hsset-table{
     font-size:12px;
     min-width:1200px;
+  }
+  .page-title{
+    margin-left:0;
+    margin-top:8px;
   }
 }
 </style>
@@ -206,7 +233,6 @@ header{
   <div class="brand">
     <h1>LTP SCALPER <span id="liveDot" class="live-dot"></span></h1>
 
-    <!-- 🔗 CONNECTED TO LIVE DASHBOARD -->
     <div class="tagline" onclick="openLiveDashboard()">
       Live Trade • Indian Stock Market
     </div>
@@ -216,6 +242,8 @@ header{
 
     <a href="Live%20Class.html" class="classroom-btn">CLASSROOM</a>
     <button class="logout-btn" onclick="logout()">Logout</button>
+
+    <div class="page-title">Futures &amp; Option Stocks</div>
   </div>
 </header>
 
@@ -244,6 +272,11 @@ header{
     </table>
   </div>
 </div>
+
+<footer>
+  © 2026 <strong>Credvantage Financial Advisory Pvt. Ltd.</strong><br>
+  All data shown is for educational purposes only.
+</footer>
 
 <script>
 function logout(){
@@ -290,11 +323,13 @@ updateMarket();
 setInterval(updateMarket,1000);
 </script>
 
-<!-- HSSET DATA (UNCHANGED) -->
+<!-- 🔴 APP SCRIPT / HSSET FETCH (PRESENT & SAFE) -->
 <script>
 async function loadHSSET(){
   try{
-    const res = await fetch("https://script.google.com/macros/s/AKfycby0JabrCeyvrElAoS2lQzlLzWn_lUparj-sdqOk8Nco5Idb4JS_1ssYpac__4kD2GOkgA/exec");
+    const res = await fetch(
+      "https://script.google.com/macros/s/AKfycby0JabrCeyvrElAoS2lQzlLzWn_lUparj-sdqOk8Nco5Idb4JS_1ssYpac__4kD2GOkgA/exec"
+    );
     const raw = await res.json();
 
     let data=[];
@@ -323,7 +358,7 @@ async function loadHSSET(){
       `;
     });
 
-    hssetData.innerHTML=html;
+    document.getElementById("hssetData").innerHTML=html;
   }catch(e){
     console.error("HSSET ERROR:",e);
   }
@@ -333,7 +368,6 @@ setInterval(loadHSSET,15000);
 </script>
 
 <script>
-/* 🔗 LIVE DASHBOARD LINK */
 function openLiveDashboard(){
   window.location.href="/Live%20Trades%20Dashboard.html";
 }
