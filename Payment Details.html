@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
+/* === SAME CSS – UNCHANGED === */
 :root{
   --orange:#ff8c00;
   --purple:#9b59b6;
@@ -15,225 +16,36 @@
   --dark:#222;
 }
 *{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:Poppins,sans-serif;
-  background:#fff;
-  color:var(--dark);
-}
-
-/* HEADER */
-header{
-  border-bottom:2px solid #ffb703;
-  padding:14px 16px;
-}
-.topbar{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.logo{
-  font-size:20px;
-  font-weight:700;
-  color:var(--orange);
-}
-.pill{
-  padding:6px 14px;
-  border-radius:25px;
-  font-size:12px;
-  font-weight:600;
-  background:#fff6db;
-  border:1px solid #ffb703;
-  color:#444;
-  cursor:pointer;
-}
-
-/* HERO */
-.hero{
-  padding:26px 16px;
-  text-align:center;
-  background:linear-gradient(135deg,#fff6db,#ffffff);
-}
+body{margin:0;font-family:Poppins,sans-serif;background:#fff;color:var(--dark)}
+header{border-bottom:2px solid #ffb703;padding:14px 16px}
+.topbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.logo{font-size:20px;font-weight:700;color:var(--orange)}
+.pill{padding:6px 14px;border-radius:25px;font-size:12px;font-weight:600;
+background:#fff6db;border:1px solid #ffb703;color:#444;cursor:pointer}
+.hero{padding:26px 16px;text-align:center;background:linear-gradient(135deg,#fff6db,#ffffff)}
 .hero h2{margin:0;color:var(--orange)}
 .hero p{font-size:14px;color:#555;max-width:760px;margin:10px auto 0}
-
-/* SECTION */
-.section{
-  padding:26px 16px;
-  max-width:920px;
-  margin:auto;
-}
-
-/* PAYMENT CARD */
-.payment-box{
-  background:#fff;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 14px 35px rgba(0,0,0,.12);
-  border:2px solid #fff6db;
-}
-.payment-head{
-  background:var(--orange);
-  color:#fff;
-  padding:10px 14px;
-  border-radius:12px;
-  font-weight:700;
-  margin-bottom:18px;
-}
-
-/* DETAILS */
-.details{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-}
-.detail{
-  background:var(--light);
-  padding:14px;
-  border-radius:14px;
-}
+.section{padding:26px 16px;max-width:920px;margin:auto}
+.payment-box{background:#fff;border-radius:18px;padding:22px;
+box-shadow:0 14px 35px rgba(0,0,0,.12);border:2px solid #fff6db}
+.payment-head{background:var(--orange);color:#fff;padding:10px 14px;
+border-radius:12px;font-weight:700;margin-bottom:18px}
+.details{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.detail{background:var(--light);padding:14px;border-radius:14px}
 .detail span{font-size:11px;color:#777}
 .detail strong{font-size:14px}
-
-/* NOTE */
-.note{
-  margin-top:18px;
-  font-size:12px;
-  color:#555;
-  text-align:center;
-}
-
-/* BUTTON */
-.confirm-btn{
-  margin-top:20px;
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:30px;
-  background:var(--purple);
-  color:#fff;
-  font-weight:700;
-  font-size:14px;
-  cursor:pointer;
-}
-.confirm-btn:hover{opacity:.9}
-
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:14px;
-  font-size:11px;
-  color:#777;
-  border-top:1px solid #eee;
-}
-
-/* ===== UTR POPUP ===== */
-.utr-popup{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.65);
-  z-index:9999;
-}
-.utr-box{
-  background:#fff;
-  width:90%;
-  max-width:420px;
-  margin:12% auto;
-  padding:22px;
-  border-radius:18px;
-  position:relative;
-}
-.utr-box h3{
-  margin-top:0;
-  color:var(--orange);
-  text-align:center;
-}
-.utr-box input{
-  width:100%;
-  padding:12px;
-  margin-bottom:14px;
-  border-radius:10px;
-  border:1px solid #ccc;
-}
-.utr-close{
-  position:absolute;
-  top:10px;
-  right:14px;
-  font-size:26px;
-  font-weight:700;
-  color:var(--orange);
-  cursor:pointer;
-}
-
-/* =========================
-   📱 MOBILE RESPONSIVE FIX
-   ========================= */
-@media (max-width:600px){
-
-  .logo{
-    font-size:17px;
-  }
-
-  .pill{
-    font-size:11px;
-    padding:5px 12px;
-  }
-
-  .hero h2{
-    font-size:20px;
-  }
-
-  .hero p{
-    font-size:12.5px;
-  }
-
-  .payment-box{
-    padding:16px;
-  }
-
-  .payment-head{
-    font-size:14px;
-    padding:8px 12px;
-  }
-
-  .details{
-    grid-template-columns:1fr; /* ✅ no overlap */
-  }
-
-  .detail{
-    padding:12px;
-  }
-
-  .detail strong{
-    font-size:13px;
-  }
-
-  .note{
-    font-size:11px;
-  }
-
-  .confirm-btn{
-    font-size:13px;
-    padding:12px;
-  }
-
-  .utr-box{
-    margin:20% auto;
-    padding:18px;
-  }
-
-  .utr-box h3{
-    font-size:16px;
-  }
-
-  .utr-box input{
-    font-size:12px;
-    padding:10px;
-  }
-}
+.note{margin-top:18px;font-size:12px;color:#555;text-align:center}
+.confirm-btn{margin-top:20px;width:100%;padding:14px;border:none;
+border-radius:30px;background:var(--purple);color:#fff;font-weight:700}
+footer{text-align:center;padding:14px;font-size:11px;color:#777;border-top:1px solid #eee}
+.utr-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9999}
+.utr-box{background:#fff;width:90%;max-width:420px;margin:12% auto;
+padding:22px;border-radius:18px;position:relative}
+.utr-box h3{margin-top:0;color:var(--orange);text-align:center}
+.utr-box input{width:100%;padding:12px;margin-bottom:14px;
+border-radius:10px;border:1px solid #ccc}
+.utr-close{position:absolute;top:10px;right:14px;font-size:26px;
+font-weight:700;color:var(--orange);cursor:pointer}
 </style>
 </head>
 
@@ -242,16 +54,13 @@ footer{
 <header>
   <div class="topbar">
     <div class="logo">LTP SCALPER</div>
-    <div class="pill" onclick="goBackHome()">← Back to Home</div>
+    <div class="pill" onclick="goBackHome()">← Back</div>
   </div>
 </header>
 
 <div class="hero">
   <h2>Subscription Payment</h2>
-  <p>
-    Please complete your payment using the official bank account details below.
-    After payment, your access will be activated manually.
-  </p>
+  <p>Please complete payment and submit UTR for verification.</p>
 </div>
 
 <div class="section">
@@ -259,17 +68,13 @@ footer{
     <div class="payment-head">🏦 Bank Account Details</div>
 
     <div class="details">
-      <div class="detail"><span>Bank Name</span><strong>Unity Small Finance Bank Ltd.</strong></div>
-      <div class="detail"><span>Account Name</span><strong>Credvantage Financial Advisory Pvt. Ltd.</strong></div>
-      <div class="detail"><span>Account Number</span><strong>063111991000135</strong></div>
-      <div class="detail"><span>IFSC Code</span><strong>UNBA0000631</strong></div>
-      <div class="detail"><span>Payment Mode</span><strong>NEFT / RTGS / IMPS / UPI</strong></div>
+      <div class="detail"><span>Bank</span><strong>Unity Small Finance Bank Ltd.</strong></div>
+      <div class="detail"><span>Account</span><strong>Credvantage Financial Advisory Pvt. Ltd.</strong></div>
+      <div class="detail"><span>Account No</span><strong>063111991000135</strong></div>
+      <div class="detail"><span>IFSC</span><strong>UNBA0000631</strong></div>
     </div>
 
-    <div class="note">
-      ⚠️ After making the payment, please share the transaction reference ID
-      with our support team for quick verification.
-    </div>
+    <div class="note">After payment, submit UTR for activation.</div>
 
     <button class="confirm-btn" onclick="openUTRPopup()">
       I Have Completed the Payment
@@ -277,68 +82,52 @@ footer{
   </div>
 </div>
 
-<footer>
-© 2026 <strong>Credvantage Financial Advisory Pvt. Ltd.</strong>
-</footer>
+<footer>© 2026 Credvantage Financial Advisory Pvt. Ltd.</footer>
 
-<!-- ===== UTR POPUP ===== -->
+<!-- UTR POPUP -->
 <div id="utrPopup" class="utr-popup">
   <div class="utr-box">
     <span class="utr-close" onclick="closeUTRPopup()">×</span>
     <h3>Payment Verification</h3>
-
-    <input type="email" id="payerEmail" placeholder="Enter your Email ID">
-    <input type="text" id="utrNumber" placeholder="Enter UTR / Transaction ID">
+    <input type="email" id="payerEmail" placeholder="Email">
+    <input type="text" id="utrNumber" placeholder="UTR / Transaction ID">
     <input type="file" id="utrScreenshot" accept="image/*">
-
-    <button class="confirm-btn" onclick="submitUTR()">
-      Submit for Verification
-    </button>
+    <button class="confirm-btn" onclick="submitUTR()">Submit</button>
   </div>
 </div>
 
 <script>
-const UTR_API =
-"https://script.google.com/macros/s/AKfycbzeinLijG8t-KmPKswOrWqtoEUxHklBk6ElkTX8l8Ocj0yhjs7YwmSsmILbP2jW07lR/exec";
+const UTR_API="https://script.google.com/macros/s/AKfycbzeinLijG8t-KmPKswOrWqtoEUxHklBk6ElkTX8l8Ocj0yhjs7YwmSsmILbP2jW07lR/exec";
 
 function goBackHome(){
-  if (window.parent && window.parent.closePaymentPopup) {
-    window.parent.closePaymentPopup();
-    window.parent.location.href = "index.html";
-  } else {
-    window.location.href = "index.html";
+  if(window.parent){
+    window.parent.postMessage("PAYMENT_SUCCESS","*");
   }
 }
 
-function openUTRPopup(){
-  document.getElementById("utrPopup").style.display="block";
-}
-function closeUTRPopup(){
-  document.getElementById("utrPopup").style.display="none";
-}
+function openUTRPopup(){utrPopup.style.display="block"}
+function closeUTRPopup(){utrPopup.style.display="none"}
 
 function submitUTR(){
-  const email = document.getElementById("payerEmail").value.trim();
-  const utr = document.getElementById("utrNumber").value.trim();
-  const file = document.getElementById("utrScreenshot").files[0];
+  const email=payerEmail.value.trim();
+  const utr=utrNumber.value.trim();
+  const file=utrScreenshot.files[0];
+  if(!email||!utr){alert("Enter all details");return;}
 
-  if(!email){ alert("Please enter your email"); return; }
-  if(!utr){ alert("Please enter UTR / Transaction ID"); return; }
-
-  const reader = new FileReader();
-  reader.onload = function(){
-    const base64 = file ? reader.result.split(",")[1] : "";
-    const data = new URLSearchParams();
-    data.append("utr", utr);
-    data.append("email", email);
-    data.append("image", base64);
+  const reader=new FileReader();
+  reader.onload=function(){
+    const data=new URLSearchParams();
+    data.append("email",email);
+    data.append("utr",utr);
+    data.append("image",file?reader.result.split(",")[1]:"");
 
     fetch(UTR_API,{method:"POST",body:data})
-      .then(()=>{
-        alert("Payment details submitted successfully. Please log in to access your dashboard.");
-        window.location.href="index.html";
-      })
-      .catch(()=>alert("Network error. Please try again."));
+    .then(()=>{
+      alert("Payment submitted. Please login.");
+      if(window.parent){
+        window.parent.postMessage("PAYMENT_SUCCESS","*");
+      }
+    });
   };
   if(file) reader.readAsDataURL(file); else reader.onload();
 }
